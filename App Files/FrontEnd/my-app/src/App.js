@@ -1,14 +1,11 @@
-import logo from './logo.svg';
 import './App.css';
 import CarlaPage from './CarlaFuckup';
+import './CarlaFuckup.css';
+
 
 function App() {
   return (
-    <div className="App">
-    
     <CarlaPage/>
-    
-    </div>
   );
 }
 
