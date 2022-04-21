@@ -2460,3 +2460,4 @@ App Files/node_modules/.bin/.gitignore
 App Files/node_modules/.gitignore
 App Files/node_modules/.bin/.gitignore
 .gitignore
+/node_modules
