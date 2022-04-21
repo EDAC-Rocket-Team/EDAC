@@ -1,5 +1,5 @@
 <p align="center", color:"green">
-  <img src="https://user-images.githubusercontent.com/14852491/64910580-cc163700-d70f-11e9-99ec-8c49095a8c3b.png" />
+
   <br/>
    A trial website for Tech interns.
 </p>
