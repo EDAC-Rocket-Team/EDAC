@@ -1,11 +1,13 @@
 import './App.css';
 import CarlaPage from './CarlaFuckup';
-import './CarlaFuckup.css';
-
+import DianaPage from './Diana';
 
 function App() {
   return (
-    <CarlaPage/>
+    <div className="App">
+      <CarlaPage/> 
+      <DianaPage/>
+    </div>
   );
 }
 
