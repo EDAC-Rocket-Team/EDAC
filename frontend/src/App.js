@@ -1,12 +1,11 @@
 import './App.css';
-import CarlaPage from './CarlaFuckup';
-import DianaPage from './Diana';
+import HomeSplash from './pages/splashscreen';
+import SignupD  from './pages/signupDonor';
 
 function App() {
   return (
     <div className="App">
-      <CarlaPage/> 
-      <DianaPage/>
+      <HomeSplash/>
     </div>
   );
 }

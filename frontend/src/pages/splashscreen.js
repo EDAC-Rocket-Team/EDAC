@@ -1,9 +1,9 @@
 import { Typography, Button, Grid } from '@mui/material'
-import './CarlaFuckup.css';
-import background from "./heart.png";
+import './splashscreen.css';
+import background from "../media/heart.png";
 
 
-export default function CarlaPage() {
+export default function HomeSplash() {
     return (
         <div style={{ backgroundImage: `url(${background})`, backgroundRepeat: 'no-repeat', backgroundSize: 'auto', backgroundPosition: 'center' }} >
         <Grid container spacing={5} direction="column" justifyContent="space-between" alignItems="center" sx={{height: "100vh"}}>
