@@ -5,7 +5,7 @@ import DianaPage from './Diana';
 
 function App() {
   return (
-    <div className="App">0
+    <div className="App">
       <CarlaPage/> 
       <DianaPage/>
     </div>
