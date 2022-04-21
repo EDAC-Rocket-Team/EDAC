@@ -1,5 +1,5 @@
 import background from "../media/puppy.png"; 
-import { Typography} from '@mui/material'
+import { Typography} from '@mui/material';
 
 export default function Under18() {
     return (
