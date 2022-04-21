@@ -1,6 +1,5 @@
 <p align="center", color:"green">
 
-  <br/>
    A trial website for Tech interns.
 </p>
 
