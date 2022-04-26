@@ -1,6 +1,6 @@
 import React from 'react';
 import './App.css';
-import HomeSplash from './pages/splashscreen';
+import HomeSplash from './pages/Home';
 import SignupD  from './pages/signupDonor';
 import SignupBen from './pages/SignupBen';
 import Under18 from './pages/under18';
