@@ -1,3 +1,4 @@
+import React from 'react';
 import background from "../media/PrayingForYou.png"; 
 import { Grid, Typography, Button} from '@mui/material';
 
