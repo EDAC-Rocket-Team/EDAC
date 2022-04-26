@@ -1,6 +1,5 @@
 import React from 'react';
 import { Typography, Button, Grid } from '@mui/material'
-import './splashscreen.css';
 import background from "../media/heart.png";
 import {useNavigate} from "react-router-dom";
 // import { Link } from 'react-router-dom';
