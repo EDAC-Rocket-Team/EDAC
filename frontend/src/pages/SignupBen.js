@@ -32,7 +32,7 @@ function Copyright(props) {
 
 const theme = createTheme();
 
-export default function SingupBen() {
+export default function SignupBen() {
 
   const [areaZone, setAreaZone] = useState("NA")
 

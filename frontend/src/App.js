@@ -2,7 +2,7 @@ import React from 'react';
 import './App.css';
 import HomeSplash from './pages/splashscreen';
 import SignupD  from './pages/signupDonor';
-import SingupBen from './pages/singupBen';
+import SignupBen from './pages/SignupBen';
 import Under18 from './pages/under18';
 import DonorsSubmit from './pages/DonorsSubmitPage';
 import Beneficiarysubmit from './pages/BeneficiariesSubmitPage';
@@ -18,7 +18,7 @@ function App() {
         <Route path='/donor' element={<DonorsSubmit />}/>
         <Route path='/18' element={< Under18/>}/>
         <Route path='/sud' element={<SignupD />}/>
-        {/* <Route path='/sub' element={<SignupBen />}/> */}
+        <Route path='/sub' element={<SignupBen />}/>
         {/* <Route path='/' element={< />}/> */}
         {/* <Route path='/' element={< />}/> */}
       </Routes>
