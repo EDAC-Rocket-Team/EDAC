@@ -144,6 +144,17 @@ export default function SingupBen() {
                 />
             </Grid>
 
+            <Grid item xs={12}>
+            <TextField
+                  fullWidth
+                  name="numberStaff"
+                  label="Number of Staff Avilable"
+                  type="staffnumber"
+                  id="staffnumber"
+                  autoComplete="new-number"
+                />
+            </Grid>
+
               <Grid item xs={12}>
                 <FormControlLabel
                   control={<Checkbox value="allowExtraEmails" color="primary" />}

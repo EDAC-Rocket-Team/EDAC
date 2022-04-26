@@ -1,3 +1,4 @@
+import React from 'react';
 import background from "../media/ThankYou.png"; 
 import { Typography, Grid, Button} from '@mui/material';
 

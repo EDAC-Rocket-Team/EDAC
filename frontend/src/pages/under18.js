@@ -1,3 +1,4 @@
+import React from 'react';
 import background from "../media/puppy.png"; 
 import { Typography} from '@mui/material';
 
