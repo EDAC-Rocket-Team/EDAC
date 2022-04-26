@@ -4,13 +4,23 @@ import SignupD  from './pages/signupDonor';
 import Under18 from './pages/under18';
 import DonorsSubmit from './pages/DonorsSubmitPage';
 import Beneficiarysubmit from './pages/BeneficiariesSubmitPage';
+import { BrowserRouter, Routes, Route } from "react-router-dom";
 
 
 function App() {
   return (
-    <div className="App">
-      <Beneficiarysubmit/>
-    </div>
+    <BrowserRouter>
+      <Routes>
+        <Route path='/' element={<HomeSplash />}/>
+        <Route path='/beneficiary' element={<Beneficiarysubmit/>}/>
+        <Route path='/donor' element={<DonorsSubmit />}/>
+        <Route path='/18' element={< Under18/>}/>
+        <Route path='/sud' element={<SignupD />}/>
+        {/* <Route path='/sub' element={<SignupBen />}/> */}
+        {/* <Route path='/' element={< />}/> */}
+        {/* <Route path='/' element={< />}/> */}*/}
+      </Routes>
+    </BrowserRouter>
   );
 }
 
