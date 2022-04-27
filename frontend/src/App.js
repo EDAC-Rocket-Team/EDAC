@@ -2,6 +2,7 @@ import React from 'react';
 import './App.css';
 import HomeSplash from './pages/Home';
 import SignupD  from './pages/signupDonor';
+import SignIn from './pages/signin';
 import SignupBen from './pages/SignupBen';
 import Under18 from './pages/under18';
 import DonorsSubmit from './pages/DonorsSubmitPage';

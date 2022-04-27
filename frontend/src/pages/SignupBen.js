@@ -35,6 +35,7 @@ function Copyright(props) {
 const theme = createTheme();
 
 export default function SignupBen() {
+  let navigate = useNavigate();
 
   const [areaZone, setAreaZone] = useState("NA")
 
