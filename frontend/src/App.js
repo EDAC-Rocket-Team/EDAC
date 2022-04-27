@@ -20,7 +20,7 @@ function App() {
         <Route path='/18' element={< Under18/>}/>
         <Route path='/sud' element={<SignupD />}/>
         <Route path='/sub' element={<SignupBen />}/>
-        {/* <Route path='/' element={< />}/> */}
+         <Route path='/sin' element={< SignIn />}/>
         {/* <Route path='/' element={< />}/> */}
       </Routes>
     </BrowserRouter>

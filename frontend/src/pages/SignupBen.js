@@ -170,7 +170,7 @@ export default function SignupBen() {
               fullWidth
               variant="contained"
               sx={{ mt: 3, mb: 2 }}
-              onClick={()=>{navigate("/sub")}}>
+              onClick={()=>{navigate("/ben")}}>
               Sign Up
             </Button>
             
