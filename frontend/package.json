@@ -14,11 +14,8 @@
     "material-ui-phone-number": "^3.0.0",
     "react": "^18.0.0",
     "react-dom": "^18.0.0",
-<<<<<<< HEAD
     "react-phone-input-2": "^2.15.0",
-=======
     "react-router-dom": "^6.3.0",
->>>>>>> fad3b0af5a1de71ab1a91953c0f42141aced9496
     "react-scripts": "5.0.1",
     "web-vitals": "^2.1.4"
   },
