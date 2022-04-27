@@ -10,6 +10,7 @@ import Beneficiarysubmit from './pages/BeneficiariesSubmitPage';
 import { BrowserRouter, Routes, Route } from "react-router-dom";
 
 
+
 function App() {
   return (
     <BrowserRouter>
@@ -20,11 +21,40 @@ function App() {
         <Route path='/18' element={< Under18/>}/>
         <Route path='/sud' element={<SignupD />}/>
         <Route path='/sub' element={<SignupBen />}/>
+<<<<<<< HEAD
          <Route path='/sin' element={< SignIn />}/>
+=======
+        <Route path='/signin' element={<SignIn />}/>
+>>>>>>> 55112c99fb3a6e039fac4e50ef62aa0453b8db53
         {/* <Route path='/' element={< />}/> */}
       </Routes>
     </BrowserRouter>
   );
 }
+
+// const App = () => {
+//   // declare a new state variable for modal open
+//   const [open, setOpen] = useState(false);
+
+//   // function to handle modal open
+//   const handleOpen = () => {
+//     setOpen(true);
+//   };
+
+//   // function to handle modal close
+//   const handleClose = () => {
+//     setOpen(false);
+//   };
+
+//   return (
+//     <div className="App">
+//       <Button variant="contained" color="primary" onClick={handleOpen}>
+//         Signup
+//       </Button>
+//       // display the modal and pass props
+//       <ModalDialog open={open} handleClose={handleClose} />
+//     </div>
+//   );
+// };
 
 export default App;
