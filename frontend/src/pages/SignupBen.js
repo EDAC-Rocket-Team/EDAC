@@ -16,6 +16,7 @@ import InputLabel from '@mui/material/InputLabel';
 import MenuItem from '@mui/material/MenuItem';
 import FormControl from '@mui/material/FormControl';
 import Select from '@mui/material/Select';
+import {useNavigate} from 'react-router-dom';
 
 function Copyright(props) {
   return (
@@ -167,6 +168,7 @@ export default function SignupBen() {
               fullWidth
               variant="contained"
               sx={{ mt: 3, mb: 2 }}
+              onClick={()=>{navigate("/sub")}}
             >
               Sign Up
             </Button>
