@@ -17,7 +17,7 @@ export default function HomeSplash() {
                 <Button className='Donate' variant='contained' sx={{mr: 5}} onClick={()=>{navigate("/sud")}}>Donate</Button>
                 <Button className='Beneficiary' variant='contained' onClick={()=>{navigate("/sub")}}>Beneficiary</Button>
             </Grid>
-            <Button className='Sign In'sx={{position: 'fixed', top: 10, right: 10}} variant='contained' onClick={()=>{console.log('WTF Carla')}}>Sign In</Button>
+            <Button className='Sign In'sx={{position: 'fixed', top: 10, right: 10}} variant='contained' onClick={()=>{navigate("/signin")}}>Sign In</Button>
         </Grid>
         
         </div>
