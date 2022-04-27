@@ -1,4 +1,3 @@
-<<<<<<< HEAD
 /* import React, {useState} from 'react';
 import Button from '@mui/material/Button';
 import TextField from '@mui/material/TextField';
@@ -43,9 +42,6 @@ function Copyright(props) {
 }
 
 const theme = createTheme();
-=======
-import React from "react";
->>>>>>> fad3b0af5a1de71ab1a91953c0f42141aced9496
 
 export default function SignupD() {
   const handleSubmit = (event) => {
@@ -176,6 +172,7 @@ export default function SignupD() {
                   control={<Checkbox value="allowExtraEmails" color="primary" />}
                   label="I want to receive inspiration, marketing promotions and updates via email."
                 />
+              </Grid>
             </Grid>
             
             <Button
