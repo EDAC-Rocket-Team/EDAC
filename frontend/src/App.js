@@ -14,7 +14,7 @@ function App() {
     <BrowserRouter>
       <Routes>
         <Route path='/' element={<HomeSplash />}/>
-        <Route path='/beneficiary' element={<Beneficiarysubmit/>}/>
+        <Route path='/ben' element={<Beneficiarysubmit/>}/>
         <Route path='/donor' element={<DonorsSubmit />}/>
         <Route path='/18' element={< Under18/>}/>
         <Route path='/sud' element={<SignupD />}/>
