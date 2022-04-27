@@ -27,16 +27,13 @@ import Container from '@mui/material/Container';
 import { createTheme, ThemeProvider } from '@mui/material/styles';
 import PhoneInput from 'react-phone-input-2'
 import 'react-phone-input-2/lib/style.css'
-<<<<<<< HEAD
 import { useNavigate } from 'react-router-dom';
-=======
 import InputLabel from '@mui/material/InputLabel';
 import MenuItem from '@mui/material/MenuItem';
 import FormControl from '@mui/material/FormControl';
 import Select from '@mui/material/Select';
 
 
->>>>>>> fe6009a84b90dfd2bf09be73a89922a25efe12a9
 
 function Copyright(props) {
   return (
