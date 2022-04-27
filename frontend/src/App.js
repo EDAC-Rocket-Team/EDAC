@@ -21,11 +21,7 @@ function App() {
         <Route path='/18' element={< Under18/>}/>
         <Route path='/sud' element={<SignupD />}/>
         <Route path='/sub' element={<SignupBen />}/>
-<<<<<<< HEAD
-         <Route path='/sin' element={< SignIn />}/>
-=======
         <Route path='/signin' element={<SignIn />}/>
->>>>>>> 55112c99fb3a6e039fac4e50ef62aa0453b8db53
         {/* <Route path='/' element={< />}/> */}
       </Routes>
     </BrowserRouter>
