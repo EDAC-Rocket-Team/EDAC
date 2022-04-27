@@ -17,6 +17,8 @@ import MenuItem from '@mui/material/MenuItem';
 import FormControl from '@mui/material/FormControl';
 import Select from '@mui/material/Select';
 import {useNavigate} from "react-router-dom";
+import PhoneInput from 'react-phone-input-2'
+import 'react-phone-input-2/lib/style.css'
 
 
 function Copyright(props) {
@@ -35,6 +37,11 @@ function Copyright(props) {
 const theme = createTheme();
 
 export default function SignupBen() {
+  const [value, setValue] = React.useState('Controlled');
+  const handleChange = (event) => {
+    setValue(event.target.value);
+  };
+
   let navigate = useNavigate();
 
   const [areaZone, setAreaZone] = useState("NA")
@@ -136,27 +143,40 @@ export default function SignupBen() {
                 />
               </Grid>
 
-            <Grid item xs={12}>
-            <TextField
-                  required
-                  fullWidth
-                  name="number"
-                  label="Phone Number"
-                  type="phonenumber"
-                  id="number"
-                />
-            </Grid>
-
-            <Grid item xs={12}>
-            <TextField
+              <Grid item xs={12}>
+            <TextField 
                   fullWidth
                   name="numberStaff"
                   label="Number of Staff Avilable"
-                  type="staffnumber"
+                  type="number"
                   id="staffnumber"
-                  autoComplete="new-number"
+                  inputProps= {{ inputMode: 'numeric', pattern: '[0-9]*'}}
                 />
             </Grid>
+
+            
+
+            <Grid item xs={12}>
+                < PhoneInput
+                  country={'lb'}
+                  required
+                  name="phone"
+                  label="Phone Number"
+                  type="tel"
+                  id="phone"
+                /> 
+              </Grid> 
+
+              <Grid item xs={12}>
+                        <TextField
+                      id="outlined-multiline-flexible"
+                      label="Multiline"
+                      multiline
+                      maxRows={4}
+                      value={value}
+                      onChange={handleChange}
+                    />
+              </Grid>
 
               <Grid item xs={12}>
                 <FormControlLabel
