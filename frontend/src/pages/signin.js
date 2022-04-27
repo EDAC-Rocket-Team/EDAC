@@ -9,7 +9,7 @@ import { Typography, Button, Grid } from '@mui/material'
  export default function SignIn() {
      return (
 
-        <div style={{ height: '50vh', width: '50vw', backgroundImage: `url(${background})`, backgroundRepeat: 'no-repeat', backgroundSize: 'cover' }}>
+        <div style={{ height: '100vh', width: '100vw', backgroundImage: `url(${background})`, backgroundRepeat: 'no-repeat', backgroundSize: 'cover' }}>
             
         <Box
         component="form"
