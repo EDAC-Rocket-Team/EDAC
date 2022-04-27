@@ -1,12 +1,6 @@
-<<<<<<< HEAD
-import { useState } from 'react';
-import './App.css';
-// import HomeSplash from './pages/splashscreen';
-=======
 import React from 'react';
 import './App.css';
 import HomeSplash from './pages/Home';
->>>>>>> fad3b0af5a1de71ab1a91953c0f42141aced9496
 import SignupD  from './pages/signupDonor';
 import SignIn from './pages/signin';
 import SignupBen from './pages/SignupBen';
@@ -19,11 +13,6 @@ import { BrowserRouter, Routes, Route } from "react-router-dom";
 
 function App() {
   return (
-<<<<<<< HEAD
-    <div className="App">
-      <SignupD />
-    </div>
-=======
     <BrowserRouter>
       <Routes>
         <Route path='/' element={<HomeSplash />}/>
@@ -36,7 +25,6 @@ function App() {
         {/* <Route path='/' element={< />}/> */}
       </Routes>
     </BrowserRouter>
->>>>>>> fad3b0af5a1de71ab1a91953c0f42141aced9496
   );
 }
 
