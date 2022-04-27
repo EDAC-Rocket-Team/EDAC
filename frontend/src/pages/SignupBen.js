@@ -37,7 +37,7 @@ function Copyright(props) {
 const theme = createTheme();
 
 export default function SignupBen() {
-  const [value, setValue] = React.useState('Controlled');
+  const [value, setValue] = React.useState('Address goes here!');
   const handleChange = (event) => {
     setValue(event.target.value);
   };
@@ -157,24 +157,27 @@ export default function SignupBen() {
             
 
             <Grid item xs={12}>
-                < PhoneInput
+                <PhoneInput
                   country={'lb'}
                   required
                   name="phone"
                   label="Phone Number"
                   type="tel"
                   id="phone"
+                  //this is to widen it to be the same as the rest @diana
+                  inputStyle={{width: '100%', height: "4em"}}
                 /> 
               </Grid> 
 
               <Grid item xs={12}>
                         <TextField
                       id="outlined-multiline-flexible"
-                      label="Multiline"
+                      label="Detield Address"
                       multiline
                       maxRows={4}
                       value={value}
                       onChange={handleChange}
+                      fullWidth
                     />
               </Grid>
 

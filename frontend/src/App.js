@@ -7,6 +7,7 @@ import SignupBen from './pages/SignupBen';
 import Under18 from './pages/under18';
 import DonorsSubmit from './pages/DonorsSubmitPage';
 import Beneficiarysubmit from './pages/BeneficiariesSubmitPage';
+import GridUsers from './pages/GridUsers';
 import { BrowserRouter, Routes, Route } from "react-router-dom";
 
 
@@ -22,7 +23,7 @@ function App() {
         <Route path='/sud' element={<SignupD />}/>
         <Route path='/sub' element={<SignupBen />}/>
         <Route path='/sin' element={< SignIn />}/>
-        {/* <Route path='/' element={< />}/> */}
+        <Route path='/grid' element={< GridUsers/>}/>
       </Routes>
     </BrowserRouter>
   );
