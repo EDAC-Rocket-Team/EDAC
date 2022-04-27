@@ -7,7 +7,7 @@ export default function GridUsers() {
     return(
         <div>
         <h1>this is it</h1>
-            <Button className='GridUsers' sx={{position:'fixed', top: 500, right: 100}} variant='contained' onClick={()=>{navigate("/grid")}}>User for Carla</Button>
+            <Button className='GridUsers' sx={{position:'fixed', top: 500, right: 100}} variant='contained' onClick={()=>{navigate("/userprofile")}}>User for Carla</Button>
             </div>
     )
 }

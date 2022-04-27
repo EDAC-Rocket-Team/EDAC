@@ -9,7 +9,7 @@ import DonorsSubmit from './pages/DonorsSubmitPage';
 import Beneficiarysubmit from './pages/BeneficiariesSubmitPage';
 import GridUsers from './pages/GridUsers';
 import { BrowserRouter, Routes, Route } from "react-router-dom";
-
+import ImageAvatars from './pages/ProfilePage';
 
 
 function App() {
@@ -24,6 +24,7 @@ function App() {
         <Route path='/sub' element={<SignupBen />}/>
         <Route path='/sin' element={< SignIn />}/>
         <Route path='/grid' element={< GridUsers/>}/>
+        <Route path= '/userprofile' element={<ImageAvatars/>}/> 
       </Routes>
     </BrowserRouter>
   );

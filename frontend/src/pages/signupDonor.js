@@ -27,6 +27,7 @@ import Container from '@mui/material/Container';
 import { createTheme, ThemeProvider } from '@mui/material/styles';
 import PhoneInput from 'react-phone-input-2'
 import 'react-phone-input-2/lib/style.css'
+import { useNavigate } from 'react-router-dom';
 
 function Copyright(props) {
   return (
@@ -52,7 +53,7 @@ export default function SignupD() {
       // password: data.get('password'),
     });
   };
-
+  let navigate = useNavigate();
   return (
     <ThemeProvider theme={theme}>
       <Container component="main" maxWidth="xs">
@@ -180,7 +181,8 @@ export default function SignupD() {
               fullWidth
               variant="contained"
               sx={{ mt: 3, mb: 2 }}
-            >
+              onClick={()=>{navigate("/donor")}}>
+            
               Sign Up
             </Button>
             <Grid container justifyContent="flex-end">
