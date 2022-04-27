@@ -11,7 +11,7 @@ import TextField from '@mui/material/TextField';
   );
 } */
 
-import * as React from 'react';
+import React, {useState} from 'react';
 import Avatar from '@mui/material/Avatar';
 import Button from '@mui/material/Button';
 import CssBaseline from '@mui/material/CssBaseline';
@@ -27,6 +27,12 @@ import Container from '@mui/material/Container';
 import { createTheme, ThemeProvider } from '@mui/material/styles';
 import PhoneInput from 'react-phone-input-2'
 import 'react-phone-input-2/lib/style.css'
+import InputLabel from '@mui/material/InputLabel';
+import MenuItem from '@mui/material/MenuItem';
+import FormControl from '@mui/material/FormControl';
+import Select from '@mui/material/Select';
+
+
 
 function Copyright(props) {
   return (
@@ -41,7 +47,8 @@ function Copyright(props) {
   );
 }
 
-const theme = createTheme();
+const theme = createTheme(); 
+
 
 export default function SignupD() {
   const handleSubmit = (event) => {
@@ -52,6 +59,13 @@ export default function SignupD() {
       // password: data.get('password'),
     });
   };
+
+  const [bloodType, setBlood] = useState("NA")
+
+  const handleChangeBlood = (e) => {
+    setBlood(e.target.value)
+    console.log(bloodType)
+    }
 
   return (
     <ThemeProvider theme={theme}>
@@ -137,7 +151,7 @@ export default function SignupD() {
                   display: 'block',
                   width: 'fit-content'
                 }}>
-                  <h3>How to create Date Picker in ReactJS?</h3>
+                  {/*<h3>How to create Date Picker in ReactJS?</h3> */}
                       <TextField
                       id="date"
                       label="Choose your birthdate"
@@ -166,6 +180,30 @@ export default function SignupD() {
                   // pattern="[0-9]{2}-[0-9]{3}-[0-9]{3}"
                 /> 
               </Grid> 
+
+
+              <Grid item xs={12}>
+                <h3>Health Information</h3> 
+                          <FormControl fullWidth>
+                    <InputLabel id="demo-simple-select-label">Blood Type</InputLabel>
+                    <Select
+                      labelId="demo-simple-select-label"
+                      id="demo-simple-select"
+                      value={bloodType}
+                      label="Blood Type"
+                      onChange={handleChangeBlood}
+                    >
+                      <MenuItem value={"O+"}>O Plus</MenuItem>
+                      <MenuItem value={"O-"}>O Minus</MenuItem>
+                      <MenuItem value={"A+"}>A Plus</MenuItem>
+                      <MenuItem value={"A-"}>A Minus</MenuItem>
+                      <MenuItem value={"B+"}>B Plus</MenuItem>
+                      <MenuItem value={"B-"}>B Minus</MenuItem>
+                      <MenuItem value={"AB"}>AB </MenuItem>
+                    </Select>
+                  </FormControl>
+              </Grid>
+
 
               <Grid item xs={12}>
                 <FormControlLabel
