@@ -1,4 +1,4 @@
-import React, {useState} from 'react';
+import React, {useState, ChangeEvent} from 'react';
 import Avatar from '@mui/material/Avatar';
 import Button from '@mui/material/Button';
 import CssBaseline from '@mui/material/CssBaseline';
@@ -66,17 +66,15 @@ export default function SignupD() {
     } 
 
   
-    const [state, setState] = React.useState({
+    const [state, setState] = useState({
       gilad: true,
       jason: false,
       antoine: true,
     });
-  
-    const handleChangeQB = (event: React.ChangeEvent<HTMLInputElement>) => {
-      setState({
-        ...state,
-        [event.target.name]: event.target.checked,
-      });
+
+    const [takesDrugs, setTakesDrugs] = useState(false) 
+    const handleChangeQB = ( ) => {
+      setTakesDrugs(!takesDrugs);
     };
 
 
@@ -198,13 +196,13 @@ export default function SignupD() {
 
               <Grid item xs={12}>
                 {/* <h6>Do you drink alcohol regularly?</h6> */}
-                          <FormControl fullWidth>
+                  <FormControl fullWidth>
                     <InputLabel id="qa">Do you drink alcohol regularly?</InputLabel>
                     <Select
                       labelId="qa"
                       id="qa"
                       value={questionA}
-                      label="Blood"
+                      label="Do you drink alcohol regularly?"
                       onChange={handleChangeQA}
                       inputStyle={{width: '100%', height: "2em"}}
                     >
@@ -240,13 +238,13 @@ export default function SignupD() {
 
               <Grid item xs={12}>
               <FormControl component="fieldset" variant="standard">
-                  <FormLabel component="legend">DO you use recreational drugs?</FormLabel>
+                  <FormLabel component="legend"></FormLabel>
                   <FormGroup>
                     <FormControlLabel
                       control={
-                        <Switch checked={state.gilad} onChange={handleChangeQB} name="gilad" />
+                        <Switch checked={takesDrugs} onChange={handleChangeQB} name="gilad" />
                       }
-                      label=""
+                      label="DO you use recreational drugs?"
                     />
                     </FormGroup>
                     </FormControl>
