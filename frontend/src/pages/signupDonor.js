@@ -1,16 +1,3 @@
-/* import React, {useState} from 'react';
-import Button from '@mui/material/Button';
-import TextField from '@mui/material/TextField';
-
- export default function SignupD() {
-
-  return (
-    <div>
-
-    </div>
-  );
-} */
-
 import React, {useState} from 'react';
 import Avatar from '@mui/material/Avatar';
 import Button from '@mui/material/Button';
@@ -32,8 +19,10 @@ import InputLabel from '@mui/material/InputLabel';
 import MenuItem from '@mui/material/MenuItem';
 import FormControl from '@mui/material/FormControl';
 import Select from '@mui/material/Select';
-
-
+import FormLabel from '@mui/material/FormLabel';
+import FormGroup from '@mui/material/FormGroup';
+import FormHelperText from '@mui/material/FormHelperText';
+import Switch from '@mui/material/Switch';
 
 function Copyright(props) {
   return (
@@ -68,6 +57,28 @@ export default function SignupD() {
     setBlood(e.target.value)
     console.log(bloodType)
     }
+  
+  const [questionA, setQA] = useState("NA")
+
+  const handleChangeQA = (e) => {
+    setQA(e.target.value)
+    console.log(questionA)
+    } 
+
+  
+    const [state, setState] = React.useState({
+      gilad: true,
+      jason: false,
+      antoine: true,
+    });
+  
+    const handleChangeQB = (event: React.ChangeEvent<HTMLInputElement>) => {
+      setState({
+        ...state,
+        [event.target.name]: event.target.checked,
+      });
+    };
+
 
   return (
     <ThemeProvider theme={theme}>
@@ -121,44 +132,20 @@ export default function SignupD() {
                 />
               </Grid>
 
-              {/* <Grid item xs={12}>
-                <TextField
-                  required
-                  fullWidth
-                  name="password"
-                  label="Password"
-                  type="password"
-                  id="password"
-                  autoComplete="new-password"
-                /> 
-              </Grid>  */}
-
-              {/* </Grid>
-              <Grid item xs={12}>
-                <TextField
-                  id="date"
-                  label="Choose your birthdate"
-                  type="date"
-                  defaultValue="2017-05-24"
-                  InputLabelProps={{
-                    shrink: true,
-                  }}
-                />
-                </Grid> */}
-
 
               <Grid item xs={12}>
                 <div style={{
                   margin: 'auto',
                   display: 'block',
-                  width: 'fit-content'
+                  width: "full"
                 }}>
                   {/*<h3>How to create Date Picker in ReactJS?</h3> */}
                       <TextField
                       id="date"
                       label="Choose your birthdate"
                       type="date"
-                      defaultValue="2017-05-24"
+                      defaultValue="2000-01-01"
+                      fullWidth
                       InputLabelProps={{
                         shrink: true,
                       }}
@@ -176,6 +163,7 @@ export default function SignupD() {
                   label="Phone Number"
                   type="tel"
                   id="phone"
+                  inputStyle={{width: '100%', height: "4em"}}
                   // change pattern later to match that existing in Lebanon
                   // some method in mui... similar in funcionality to "pattern"
                   // maybe using regex
@@ -195,22 +183,81 @@ export default function SignupD() {
                       label="Blood Type"
                       onChange={handleChangeBlood}
                     >
-                      <MenuItem value={"O+"}>O Plus</MenuItem>
-                      <MenuItem value={"O-"}>O Minus</MenuItem>
-                      <MenuItem value={"A+"}>A Plus</MenuItem>
-                      <MenuItem value={"A-"}>A Minus</MenuItem>
-                      <MenuItem value={"B+"}>B Plus</MenuItem>
-                      <MenuItem value={"B-"}>B Minus</MenuItem>
-                      <MenuItem value={"AB"}>AB </MenuItem>
+                      <MenuItem value={"O RhD positive"}>O+</MenuItem>
+                      <MenuItem value={"O RhD negative"}>O-</MenuItem>
+                      <MenuItem value={"A RhD positive"}>A+</MenuItem>
+                      <MenuItem value={"A RhD negative"}>A-</MenuItem>
+                      <MenuItem value={"B RhD positive"}>B+</MenuItem>
+                      <MenuItem value={"B RhD negative"}>B-</MenuItem>
+                      <MenuItem value={"AB RhD positive"}>AB+ </MenuItem>
+                      <MenuItem value={"AB RhD negative"}>AB- </MenuItem>
                     </Select>
                   </FormControl>
+              </Grid> 
+
+
+              <Grid item xs={12}>
+                {/* <h6>Do you drink alcohol regularly?</h6> */}
+                          <FormControl fullWidth>
+                    <InputLabel id="qa">Do you drink alcohol regularly?</InputLabel>
+                    <Select
+                      labelId="qa"
+                      id="qa"
+                      value={questionA}
+                      label="Blood"
+                      onChange={handleChangeQA}
+                      inputStyle={{width: '100%', height: "2em"}}
+                    >
+                      <MenuItem value={"Daily"}>yes, daily</MenuItem>
+                      <MenuItem value={"Weekly"}>yes, weekly</MenuItem>
+                      <MenuItem value={"Monthly"}>yes, monthly</MenuItem>
+                      <MenuItem value={"Occassionally"}>yes, occassionally</MenuItem>
+                      <MenuItem value={"No"}>no</MenuItem>
+                    </Select>
+                  </FormControl>
+              </Grid> 
+
+              {/*<Grid item xs={12}>
+                <h6>Do you drink alcohol regularly?</h6> 
+                          <FormControl fullWidth>
+                    <InputLabel id="qa">QA</InputLabel>
+                    <Select
+                      labelId="qa"
+                      id="qa"
+                      value={questionA}
+                      label="Blood"
+                      onChange={handleChangeQA}
+                      inputStyle={{width: '100%', height: "2em"}}
+                    >
+                      <MenuItem value={"Daily"}>Daily</MenuItem>
+                      <MenuItem value={"Weekly"}>Weekly</MenuItem>
+                      <MenuItem value={"Monthly"}>Monthly</MenuItem>
+                      <MenuItem value={"Occassionally"}>Occassionally</MenuItem>
+                      <MenuItem value={"No"}>No</MenuItem>
+                    </Select>
+                  </FormControl>
+              </Grid> */}
+
+              <Grid item xs={12}>
+              <FormControl component="fieldset" variant="standard">
+                  <FormLabel component="legend">DO you use recreational drugs?</FormLabel>
+                  <FormGroup>
+                    <FormControlLabel
+                      control={
+                        <Switch checked={state.gilad} onChange={handleChangeQB} name="gilad" />
+                      }
+                      label=""
+                    />
+                    </FormGroup>
+                    </FormControl>
               </Grid>
+                    
 
 
               <Grid item xs={12}>
                 <FormControlLabel
                   control={<Checkbox value="allowExtraEmails" color="primary" />}
-                  label="I want to receive inspiration, marketing promotions and updates via email."
+                  label="I want to receive a text message, when blood donation of my type is needed."
                 />
               </Grid>
             </Grid>
@@ -237,4 +284,5 @@ export default function SignupD() {
       </Container>
     </ThemeProvider>
   );
-}
+} 
+
