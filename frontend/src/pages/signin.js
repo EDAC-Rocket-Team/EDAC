@@ -11,10 +11,14 @@ import { useNavigate } from 'react-router-dom';
   let navigate = useNavigate();
      return (
 
-       <div>
-      {/* style={{ height: '100vh', width: '100vw', backgroundImage: `url(${background})`, backgroundRepeat: 'no-repeat', backgroundSize: 'cover' }} */}
-       
-            
+        <div>
+            <img style={{ display: 'flex', 
+            height: '50vh', 
+            width: '50vw', 
+            backgroundImage: `url(${background})`, 
+            backgroundRepeat: 'no-repeat', 
+            backgroundSize: 'cover'}} />
+
         <Box
         component="form"
         sx={{
@@ -23,16 +27,24 @@ import { useNavigate } from 'react-router-dom';
         noValidate
         autoComplete="off"
       >
-        <TextField id="Username" label="Username" variant="filled" />
+        <TextField id="Username" 
+        label="Username" 
+        variant="filled" />
 
         <TextField
           id="outlined-password-input"
           label="Password"
           type="password"
           autoComplete="current-password"
+          color="white"
         />
         
-         <Button className='Sign In'sx={{position: 'fixed', top: 75, right: 425}} variant='contained' onClick={()=>{navigate("/grid")}}>Sign In</Button>
+         <Button 
+         className='Sign In'
+         sx={{position: 'fixed', top: 75, right: 425}} 
+         variant='contained'
+         color='secondary'>
+           Sign In</Button>
 
       </Box>
       </div>
