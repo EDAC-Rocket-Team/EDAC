@@ -10,7 +10,10 @@ import Typography from '@mui/material/Typography';
 import { useNavigate } from 'react-router-dom';
 import AppHar from './AppHar';
 import { Grid } from '@mui/material';
+import Copyright from './Copyright';
 // spacing={1}
+
+
 
 export default function ImageAvatars() {
   let navigate = useNavigate ();
@@ -54,7 +57,7 @@ export default function ImageAvatars() {
     <AppHar></AppHar>
     <Grid  container
   direction="row"
-  justifyContent="space-evenly"
+  justifyContent="center"
   alignItems="center"
   sx={{mt: 20}}
   >
@@ -63,7 +66,7 @@ export default function ImageAvatars() {
         
         alt="Avatar"
         src="https://i.pravatar.cc/300"
-        sx={{ width: 250, height: 250, ml: 10 }}
+        sx={{ width: 250, height: 250, ml: 10, mr: 10}}
         
       />
     
@@ -71,7 +74,10 @@ export default function ImageAvatars() {
       <Card variant="outlined">{card}</Card>
     </Box>
     <Button className='Sign In'sx={{position: 'fixed', top: 10, right: 10, mt: 10}} variant='contained' onClick={()=>{navigate("/grid")}}>Back</Button>
+    
     </Grid>
+    <Copyright sx={{mt: 10}}></Copyright>
+
     </div>
   );
 }

@@ -19,20 +19,10 @@ import Select from '@mui/material/Select';
 import {useNavigate} from "react-router-dom";
 import PhoneInput from 'react-phone-input-2'
 import 'react-phone-input-2/lib/style.css'
+import AppHar from '@mui/material/AppBar';
+import Copyright from './Copyright';
 
 
-function Copyright(props) {
-  return (
-    <Typography variant="body2" color="text.secondary" align="center" {...props}>
-      {'Copyright © '}
-      <Link color="inherit" href="https://mui.com/">
-        EDAC
-      </Link>{' '}
-      {new Date().getFullYear()}
-      {'.'}
-    </Typography>
-  );
-}
 
 const theme = createTheme();
 
@@ -64,6 +54,7 @@ export default function SignupBen() {
     <ThemeProvider theme={theme}>
       <Container component="main" maxWidth="xs">
         <CssBaseline />
+        
         <Box
           sx={{
             marginTop: 8,
