@@ -25,6 +25,7 @@ function App() {
         <Route path='/sin' element={< SignIn />}/>
         <Route path='/grid' element={< GridUsers/>}/>
         <Route path= '/userprofile' element={<ImageAvatars/>}/> 
+        <Route path= '/grid' element={<GridUsers/>}/>
       </Routes>
     </BrowserRouter>
   );
