@@ -12,6 +12,7 @@ import { BrowserRouter, Routes, Route } from "react-router-dom";
 import ImageAvatars from './pages/ProfilePage';
 
 
+
 function App() {
   return (
     <BrowserRouter>
@@ -25,6 +26,7 @@ function App() {
         <Route path='/sin' element={< SignIn />}/>
         <Route path='/grid' element={< GridUsers/>}/>
         <Route path= '/userprofile' element={<ImageAvatars/>}/> 
+        <Route path= '/grid' element={<GridUsers/>}/>
       </Routes>
     </BrowserRouter>
   );
