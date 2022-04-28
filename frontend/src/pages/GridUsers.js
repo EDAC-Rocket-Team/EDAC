@@ -47,16 +47,12 @@ const cards = [1, 2, 3, 4, 5, 6, 7, 8, 9];
 const theme = createTheme();
 
 export default function Album() {
+    let navigate= useNavigate ();
   return (
     <ThemeProvider theme={theme}>
       <CssBaseline />
-      <AppBar position="relative">
-        <Toolbar>
-          <CameraIcon sx={{ mr: 2 }} />
-          <Typography variant="h6" color="inherit" noWrap>
-            Album layout
-          </Typography>
-        </Toolbar>
+      <AppBar property= 'ml:10vh' >
+      <Button className='home' variant='contained' onClick={()=>{navigate("/userprofile")}}>Home</Button>
       </AppBar>
 
       <main>
@@ -74,23 +70,21 @@ export default function Album() {
                     component="img"
                     sx={{
                       // 16:9
-                      pt: '56.25%',
+                      pt: '1%',
                     }}
-                    image="https://source.unsplash.com/random"
+                    image="https://i.pravatar.cc/300"
                     alt="random"
                   />
                   <CardContent sx={{ flexGrow: 1 }}>
                     <Typography gutterBottom variant="h5" component="h2">
-                      Heading
+                      User Name
                     </Typography>
                     <Typography>
-                      This is a media card. You can use this section to describe the
-                      content.
+                      Blood Type:
                     </Typography>
                   </CardContent>
                   <CardActions>
-                    <Button size="small">View</Button>
-                    <Button size="small">Edit</Button>
+                    <Button size="small" variant='contained' onClick={()=>{navigate("/userprofile")}}>View</Button>
                   </CardActions>
                 </Card>
               </Grid>
