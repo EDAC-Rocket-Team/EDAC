@@ -25,10 +25,10 @@ export default function ImageAvatars() {
     <React.Fragment>
       <CardContent>
         <Typography sx={{ fontSize: 50}} color="text.secondary" gutterBottom>
-          User Card
+          Alex Boldwin
         </Typography>
         <Typography variant="h5" component="div">
-          Josh{bull}Belnev
+        Blood Type:
         </Typography>
         <Typography sx={{ mb:1.5 }} color="text.secondary">
           Info
@@ -36,7 +36,9 @@ export default function ImageAvatars() {
         <Typography variant="body2">
           Age:
           <br />
-          Blood Type:
+          Email:
+          <br/>
+          Location
         </Typography>
       </CardContent>
       <CardActions>
@@ -61,7 +63,3 @@ export default function ImageAvatars() {
     </div>
   );
 }
-
-
-
-
