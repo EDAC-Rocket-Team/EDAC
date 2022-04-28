@@ -16,6 +16,7 @@ import Typography from '@mui/material/Typography';
 import Container from '@mui/material/Container';
 import Link from '@mui/material/Link';
 import { createTheme, ThemeProvider } from '@mui/material/styles';
+import AppHar from './AppHar';
 
 // export default function GridUsers() {
 //  let navigate = useNavigate();
@@ -51,9 +52,7 @@ export default function Album() {
   return (
     <ThemeProvider theme={theme}>
       <CssBaseline />
-      <AppBar property= 'ml:10vh' >
-      <Button className='home' variant='contained' onClick={()=>{navigate("/userprofile")}}>Home</Button>
-      </AppBar>
+      <AppHar></AppHar>
 
       <main>
         {/* Hero unit */}

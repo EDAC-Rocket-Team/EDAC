@@ -8,6 +8,8 @@ import CardContent from '@mui/material/CardContent';
 import Button from '@mui/material/Button';
 import Typography from '@mui/material/Typography';
 import { useNavigate } from 'react-router-dom';
+import AppHar from './AppHar';
+import { Grid } from '@mui/material';
 // spacing={1}
 
 export default function ImageAvatars() {
@@ -49,17 +51,27 @@ export default function ImageAvatars() {
 
   return (
     <div>
-    <Stack direction="center" variant="square">
+    <AppHar></AppHar>
+    <Grid  container
+  direction="row"
+  justifyContent="space-evenly"
+  alignItems="center"
+  sx={{mt: 20}}
+  >
+      
       <Avatar
+        
         alt="Avatar"
         src="https://i.pravatar.cc/300"
         sx={{ width: 250, height: 250, ml: 10 }}
+        
       />
-    </Stack>
-    <Box sx={{ minWidth: 275 }}>
+    
+    <Box sx={{ maxWidth: 350 }}>
       <Card variant="outlined">{card}</Card>
     </Box>
-    <Button className='Sign In'sx={{position: 'fixed', top: 10, right: 10}} variant='contained' onClick={()=>{navigate("/grid")}}>Back</Button>
+    <Button className='Sign In'sx={{position: 'fixed', top: 10, right: 10, mt: 10}} variant='contained' onClick={()=>{navigate("/grid")}}>Back</Button>
+    </Grid>
     </div>
   );
 }
