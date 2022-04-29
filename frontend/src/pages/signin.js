@@ -12,24 +12,41 @@ import Container from '@mui/material/Container';
 import { createTheme, ThemeProvider } from '@mui/material/styles';
 import { useNavigate } from 'react-router-dom';
 import Copyright from './Copyright';
+import { useForm } from "react-hook-form";
+
 
 
 const theme = createTheme();
 
 export default function SignIn() {
-  const handleSubmit = (event) => {
-    event.preventDefault();
-    const data = new FormData(event.currentTarget);
-    console.log({
-      email: data.get('email'),
-      password: data.get('password'),
-    });
-  };
+const userfake = {
+  "email": "carla@gmail.com"
+  ,"password": "kokololo"
+}
+
+  const {
+    register,
+    handleSubmit,
+    watch,
+    formState: { errors }
+  } = useForm();     
+  
+  const onSubmit = (data) => {
+       if (data.email === userfake.email && data.password === userfake.password) {navigate("/grid")}
+       else {alert("wrong email or password dumbass")}
+      }
+       ; 
+          
  let navigate= useNavigate ();
-  return (
+
+
+ return (
+
+
     <ThemeProvider theme={theme}>
       <Container component="main" maxWidth="xs">
         <CssBaseline />
+
         <Box
           sx={{
             marginTop: 8,
@@ -41,10 +58,13 @@ export default function SignIn() {
           <Avatar sx={{ m: 1, bgcolor: 'secondary.main' }}>
             <LockOutlinedIcon />
           </Avatar>
+
           <Typography component="h1" variant="h5">
             Sign in
           </Typography>
-          <Box component="form" onSubmit={handleSubmit} noValidate sx={{ mt: 1 }}>
+
+          <Box component="form" onSubmit={handleSubmit(onSubmit)} noValidate sx={{ mt: 1 }}>
+
             <TextField
               margin="normal"
               required
@@ -53,8 +73,15 @@ export default function SignIn() {
               label="Email Address"
               name="email"
               autoComplete="email"
-              autoFocus
+              autoFocus  
+              {...register("email", {
+                required: true,
+                maxLength: 20,
+                pattern:/^\w+([\.-]?\w+)*@\w+([\.-]?\w+)*(\.\w{2,})+$/i
+              })}
             />
+            {errors.email && ("There is a problem with your email")}
+
             <TextField
               margin="normal"
               required
@@ -64,17 +91,23 @@ export default function SignIn() {
               type="password"
               id="password"
               autoComplete="current-password"
+              {...register("password", {
+                required: true,
+                maxLength: 8,
+                pattern: /^[A-Za-z]+$/i
+              })}
             />
+            {errors.password && ("There is a problem with your password")}
             
             <Button
               type="submit"
               fullWidth
               variant="contained"
               sx={{ mt: 3, mb: 2 }}
-              onClick={()=>{navigate("/grid")}}
             >
               Sign In
             </Button>
+
             <Grid container>
               <Grid item>
                 <Link href="/" variant="body2">
@@ -82,6 +115,7 @@ export default function SignIn() {
                 </Link>
               </Grid>
             </Grid>
+
           </Box>
         </Box>
         <Copyright sx={{ mt: 8, mb: 4 }} />
