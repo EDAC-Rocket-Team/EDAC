@@ -19,11 +19,13 @@ import { useForm } from "react-hook-form";
 const theme = createTheme();
 
 export default function SignIn() {
-const userfake = {
-  "email": "carla@gmail.com"
-  ,"password": "kokololo"
+//created fake user data to check, this is supposed to be the backend
+  const userfake = {
+  "email": ["carla@gmail.com", "biro_ka@outlook.com"]
+  ,"password": ["kokololo", "biroisending"]
 }
 
+//this is important
   const {
     register,
     handleSubmit,
@@ -31,8 +33,10 @@ const userfake = {
     formState: { errors }
   } = useForm();     
   
+  //this is what happens when you press submit
   const onSubmit = (data) => {
-       if (data.email === userfake.email && data.password === userfake.password) {navigate("/grid")}
+    //how to verify data, i used if statemnt   
+    if (data.email === userfake.email && data.password === userfake.password) {navigate("/grid")}
        else {alert("wrong email or password dumbass")}
       }
        ; 
@@ -74,6 +78,7 @@ const userfake = {
               name="email"
               autoComplete="email"
               autoFocus  
+              //registred email for submit hook, and added conditions
               {...register("email", {
                 required: true,
                 maxLength: 20,
@@ -91,9 +96,10 @@ const userfake = {
               type="password"
               id="password"
               autoComplete="current-password"
+              //this registers password and its conditions
               {...register("password", {
                 required: true,
-                maxLength: 8,
+                maxLength: 30,
                 pattern: /^[A-Za-z]+$/i
               })}
             />
