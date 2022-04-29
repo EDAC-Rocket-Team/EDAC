@@ -36,7 +36,7 @@ const [ passCheck, setPassCheck] = React.useState(false);
   
   //this is what happens when you press submit
   const onSubmit = (data) => {
-    //how to verify data, i used if & for statemnt   
+  //how to verify data, i used if & for statemnt   
     let i;
     for(i = 0; i < arguments.length; i++){
     if (data.email === userdata.email[i] && data.password === userdata.password[i]) {navigate("/grid")
