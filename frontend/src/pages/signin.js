@@ -13,17 +13,18 @@ import { createTheme, ThemeProvider } from '@mui/material/styles';
 import { useNavigate } from 'react-router-dom';
 import Copyright from './Copyright';
 import { useForm } from "react-hook-form";
+import Alert from '@mui/material/Alert';
+//created fake user data to check, this is supposed to be the backend
+import userdata from '../userdata';
 
 
 
 const theme = createTheme();
 
 export default function SignIn() {
-//created fake user data to check, this is supposed to be the backend
-  const userfake = {
-  "email": ["carla@gmail.com", "biro_ka@outlook.com"]
-  ,"password": ["kokololo", "biroisending"]
-}
+
+
+const [ passCheck, setPassCheck] = React.useState(false);
 
 //this is important
   const {
@@ -38,9 +39,9 @@ export default function SignIn() {
     //how to verify data, i used if & for statemnt   
     let i;
     for(i = 0; i < arguments.length; i++){
-    if (data.email === userfake.email[i] && data.password === userfake.password[i]) {navigate("/grid")
+    if (data.email === userdata.email[i] && data.password === userdata.password[i]) {navigate("/grid")
   break;}
-       else {alert("wrong email or password dumbass")}
+       else {setPassCheck(true)}
     }
   }
        ; 
@@ -89,7 +90,7 @@ export default function SignIn() {
                 pattern:/^\w+([\.-]?\w+)*@\w+([\.-]?\w+)*(\.\w{2,})+$/i
               })}
             />
-            {errors.email && ("There is a problem with your email")}
+            {errors.email && (<Alert severity="warning">Something is wrong with Email</Alert>)}
 
             <TextField
               margin="normal"
@@ -107,7 +108,7 @@ export default function SignIn() {
                 pattern: /^[A-Za-z]+$/i
               })}
             />
-            {errors.password && ("There is a problem with your password")}
+            {errors.password && ( <Alert severity="warning">Something is wrong with password</Alert>)}
             
             <Button
               type="submit"
@@ -117,6 +118,7 @@ export default function SignIn() {
             >
               Sign In
             </Button>
+            {passCheck && (<Alert severity="error">Wrong Password or Email Dumbass!</Alert>)}
 
             <Grid container>
               <Grid item>
