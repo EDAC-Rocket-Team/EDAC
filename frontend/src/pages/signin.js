@@ -35,10 +35,14 @@ export default function SignIn() {
   
   //this is what happens when you press submit
   const onSubmit = (data) => {
-    //how to verify data, i used if statemnt   
-    if (data.email === userfake.email && data.password === userfake.password) {navigate("/grid")}
+    //how to verify data, i used if & for statemnt   
+    let i;
+    for(i = 0; i < arguments.length; i++){
+    if (data.email === userfake.email[i] && data.password === userfake.password[i]) {navigate("/grid")
+  break;}
        else {alert("wrong email or password dumbass")}
-      }
+    }
+  }
        ; 
           
  let navigate= useNavigate ();
