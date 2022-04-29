@@ -12,24 +12,50 @@ import Container from '@mui/material/Container';
 import { createTheme, ThemeProvider } from '@mui/material/styles';
 import { useNavigate } from 'react-router-dom';
 import Copyright from './Copyright';
+import { useForm } from "react-hook-form";
+import Alert from '@mui/material/Alert';
+//created fake user data to check, this is supposed to be the backend
+import userdata from '../userdata';
+
 
 
 const theme = createTheme();
 
 export default function SignIn() {
-  const handleSubmit = (event) => {
-    event.preventDefault();
-    const data = new FormData(event.currentTarget);
-    console.log({
-      email: data.get('email'),
-      password: data.get('password'),
-    });
-  };
+
+
+const [ passCheck, setPassCheck] = React.useState(false);
+
+//this is important
+  const {
+    register,
+    handleSubmit,
+    watch,
+    formState: { errors }
+  } = useForm();     
+  
+  //this is what happens when you press submit
+  const onSubmit = (data) => {
+    //how to verify data, i used if & for statemnt   
+    let i;
+    for(i = 0; i < arguments.length; i++){
+    if (data.email === userdata.email[i] && data.password === userdata.password[i]) {navigate("/grid")
+  break;}
+       else {setPassCheck(true)}
+    }
+  }
+       ; 
+          
  let navigate= useNavigate ();
-  return (
+
+
+ return (
+
+
     <ThemeProvider theme={theme}>
       <Container component="main" maxWidth="xs">
         <CssBaseline />
+
         <Box
           sx={{
             marginTop: 8,
@@ -41,10 +67,13 @@ export default function SignIn() {
           <Avatar sx={{ m: 1, bgcolor: 'secondary.main' }}>
             <LockOutlinedIcon />
           </Avatar>
+
           <Typography component="h1" variant="h5">
             Sign in
           </Typography>
-          <Box component="form" onSubmit={handleSubmit} noValidate sx={{ mt: 1 }}>
+
+          <Box component="form" onSubmit={handleSubmit(onSubmit)} noValidate sx={{ mt: 1 }}>
+
             <TextField
               margin="normal"
               required
@@ -53,8 +82,16 @@ export default function SignIn() {
               label="Email Address"
               name="email"
               autoComplete="email"
-              autoFocus
+              autoFocus  
+              //registred email for submit hook, and added conditions
+              {...register("email", {
+                required: true,
+                maxLength: 20,
+                pattern:/^\w+([\.-]?\w+)*@\w+([\.-]?\w+)*(\.\w{2,})+$/i
+              })}
             />
+            {errors.email && (<Alert severity="warning">Something is wrong with Email</Alert>)}
+
             <TextField
               margin="normal"
               required
@@ -64,17 +101,25 @@ export default function SignIn() {
               type="password"
               id="password"
               autoComplete="current-password"
+              //this registers password and its conditions
+              {...register("password", {
+                required: true,
+                maxLength: 30,
+                pattern: /^[A-Za-z]+$/i
+              })}
             />
+            {errors.password && ( <Alert severity="warning">Something is wrong with password</Alert>)}
             
             <Button
               type="submit"
               fullWidth
               variant="contained"
               sx={{ mt: 3, mb: 2 }}
-              onClick={()=>{navigate("/grid")}}
             >
               Sign In
             </Button>
+            {passCheck && (<Alert severity="error">Wrong Password or Email Dumbass!</Alert>)}
+
             <Grid container>
               <Grid item>
                 <Link href="/" variant="body2">
@@ -82,6 +127,7 @@ export default function SignIn() {
                 </Link>
               </Grid>
             </Grid>
+
           </Box>
         </Box>
         <Copyright sx={{ mt: 8, mb: 4 }} />
