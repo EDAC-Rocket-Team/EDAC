@@ -1,6 +1,2 @@
-<<<<<<< HEAD
-frontend/package-lock.json
-frontend/package-lock.json
-=======
-EDAC App.code-workspace
->>>>>>> fad3b0af5a1de71ab1a91953c0f42141aced9496
+frontend/node_modules
+backend/node_modules
