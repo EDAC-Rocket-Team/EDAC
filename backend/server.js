@@ -1,9 +1,27 @@
 const express = require('express')
+const app = express();
+const mongoose= require('mongoose')
 const dotenv = require('dotenv').config()
-// const mongoose= require('mongoose')
-// mongoose.connect(mongodb+srv://DianaGH:<password>@blood-donation.kt7ft.mongodb.net/test)
-const port = 5000
+const DonorModel = require('./models/donors')
 
-const app = express()
+const port = 3001
 
-app.listen(port, () => console.log(`Server started yay on ${port}`))
+app.listen(port, () => {
+    console.log(`Server started yay on ${port}`)
+})
+
+mongoose.connect("mongodb+srv://DianaGH:71193734mom@blood-donation.kt7ft.mongodb.net/edac?authSource=admin&replicaSet=atlas-12wwdo-shard-0&readPreference=primary&appname=MongoDB%20Compass&ssl=true")
+        .then(console.log("MongoDB Connected"))
+
+     
+app.get("/getDonors", (req,res) => {
+    DonorModel.find({}, (err,result) =>{
+        if(err){
+            return res.status(500).json(err)
+        } else {
+            res.status(200).json(result);
+        }
+    })
+app.
+
+})
