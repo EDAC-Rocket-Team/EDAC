@@ -29,6 +29,18 @@ import Copyright from './Copyright';
 
 const theme = createTheme(); 
 
+const handleSubmit = (event) => {
+  event.preventDefault();
+  const data = new FormData(event.currentTarget);
+  console.log({
+    handleChangeBlood : data.get("handleChangeBlood "),
+    takesDrugs : data.get("takesDrugs"),
+    state : data.get("state"),
+    email: data.get('email'),
+    password: data.get('password'),
+  });
+};
+  
 
 export default function SignupD() {
   const handleSubmit = (event) => {
