@@ -22,6 +22,6 @@ app.get("/getDonors", (req,res) => {
             res.status(200).json(result);
         }
     })
-app.
+
 
 })
