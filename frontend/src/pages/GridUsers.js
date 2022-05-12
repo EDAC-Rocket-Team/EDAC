@@ -18,6 +18,13 @@ import Link from '@mui/material/Link';
 import { createTheme, ThemeProvider } from '@mui/material/styles';
 import AppHar from './AppHar';
 import Copyright from './Copyright';
+import enterName from './SignupBen';
+import staffResponsible from './SignupBen';
+import medicalZone from './SignupBen';
+import emailAdress from './SignupBen';
+import phoneNumber from './SignupBen';
+import address from './SignupBen';
+
 
 // export default function GridUsers() {
 //  let navigate = useNavigate();
@@ -29,7 +36,7 @@ import Copyright from './Copyright';
 //     )
 // }
 
-const cards = [1, 2, 3, 4, 5, 6, 7, 8, 9];
+const cards = [enterName, staffResponsible, medicalZone, emailAdress, phoneNumber, address,];
 
 
 

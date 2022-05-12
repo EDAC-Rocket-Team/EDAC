@@ -22,35 +22,30 @@ import 'react-phone-input-2/lib/style.css'
 import AppHar from '@mui/material/AppBar';
 import Copyright from './Copyright';
 import userdata from '../userdata';
+import { formLabelClasses } from '@mui/material';
 
 
 const theme = createTheme();
 
 export default function SignupBen() {
   
-  const [value, setValue] = React.useState('Address goes here!');
-  const handleChange = (event) => {
-    setValue(event.target.value);
-  };
+  const [centerName, setCenterName]= useState("");
+  const [staffResponsible, setStaffResponsible]= useState("");
+  const [medicalZone, setMedicalZone] = useState("");
+  const [emailAdress, setEmailAdress] = useState("");
+  const [password, setPassword] = useState("");
+  const [confirmPassword, setConfirmPassword] = useState("");
+  const [phoneNumber,setPhoneNumber] = useState("");
+  const [address, setAddress] = useState("");
+  const [acknowledge, setAcknowledge] = useState(false);
 
   let navigate = useNavigate();
 
-  const [areaZone, setAreaZone] = useState("NA")
-
-  const handleSubmit = (event) => {
-    event.preventDefault();
-    const data = new FormData(event.currentTarget);
-    console.log({
-      medicalCenterName: data.get('MedicalCenterName'),
-      medicalStaff: data.get("NameofStaffResponsible"),
-      email: data.get('email'),
-      password: data.get('password'),
-    });
-  };
-
-  const handleChangeArea = (e) => {
-    setAreaZone(e.target.value)
-    console.log(areaZone)
+  const onSubmit = () => {
+    if (acknowledge === true && address !== '' && centerName !== '' && staffResponsible!== '' && medicalZone !== '' && emailAdress !== '' && password !== '' && confirmPassword!== '' && password === confirmPassword && (phoneNumber !== "961" || phoneNumber !== "96" || phoneNumber !== "9" || phoneNumber !== "")) {
+      console.log({centerName, staffResponsible, medicalZone, emailAdress, password, confirmPassword, phoneNumber, address, acknowledge})
+      navigate('/grid')
+    } 
   }
 
   return (
@@ -58,138 +53,130 @@ export default function SignupBen() {
       <Container component="main" maxWidth="xs">
         <CssBaseline />
         
-        <Box
-          sx={{
-            marginTop: 8,
-            display: 'flex',
-            flexDirection: 'column',
-            alignItems: 'center',
-          }}
-        >
+        <Box sx={{marginTop: 8, display: 'flex', flexDirection: 'column', alignItems: 'center'}}>
           <Avatar sx={{ m: 1, bgcolor: 'secondary.main' }}>
             <LockOutlinedIcon />
           </Avatar>
           <Typography component="h1" variant="h5">
             Sign up for Hospitals/Medical Center
           </Typography>
-          <Box component="form" noValidate onSubmit={handleSubmit} sx={{ mt: 3 }}>
+          <Box sx={{ mt: 3 }}>
+
             <Grid container spacing={2}>
               <Grid item xs={12}>
                 <TextField
-                  name="MedicalCenterName"
+                  id="centerName"
+                  label="Medical Center Name"
+                  value = {centerName}
+                  onChange = {(e) => {setCenterName(e.target.value)}}
                   required
                   fullWidth
-                  id="firstName"
-                  label="Medical Center Name"
                   autoFocus
                 />
               </Grid>
               <Grid item xs={12}>
                 <TextField
+                  id="staffResponsible"
+                  label="Name of Staff Responsible"
+                  value = {staffResponsible}
+                  onChange = {(e)=>{setStaffResponsible(e.target.value)}}
                   required
                   fullWidth
-                  id="NameofStaffResponsible"
-                  label="Name of Staff Responsible"
-                  name="NameofStaffResponsible"
-                  autoComplete="given-name"
                 />
               </Grid>
-
               <Grid item xs={12}>
-                          <FormControl fullWidth>
-                    <InputLabel id="demo-simple-select-label">Medical Zone</InputLabel>
-                    <Select
-                      labelId="demo-simple-select-label"
-                      id="demo-simple-select"
-                      value={areaZone}
-                      label="Medical Zone"
-                      onChange={handleChangeArea}
-                    >
-                      <MenuItem value={"GB"}>Greater Beirut</MenuItem>
-                      <MenuItem value={"ML"}>Mount Lebanon</MenuItem>
-                      <MenuItem value={"M/K"}>Metn/Kesserwan</MenuItem>
-                      <MenuItem value={"TR"}>Tripoli</MenuItem>
-                      <MenuItem value={"SL"}>South Lebanon</MenuItem>
-                    </Select>
-                  </FormControl>
+                <FormControl fullWidth>
+                  <InputLabel id="medicalZoneLabel">Medical Zone</InputLabel>
+                  <Select
+                    id="medicalZone"
+                    labelId="medicalZoneLabel"
+                    label="Medical Zone"
+                    value={medicalZone}
+                    onChange = {(e)=>{setMedicalZone(e.target.value)}}
+                  >
+                    <MenuItem value={"GB"}>Greater Beirut</MenuItem>
+                    <MenuItem value={"ML"}>Mount Lebanon</MenuItem>
+                    <MenuItem value={"M/K"}>Metn/Kesserwan</MenuItem>
+                    <MenuItem value={"TR"}>Tripoli</MenuItem>
+                    <MenuItem value={"SL"}>South Lebanon</MenuItem>
+                  </Select>
+                </FormControl>
               </Grid>
-
-
               <Grid item xs={12}>
                 <TextField
-                  required
-                  fullWidth
                   id="email"
                   label="Email Address"
-                  name="email"
-                  autoComplete="email"
+                  value= {emailAdress}
+                  onChange = {(e)=> {setEmailAdress(e.target.value)}}
+                  required
+                  fullWidth
                 />
               </Grid>
               <Grid item xs={12}>
                 <TextField
-                  required
-                  fullWidth
-                  name="password"
+                  id="password"
                   label="Password"
                   type="password"
-                  id="password"
-                  autoComplete="new-password"
+                  value = {password}
+                  onChange = {(e)=> {setPassword(e.target.value)}}
+                  required
+                  fullWidth
                 />
               </Grid>
-
               <Grid item xs={12}>
-            <TextField 
-                  fullWidth
-                  name="numberStaff"
-                  label="Number of Staff Avilable"
-                  type="number"
-                  id="staffnumber"
-                  inputProps= {{ inputMode: 'numeric', pattern: '[0-9]*'}}
-                />
-            </Grid>
-
-            
-
-            <Grid item xs={12}>
-                <PhoneInput
-                  country={'lb'}
+                <TextField
+                  id="confirmPassword"
+                  label="Confirm Password"
+                  type="password" 
+                  value={confirmPassword}
+                  onChange= {(e)=>{setConfirmPassword(e.target.value)}}
                   required
-                  name="phone"
+                  fullWidth
+                />
+              </Grid>
+              <Grid item xs={12}>
+                <PhoneInput
+                  id="phone"
                   label="Phone Number"
                   type="tel"
-                  id="phone"
+                  value= {phoneNumber}
+                  onChange= {(value)=>{(setPhoneNumber(value))}}
+                  country={'lb'}
+                  required
+                  fullWidth
                   //this is to widen it to be the same as the rest @diana
                   inputStyle={{width: '100%', height: "4em"}}
                 /> 
               </Grid> 
-
               <Grid item xs={12}>
-                        <TextField
-                      id="outlined-multiline-flexible"
-                      label="Detield Address"
-                      multiline
-                      maxRows={4}
-                      value={value}
-                      onChange={handleChange}
-                      fullWidth
-                    />
+                <TextField
+                  id="address"
+                  label="Address"
+                  value={address}
+                  onChange={(e)=>{setAddress(e.target.value)}}
+                  multiline
+                  maxRows={4}
+                  required
+                  fullWidth
+                />
               </Grid>
-
               <Grid item xs={12}>
                 <FormControlLabel
-                  control={<Checkbox value="allowExtraEmails" color="primary" />}
+                  control={<Checkbox value={acknowledge} onChange={()=>{setAcknowledge(!acknowledge)}} color="primary" />}
                   label="I acknowledge that all info in this form is correct"
                 />
               </Grid>
             </Grid>
+  
             <Button
               type="submit"
               fullWidth
               variant="contained"
               sx={{ mt: 3, mb: 2 }}
-              onClick={()=>{navigate("/ben")}}>
+              onClick={()=>{onSubmit()}}>
               Sign Up
             </Button>
+
             <Grid container justifyContent="flex-end">
               <Grid item>
                 <Link href="/sin" variant="body2">
@@ -197,7 +184,9 @@ export default function SignupBen() {
                 </Link>
               </Grid>
             </Grid>
+  
           </Box>
+          
         </Box>
         <Copyright sx={{ mt: 5 }} />
       </Container>

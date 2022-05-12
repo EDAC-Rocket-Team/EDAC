@@ -242,6 +242,7 @@ export default function SignupD() {
                     >
                       <MenuItem value={"Daily"}>Daily</MenuItem>
                       <MenuItem value={"Weekly"}>Weekly</MenuItem>
+                  
                       <MenuItem value={"Monthly"}>Monthly</MenuItem>
                       <MenuItem value={"Occassionally"}>Occassionally</MenuItem>
                       <MenuItem value={"No"}>No</MenuItem>
@@ -257,7 +258,7 @@ export default function SignupD() {
                       control={
                         <Switch checked={takesDrugs} onChange={handleChangeQB} name="gilad" />
                       }
-                      label="DO you use recreational drugs?"
+                      label="Do you use recreational drugs?"
                     />
                     </FormGroup>
                     </FormControl>
