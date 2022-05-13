@@ -29,55 +29,33 @@ import Copyright from './Copyright';
 
 const theme = createTheme(); 
 
-const handleSubmit = (event) => {
-  event.preventDefault();
-  const data = new FormData(event.currentTarget);
-  console.log({
-    handleChangeBlood : data.get("handleChangeBlood "),
-    takesDrugs : data.get("takesDrugs"),
-    state : data.get("state"),
-    email: data.get('email'),
-    password: data.get('password'),
-  });
-};
   
+// onChange = {(e)=>{set(e.target.value)}}
 
 export default function SignupD() {
-  const handleSubmit = (event) => {
-    event.preventDefault();
-    const data = new FormData(event.currentTarget);
-    console.log({
-      email: data.get('email'),
-      // password: data.get('password'),
-    });
-  };
-  let navigate = useNavigate();
 
-  const [bloodType, setBlood] = useState("NA")
+  const [names, setNames]= useState("");
+  const [lastNames, setLastNames]= useState("");
+  const [emailAddress, setEmailAddress]= useState("");
+  const [password, setPassword]= useState("");
+  const [confirmPassword, setConfirmPassword]= useState("");
+  const [birthdate, setBirthDate]= useState("");
+  const [phoneNumber, setPhoneNumber]= useState("");
+  const [bloodTypes, setBloodTypes]= useState("");
+  const [alcoholUse, setAlcoholUse]= useState("");
+  const [drug, setDrug]= useState(false);
 
-  const handleChangeBlood = (e) => {
-    setBlood(e.target.value)
-    console.log(bloodType)
+
+  const onSubmit = () => {
+    if (names !== ''  && bloodTypes !== '' && lastNames !== '' && emailAddress !== '' && password !== '' && confirmPassword!== '' && password === confirmPassword && (phoneNumber !== "961" || phoneNumber !== "96" || phoneNumber !== "9" || phoneNumber !== "") && alcoholUse !== "" && drug === false ) {
+      console.log({names, lastNames, emailAddress, password, confirmPassword, phoneNumber, drug})
+      navigate('/grid')
+    } else {
+      console.log({names, lastNames, bloodTypes, emailAddress, password, confirmPassword, phoneNumber, alcoholUse, drug})
     }
-  
-  const [questionA, setQA] = useState("NA")
+  }
 
-  const handleChangeQA = (e) => {
-    setQA(e.target.value)
-    console.log(questionA)
-    } 
-
-  
-    const [state, setState] = useState({
-      gilad: true,
-      jason: false,
-      antoine: true,
-    });
-
-    const [takesDrugs, setTakesDrugs] = useState(false) 
-    const handleChangeQB = ( ) => {
-      setTakesDrugs(!takesDrugs);
-    };
+  let navigate = useNavigate();
 
 
   return (
@@ -96,53 +74,65 @@ export default function SignupD() {
             <LockOutlinedIcon />
           </Avatar>
           <Typography component="h1" variant="h5">
-            Sign up
+            Sign Up Now
           </Typography>
-          <Box component="form" noValidate onSubmit={handleSubmit} sx={{ mt: 3 }}>
+          <Box component="form" noValidate sx={{ mt: 3 }}>
             <Grid container spacing={2}>
               <Grid item xs={12} sm={6}>
                 <TextField
+                  id="names"
+                  label="First Name"
                   autoComplete="given-name"
-                  name="firstName"
+                  onChange = {(e)=>{setNames(e.target.value)}}
                   required
                   fullWidth
-                  id="firstName"
-                  label="First Name"
                   autoFocus
                 />
               </Grid>
               <Grid item xs={12} sm={6}>
                 <TextField
+                  id="lastNames"
+                  label="Last Name"
+                  autoComplete="family-name"
+                  onChange = {(e)=>{setLastNames(e.target.value)}}
                   required
                   fullWidth
-                  id="lastName"
-                  label="Last Name"
-                  name="lastName"
-                  autoComplete="family-name"
                 />
               </Grid>
               <Grid item xs={12}>
                 <TextField
+                  id="emailAdress"
+                  label="Email Address"
+                  onChange = {(e)=> {setEmailAddress(e.target.value)}}
                   required
                   fullWidth
-                  id="email"
-                  label="Email Address"
-                  name="email"
-                  autoComplete="email"
                 />
               </Grid>
 
               <Grid item xs={12}>
                 <TextField
-                  required
-                  fullWidth
-                  name="password"
+                  id="password"
                   label="Password"
                   type="password"
-                  id="password"
-                  autoComplete="new-password"
+                  value = {password}
+                  onChange = {(e)=> {setPassword(e.target.value)}}
+                  required
+                  fullWidth
                 />
               </Grid>
+
+              <Grid item xs={12}>
+                <TextField
+                  id="confirmPassword"
+                  label="Confirm Password"
+                  type="password" 
+                  value={confirmPassword}
+                  onChange= {(e)=>{setConfirmPassword(e.target.value)}}
+                  required
+                  fullWidth
+                />
+              </Grid>
+
 
               <Grid item xs={12}>
                 <div style={{
@@ -152,33 +142,32 @@ export default function SignupD() {
                 }}>
                   {/*<h3>How to create Date Picker in ReactJS?</h3> */}
                       <TextField
-                      id="date"
+                      id= "birthdate"
                       label="Choose your birthdate"
                       type="date"
-                      defaultValue="2000-01-01"
+                      onChange = {(e)=>{setBirthDate(e.target.value)}}
                       fullWidth
+                      defaultValue="2000-01-01"
                       InputLabelProps={{
                         shrink: true,
+
                       }}
                   />
                 </div>
               </Grid>
 
               <Grid item xs={12}>
-                < PhoneInput
-                  country={'lb'}
-                  required
-                  // disabled
-                  fullWidth
-                  name="phone"
+                <PhoneInput
+                  id="phone"
                   label="Phone Number"
                   type="tel"
-                  id="phone"
+                  value= {phoneNumber}
+                  onChange= {(value)=>{(setPhoneNumber(value))}}
+                  country={'lb'}
+                  required
+                  fullWidth
+                  //this is to widen it to be the same as the rest @diana
                   inputStyle={{width: '100%', height: "4em"}}
-                  // change pattern later to match that existing in Lebanon
-                  // some method in mui... similar in funcionality to "pattern"
-                  // maybe using regex
-                  // pattern="[0-9]{2}-[0-9]{3}-[0-9]{3}"
                 /> 
               </Grid> 
 
@@ -186,13 +175,12 @@ export default function SignupD() {
               <Grid item xs={12}>
                 <h3>Health Information</h3> 
                           <FormControl fullWidth>
-                    <InputLabel id="demo-simple-select-label">Blood Type</InputLabel>
+                    <InputLabel id="bloodTypeLabel">Blood Type</InputLabel>
                     <Select
-                      labelId="demo-simple-select-label"
-                      id="demo-simple-select"
-                      value={bloodType}
+                      id="bloodTypes"
                       label="Blood Type"
-                      onChange={handleChangeBlood}
+                      labelId="bloodTypeLabel"
+                      onChange = {(e)=>{setBloodTypes(e.target.value)}}
                     >
                       <MenuItem value={"O RhD positive"}>O+</MenuItem>
                       <MenuItem value={"O RhD negative"}>O-</MenuItem>
@@ -212,12 +200,12 @@ export default function SignupD() {
                   <FormControl fullWidth>
                     <InputLabel id="qa">Do you drink alcohol regularly?</InputLabel>
                     <Select
-                      labelId="qa"
-                      id="qa"
-                      value={questionA}
+                      id="alcoholUse"
                       label="Do you drink alcohol regularly?"
-                      onChange={handleChangeQA}
+                      labelId="qa"
+                      onChange={(e)=>setAlcoholUse (e.target.value)}
                       inputStyle={{width: '100%', height: "2em"}}
+
                     >
                       <MenuItem value={"Daily"}>yes, daily</MenuItem>
                       <MenuItem value={"Weekly"}>yes, weekly</MenuItem>
@@ -226,6 +214,7 @@ export default function SignupD() {
                       <MenuItem value={"No"}>no</MenuItem>
                     </Select>
                   </FormControl>
+
               </Grid> 
 
               {/*<Grid item xs={12}>
@@ -256,7 +245,7 @@ export default function SignupD() {
                   <FormGroup>
                     <FormControlLabel
                       control={
-                        <Switch checked={takesDrugs} onChange={handleChangeQB} name="gilad" />
+                        <Switch checked={drug} onChange={()=>{setDrug(!drug)}} name="gilad" />
                       }
                       label="Do you use recreational drugs?"
                     />
@@ -266,21 +255,21 @@ export default function SignupD() {
                     
 
 
-              <Grid item xs={12}>
+              {/* <Grid item xs={12}>
                 <FormControlLabel
                   control={<Checkbox value="allowExtraEmails" color="primary" />}
                   label="I want to receive a text message, when blood donation of my type is needed."
                 />
-              </Grid>
+              </Grid> */}
             </Grid>
             
             <Button
-              type="submit"
-              fullWidth
               variant="contained"
               sx={{ mt: 3, mb: 2 }}
-              onClick={()=>{navigate("/donor")}}>
-            
+              fullWidth
+              onClick={()=>{onSubmit()}}>
+              
+        
               Sign Up
             </Button>
             <Grid container justifyContent="flex-end">
