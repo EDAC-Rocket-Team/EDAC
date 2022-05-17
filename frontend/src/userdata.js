@@ -1,6 +1,6 @@
-const userdata = {
-    "email": ["carla@gmail.com", "biro_ka@outlook.com"]
-    ,"password": ["kokololo", "biroisending"]
-  }
-
-export default userdata;
+export const userData = 
+[
+  {name: "jad", email: "jadjihadhaddad@gmail.com", bloodType: 'O+'},
+  {name: "carla", email: "jadjihadhadad@gmail.com", bloodType: 'O+'},
+  {name: "diana", email: "jadjihadaddad@gmail.com", bloodType: 'O+'}
+];

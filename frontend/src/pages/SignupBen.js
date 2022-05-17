@@ -23,7 +23,12 @@ import AppHar from '@mui/material/AppBar';
 import Copyright from './Copyright';
 import userdata from '../userdata';
 import { formLabelClasses } from '@mui/material';
+import { createAvatar } from '@dicebear/avatars';
+import * as style from '@dicebear/croodles-neutral';
 
+let svg = createAvatar(style, {
+  seed: 'custom-seed',
+});
 
 const theme = createTheme();
 

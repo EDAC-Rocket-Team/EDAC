@@ -18,12 +18,6 @@ import Link from '@mui/material/Link';
 import { createTheme, ThemeProvider } from '@mui/material/styles';
 import AppHar from './AppHar';
 import Copyright from './Copyright';
-import enterName from './SignupBen';
-import staffResponsible from './SignupBen';
-import medicalZone from './SignupBen';
-import emailAdress from './SignupBen';
-import phoneNumber from './SignupBen';
-import address from './SignupBen';
 
 
 // export default function GridUsers() {
@@ -35,8 +29,6 @@ import address from './SignupBen';
 //             </div>
 //     )
 // }
-
-const cards = [enterName, staffResponsible, medicalZone, emailAdress, phoneNumber, address,];
 
 
 
@@ -66,15 +58,15 @@ export default function Album() {
                       // 16:9
                       pt: '1%',
                     }}
-                    image="https://i.pravatar.cc/300"
+                    image={`https://avatars.dicebear.com/api/croodles-neutral/${card.email}.svg`}
                     alt="random"
                   />
                   <CardContent sx={{ flexGrow: 1 }}>
                     <Typography gutterBottom variant="h5" component="h2">
-                      User Name
+                      {card.name}
                     </Typography>
                     <Typography>
-                      Blood Type:
+                      Blood Type: {card.bloodType}
                     </Typography>
                   </CardContent>
                   <CardActions>
