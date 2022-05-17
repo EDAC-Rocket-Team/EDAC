@@ -11,7 +11,7 @@ export default function AppHar() {
     return (
         <AppBar position="fixed">
         <Toolbar>
-        <Button className='Sign In'sx={{position: 'fixed', top: 10, right: 10}} variant='contained' onClick={()=>{navigate("/sin")}}>Sign In</Button>
+        {/* <Button className='Sign In'sx={{position: 'fixed', top: 10, right: 10}} variant='contained' onClick={()=>{navigate("/sin")}}>Sign In</Button> */}
           {/* <CameraIcon sx={{ mr: 2 }} /> */}
           <Link href="/" variant="h6" color="white" noWrap underline="none">
             EDAC 

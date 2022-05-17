@@ -18,6 +18,7 @@ import Link from '@mui/material/Link';
 import { createTheme, ThemeProvider } from '@mui/material/styles';
 import AppHar from './AppHar';
 import Copyright from './Copyright';
+import {userData} from "../userdata"
 
 
 // export default function GridUsers() {
@@ -47,7 +48,7 @@ export default function Album() {
         <Container sx={{ py: 8 }} maxWidth="md">
           {/* End hero unit */}
           <Grid container spacing={4}>
-            {cards.map((card) => (
+            {userData.map((card) => (
               <Grid item key={card} xs={12} sm={6} md={4}>
                 <Card
                   sx={{ height: '100%', display: 'flex', flexDirection: 'column' }}
@@ -58,7 +59,7 @@ export default function Album() {
                       // 16:9
                       pt: '1%',
                     }}
-                    image={`https://avatars.dicebear.com/api/croodles-neutral/${card.email}.svg`}
+                    image={`https://avatars.dicebear.com/api/croodles-neutral/${card.emailAddress}.svg`}
                     alt="random"
                   />
                   <CardContent sx={{ flexGrow: 1 }}>

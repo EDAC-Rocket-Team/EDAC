@@ -15,7 +15,7 @@ import Copyright from './Copyright';
 import { useForm } from "react-hook-form";
 import Alert from '@mui/material/Alert';
 //created fake user data to check, this is supposed to be the backend
-import userdata from '../userdata';
+import {userData} from '../userdata';
 
 
 
@@ -39,7 +39,7 @@ const [ passCheck, setPassCheck] = React.useState(false);
   //how to verify data, i used if & for statemnt   
     let i;
     for(i = 0; i < arguments.length; i++){
-    if (data.email === userdata.email[i] && data.password === userdata.password[i]) {navigate("/grid")
+    if (data.email === userData.email[i] && data.password === userData.password[i]) {navigate("/grid")
   break;}
        else {setPassCheck(true)}
     }
