@@ -21,18 +21,6 @@ import Copyright from './Copyright';
 import {userData} from "../userdata"
 
 
-// export default function GridUsers() {
-//  let navigate = useNavigate();
-//     return(
-//         <div>
-//         <h1>this is it</h1>
-//             <Button className='GridUsers' sx={{position:'fixed', top: 500, right: 100}} variant='contained' onClick={()=>{navigate("/userprofile")}}>User for Carla</Button>
-//             </div>
-//     )
-// }
-
-
-
 const theme = createTheme();
 
 export default function Album() {
@@ -56,7 +44,6 @@ export default function Album() {
                   <CardMedia
                     component="img"
                     sx={{
-                      // 16:9
                       pt: '1%',
                     }}
                     image={`https://avatars.dicebear.com/api/croodles-neutral/${card.emailAddress}.svg`}

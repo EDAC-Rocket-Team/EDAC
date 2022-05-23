@@ -1,6 +1,6 @@
 import React from 'react';
 import './App.css';
-import HomeSplash from './pages/Home';
+import Home from './pages/Home';
 import SignupD  from './pages/signupDonor';
 import SignIn from './pages/signin';
 import SignupBen from './pages/SignupBen';
@@ -9,15 +9,13 @@ import DonorsSubmit from './pages/DonorsSubmitPage';
 import Beneficiarysubmit from './pages/BeneficiariesSubmitPage';
 import GridUsers from './pages/GridUsers';
 import { BrowserRouter, Routes, Route } from "react-router-dom";
-import ImageAvatars from './pages/ProfilePage';
-
-
+import ProfilePage from './pages/ProfilePage';
 
 function App() {
   return (
     <BrowserRouter>
       <Routes>
-        <Route path='/' element={<HomeSplash />}/>
+        <Route path='/' element={<Home/>}/>
         <Route path='/ben' element={<Beneficiarysubmit/>}/>
         <Route path='/donor' element={<DonorsSubmit />}/>
         <Route path='/18' element={< Under18/>}/>
@@ -25,8 +23,8 @@ function App() {
         <Route path='/sub' element={<SignupBen />}/>
         <Route path='/sin' element={< SignIn />}/>
         <Route path='/grid' element={< GridUsers/>}/>
-        <Route path= '/userprofile' element={<ImageAvatars/>}/> 
-        <Route path= '/grid' element={<GridUsers/>}/>
+        <Route path= '/userprofile' element={<ProfilePage/>}/> 
+        <Route path= '/grid' element={<GridUsers/>}/> 
       </Routes>
     </BrowserRouter>
   );

@@ -9,9 +9,9 @@ import Button from '@mui/material/Button';
 import Typography from '@mui/material/Typography';
 import { useNavigate } from 'react-router-dom';
 import AppHar from './AppHar';
+import CardMedia from '@mui/material/CardMedia';
 import { Grid } from '@mui/material';
 import Copyright from './Copyright';
-// spacing={1}
 
 
 
@@ -22,7 +22,6 @@ export default function ImageAvatars() {
       component="span"
       sx={{ display: 'inline-block', mx: '2px', transform: 'scale(0.8)' }}
     >
-      •
     </Box>
   );
   
@@ -59,24 +58,28 @@ export default function ImageAvatars() {
   direction="row"
   justifyContent="center"
   alignItems="center"
-  sx={{mt: 20}}
+  sx={{mt: 20,}}
   >
-      
-      <Avatar
-        
-        alt="Avatar"
-        src="https://i.pravatar.cc/300"
-        sx={{ width: 250, height: 250, ml: 10, mr: 10}}
-        
-      />
-    
+     <Card
+                  sx={{ height: '100%', display: 'flex', flexDirection: 'column', mr:5 }}
+                >
+                  <CardMedia
+                    component="img"
+                    sx={{
+                      maxWidth:265
+                    }}
+                    image={`https://avatars.dicebear.com/api/croodles-neutral/${card.emailAddress}.svg`}
+                    alt="random"
+                  />
+                  <CardContent sx={{ flexGrow: 1 }}> </CardContent> 
+                  </Card>
     <Box sx={{ maxWidth: 350 }}>
       <Card variant="outlined">{card}</Card>
     </Box>
     <Button className='Sign In'sx={{position: 'fixed', top: 10, right: 10, mt: 10}} variant='contained' onClick={()=>{navigate("/grid")}}>Back</Button>
     
     </Grid>
-    <Copyright sx={{mt: 10}}></Copyright>
+    <Copyright sx={{mt: 20}}></Copyright>
 
     </div>
   );

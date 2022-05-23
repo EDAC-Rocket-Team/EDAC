@@ -38,9 +38,9 @@ const [ passCheck, setPassCheck] = React.useState(false);
   const onSubmit = (data) => {
   //how to verify data, i used if & for statemnt   
     let i;
-    for(i = 0; i < arguments.length; i++){
-    if (data.email === userData.email[i] && data.password === userData.password[i]) {navigate("/grid")
-  break;}
+    for(i = 0; i < userData.length; i++){
+    if (data.email === userData[i].emailAddress && data.password === userData[i].password) {navigate("/grid")
+    break;}
        else {setPassCheck(true)}
     }
   }
@@ -78,7 +78,7 @@ const [ passCheck, setPassCheck] = React.useState(false);
               margin="normal"
               required
               fullWidth
-              id="email"
+              id="emailAddress"
               label="Email Address"
               name="email"
               autoComplete="email"
@@ -93,13 +93,12 @@ const [ passCheck, setPassCheck] = React.useState(false);
             {errors.email && (<Alert severity="warning">Something is wrong with Email</Alert>)}
 
             <TextField
+              id="password"
+              label="Password"
+              type="password"
               margin="normal"
               required
               fullWidth
-              name="password"
-              label="Password"
-              type="password"
-              id="password"
               autoComplete="current-password"
               //this registers password and its conditions
               {...register("password", {
@@ -118,7 +117,7 @@ const [ passCheck, setPassCheck] = React.useState(false);
             >
               Sign In
             </Button>
-            {passCheck && (<Alert severity="error">Wrong Password or Email Dumbass!</Alert>)}
+            {passCheck && (<Alert severity="error">Wrong Password or Email!</Alert>)}
 
             <Grid container>
               <Grid item>

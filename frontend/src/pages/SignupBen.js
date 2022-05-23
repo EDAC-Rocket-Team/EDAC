@@ -35,7 +35,6 @@ const theme = createTheme();
 export default function SignupBen() {
   
   const [centerName, setCenterName]= useState("");
-  const [staffResponsible, setStaffResponsible]= useState("");
   const [medicalZone, setMedicalZone] = useState("");
   const [emailAdress, setEmailAdress] = useState("");
   const [password, setPassword] = useState("");
@@ -47,8 +46,8 @@ export default function SignupBen() {
   let navigate = useNavigate();
 
   const onSubmit = () => {
-    if (acknowledge === true && address !== '' && centerName !== '' && staffResponsible!== '' && medicalZone !== '' && emailAdress !== '' && password !== '' && confirmPassword!== '' && password === confirmPassword && (phoneNumber !== "961" || phoneNumber !== "96" || phoneNumber !== "9" || phoneNumber !== "")) {
-      console.log({centerName, staffResponsible, medicalZone, emailAdress, password, confirmPassword, phoneNumber, address, acknowledge})
+    if (acknowledge === true && address !== '' && centerName !== '' && medicalZone !== '' && emailAdress !== '' && password !== '' && confirmPassword!== '' && password === confirmPassword && (phoneNumber !== "961" || phoneNumber !== "96" || phoneNumber !== "9" || phoneNumber !== "")) {
+      console.log({centerName, medicalZone, emailAdress, password, confirmPassword, phoneNumber, address, acknowledge})
       navigate('/grid')
     } 
   }
@@ -77,16 +76,6 @@ export default function SignupBen() {
                   required
                   fullWidth
                   autoFocus
-                />
-              </Grid>
-              <Grid item xs={12}>
-                <TextField
-                  id="staffResponsible"
-                  label="Name of Staff Responsible"
-                  value = {staffResponsible}
-                  onChange = {(e)=>{setStaffResponsible(e.target.value)}}
-                  required
-                  fullWidth
                 />
               </Grid>
               <Grid item xs={12}>
@@ -150,7 +139,7 @@ export default function SignupBen() {
                   required
                   fullWidth
                   //this is to widen it to be the same as the rest @diana
-                  inputStyle={{width: '100%', height: "4em"}}
+                  inputstyle={{width: '100%', height: "4em"}}
                 /> 
               </Grid> 
               <Grid item xs={12}>

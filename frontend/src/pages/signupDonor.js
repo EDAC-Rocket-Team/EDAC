@@ -1,4 +1,5 @@
-import React, {useState, ChangeEvent} from 'react';
+import React, {useState, ChangeEvent,useContext} from 'react';
+import ReactDOM from "react-dom";
 import Avatar from '@mui/material/Avatar';
 import Button from '@mui/material/Button';
 import CssBaseline from '@mui/material/CssBaseline';
@@ -40,18 +41,18 @@ export default function SignupD() {
   const [password, setPassword]= useState("");
   const [confirmPassword, setConfirmPassword]= useState("");
   const [birthdate, setBirthDate]= useState("");
+  const [userLocation, setUserLocation] = useState("");
   const [phoneNumber, setPhoneNumber]= useState("");
   const [bloodTypes, setBloodTypes]= useState("");
   const [alcoholUse, setAlcoholUse]= useState("");
   const [drug, setDrug]= useState(false);
 
-
-  const onSubmit = () => {
-    if (names !== ''  && bloodTypes !== '' && lastNames !== '' && emailAddress !== '' && password !== '' && confirmPassword!== '' && password === confirmPassword && (phoneNumber !== "961" || phoneNumber !== "96" || phoneNumber !== "9" || phoneNumber !== "") && alcoholUse !== "" && drug === false ) {
-      console.log({names, lastNames, emailAddress, password, confirmPassword, phoneNumber, drug})
+   const onSubmit = () => {
+    if (names !== ''  && bloodTypes !== '' && lastNames !== '' && emailAddress !== '' && userLocation !=='' && password !== '' && confirmPassword!== '' && password === confirmPassword && (phoneNumber !== "961" || phoneNumber !== "96" || phoneNumber !== "9" || phoneNumber !== "") && alcoholUse !== "" && drug === false ) {
+      console.log({names, lastNames, emailAddress, password, confirmPassword, phoneNumber,userLocation, drug})
       navigate('/grid')
-    } else {
-      console.log({names, lastNames, bloodTypes, emailAddress, password, confirmPassword, phoneNumber, alcoholUse, drug})
+    } else { 
+      //console.log({names, lastNames, bloodTypes, emailAddress, password, confirmPassword, phoneNumber,userLocation, alcoholUse, drug})
     }
   }
 
@@ -132,8 +133,6 @@ export default function SignupD() {
                   fullWidth
                 />
               </Grid>
-
-
               <Grid item xs={12}>
                 <div style={{
                   margin: 'auto',
@@ -155,7 +154,24 @@ export default function SignupD() {
                   />
                 </div>
               </Grid>
-
+               <Grid item xs={12}>
+                <FormControl fullWidth>
+                  <InputLabel id="location">Medical Zone</InputLabel>
+                  <Select
+                    id="userLocation"
+                    labelId="location"
+                    label="Your Location"
+                    value={userLocation}
+                    onChange = {(e)=>{setUserLocation(e.target.value)}}
+                  >
+                    <MenuItem value={"GB"}>Greater Beirut</MenuItem>
+                    <MenuItem value={"ML"}>Mount Lebanon</MenuItem>
+                    <MenuItem value={"M/K"}>Metn/Kesserwan</MenuItem>
+                    <MenuItem value={"TR"}>Tripoli</MenuItem>
+                    <MenuItem value={"SL"}>South Lebanon</MenuItem>
+                  </Select>
+                </FormControl>
+              </Grid>
               <Grid item xs={12}>
                 <PhoneInput
                   id="phone"
@@ -167,7 +183,7 @@ export default function SignupD() {
                   required
                   fullWidth
                   //this is to widen it to be the same as the rest @diana
-                  inputStyle={{width: '100%', height: "4em"}}
+                  inputstyle={{width: '100%', height: "4em"}}
                 /> 
               </Grid> 
 
@@ -180,7 +196,9 @@ export default function SignupD() {
                       id="bloodTypes"
                       label="Blood Type"
                       labelId="bloodTypeLabel"
+                      value={bloodTypes}
                       onChange = {(e)=>{setBloodTypes(e.target.value)}}
+                      
                     >
                       <MenuItem value={"O RhD positive"}>O+</MenuItem>
                       <MenuItem value={"O RhD negative"}>O-</MenuItem>
@@ -194,7 +212,6 @@ export default function SignupD() {
                   </FormControl>
               </Grid> 
 
-
               <Grid item xs={12}>
                 {/* <h6>Do you drink alcohol regularly?</h6> */}
                   <FormControl fullWidth>
@@ -203,15 +220,16 @@ export default function SignupD() {
                       id="alcoholUse"
                       label="Do you drink alcohol regularly?"
                       labelId="qa"
+                      value={alcoholUse}
                       onChange={(e)=>setAlcoholUse (e.target.value)}
-                      inputStyle={{width: '100%', height: "2em"}}
+                      inputstyle={{width: '100%', height: "2em"}}
 
                     >
                       <MenuItem value={"Daily"}>yes, daily</MenuItem>
                       <MenuItem value={"Weekly"}>yes, weekly</MenuItem>
                       <MenuItem value={"Monthly"}>yes, monthly</MenuItem>
                       <MenuItem value={"Occassionally"}>yes, occassionally</MenuItem>
-                      <MenuItem value={"No"}>no</MenuItem>
+                      <MenuItem value={"No"}>No</MenuItem>
                     </Select>
                   </FormControl>
 
@@ -227,7 +245,7 @@ export default function SignupD() {
                       value={questionA}
                       label="Blood"
                       onChange={handleChangeQA}
-                      inputStyle={{width: '100%', height: "2em"}}
+                      inputstyle={{width: '100%', height: "2em"}}
                     >
                       <MenuItem value={"Daily"}>Daily</MenuItem>
                       <MenuItem value={"Weekly"}>Weekly</MenuItem>
