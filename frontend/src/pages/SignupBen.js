@@ -48,7 +48,7 @@ export default function SignupBen() {
   const onSubmit = () => {
     if (acknowledge === true && address !== '' && centerName !== '' && medicalZone !== '' && emailAdress !== '' && password !== '' && confirmPassword!== '' && password === confirmPassword && (phoneNumber !== "961" || phoneNumber !== "96" || phoneNumber !== "9" || phoneNumber !== "")) {
       console.log({centerName, medicalZone, emailAdress, password, confirmPassword, phoneNumber, address, acknowledge})
-      navigate('/grid')
+      navigate('/ben')
     } 
   }
 

@@ -12,6 +12,7 @@ const UserSchema =new mongoose.Schema({
     email: {
         type: String, 
         required: true, 
+        unique:true,
     },
     phone: {
         type: Number,
@@ -29,12 +30,6 @@ const UserSchema =new mongoose.Schema({
         type: Boolean,
         required: true,
     },
-    sms: {
-        type: Boolean,
-        required: true,
-    },
-
-
 });
 
 const DonorModel = mongoose.model("donors",UserSchema);
