@@ -1,4 +1,4 @@
-import * as React from 'react';
+import React, {useState, useContext} from 'react';
 import Avatar from '@mui/material/Avatar';
 import Button from '@mui/material/Button';
 import CssBaseline from '@mui/material/CssBaseline';
@@ -15,28 +15,43 @@ import Copyright from './Copyright';
 import { useForm } from "react-hook-form";
 import Alert from '@mui/material/Alert';
 //created fake user data to check, this is supposed to be the backend
-import {userData} from '../userdata';
+import { userData } from '../userdata';
+import {UserEmail} from "../App"
+
 
 
 
 const theme = createTheme();
 
+
+
 export default function SignIn() {
 
+  const {loggedIn, setLoggedin} = useContext(UserEmail); // diana adding context 
 
-const [ passCheck, setPassCheck] = React.useState(false);
+  const [ passCheck, setPassCheck] = useState(false);
+  //const [user, setUser] = React.useState("");
 
-//this is important
+
+  //this is important
   const {
     register,
     handleSubmit,
     watch,
     formState: { errors }
-  } = useForm();     
-  
+  } = useForm();
+
   //this is what happens when you press submit
   const onSubmit = (data) => {
-  //how to verify data, i used if & for statemnt   
+    console.log(data)
+    //let currentUser = data
+    // console.log(currentUser)
+    // setUser(currentUser)
+        // navigate("/grid", {state:{currentUser}})
+
+        // navigate("/userprofile")
+
+    //how to verify data, i used if & for statemnt   
     let i;
     for(i = 0; i < userData.length; i++){
     if (data.email === userData[i].emailAddress && data.password === userData[i].password) {navigate("/grid")
@@ -44,12 +59,13 @@ const [ passCheck, setPassCheck] = React.useState(false);
        else {setPassCheck(true)}
     }
   }
-       ; 
-          
- let navigate= useNavigate ();
+    ;
+
+  let navigate = useNavigate();
 
 
- return (
+
+  return (
 
 
     <ThemeProvider theme={theme}>
@@ -82,18 +98,19 @@ const [ passCheck, setPassCheck] = React.useState(false);
               label="Email Address"
               name="email"
               autoComplete="email"
-              autoFocus  
+              autoFocus
               //registred email for submit hook, and added conditions
               {...register("email", {
                 required: true,
                 maxLength: 20,
-                pattern:/^\w+([\.-]?\w+)*@\w+([\.-]?\w+)*(\.\w{2,})+$/i
+                pattern: /^\w+([\.-]?\w+)*@\w+([\.-]?\w+)*(\.\w{2,})+$/i
               })}
             />
             {errors.email && (<Alert severity="warning">Something is wrong with Email</Alert>)}
 
             <TextField
               id="password"
+              // name="password"
               label="Password"
               type="password"
               margin="normal"
@@ -108,16 +125,17 @@ const [ passCheck, setPassCheck] = React.useState(false);
               })}
             />
             {errors.password && ( <Alert severity="warning">Something is wrong with password</Alert>)}
-            
+            {loggedIn ? console.log("yes"):console.log("nooooo") }
             <Button
               type="submit"
               fullWidth
               variant="contained"
               sx={{ mt: 3, mb: 2 }}
+              onClick ={()=> {setLoggedin(true)}}
             >
               Sign In
             </Button>
-            {passCheck && (<Alert severity="error">Wrong Password or Email!</Alert>)}
+           {passCheck && (<Alert severity="error">Wrong Password or Email!</Alert>)}
 
             <Grid container>
               <Grid item>
