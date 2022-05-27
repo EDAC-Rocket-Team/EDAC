@@ -12,6 +12,7 @@ import AppHar from './AppHar';
 import CardMedia from '@mui/material/CardMedia';
 import { Grid } from '@mui/material';
 import Copyright from './Copyright';
+import proxy from './config.js';
 
 
 
