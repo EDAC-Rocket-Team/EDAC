@@ -25,7 +25,7 @@ import FormGroup from '@mui/material/FormGroup';
 // import FormHelperText from '@mui/material/FormHelperText';
 import Switch from '@mui/material/Switch';
 import Copyright from './Copyright';
-
+import proxy from './config.js';
 
 
 const theme = createTheme(); 
@@ -47,10 +47,11 @@ export default function SignupD() {
   const [alcoholUse, setAlcoholUse]= useState("");
   const [drug, setDrug]= useState(false);
 
+
    const onSubmit = () => {
     if (names !== ''  && bloodTypes !== '' && lastNames !== '' && emailAddress !== '' && userLocation !=='' && password !== '' && confirmPassword!== '' && password === confirmPassword && (phoneNumber !== "961" || phoneNumber !== "96" || phoneNumber !== "9" || phoneNumber !== "") && alcoholUse !== "" && drug === false ) {
       console.log({names, lastNames, emailAddress, password, confirmPassword, phoneNumber,userLocation, drug})
-      navigate('/grid')
+      navigate('/donor')
     } else { 
       //console.log({names, lastNames, bloodTypes, emailAddress, password, confirmPassword, phoneNumber,userLocation, alcoholUse, drug})
     }

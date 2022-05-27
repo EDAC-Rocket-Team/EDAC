@@ -18,7 +18,8 @@ import Link from '@mui/material/Link';
 import { createTheme, ThemeProvider } from '@mui/material/styles';
 import AppHar from './AppHar';
 import Copyright from './Copyright';
-import {userData} from "../userdata"
+import {userData} from "../userdata";
+import proxy from './config.js';
 
 
 const theme = createTheme();

@@ -16,7 +16,8 @@ import { useForm } from "react-hook-form";
 import Alert from '@mui/material/Alert';
 //created fake user data to check, this is supposed to be the backend
 import { userData } from '../userdata';
-import {UserEmail} from "../App"
+import {UserEmail} from "../App";
+import proxy from './config.js';
 
 
 

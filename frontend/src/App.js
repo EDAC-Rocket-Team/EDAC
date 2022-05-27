@@ -41,7 +41,6 @@ function App() {
           <Route path="/18" element={<Under18 />} />
           <Route path="/sud" element={<SignupD />} />
           <Route path="/sub" element={<SignupBen />} />
-          {/* <Route path="/sin" element={<SignIn />} /> */}
           <Route path="/grid" element={<GridUsers />} />
           <Route path="/userprofile" element={<ProfilePage />} />
           <Route path="/userprofile" element={<ImageAvatars />} />
