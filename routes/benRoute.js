@@ -8,12 +8,23 @@ const cors = require("cors");
 app.get("/getBens", (req, res) => {
   BenModel.find({}, (err, result) => {
     if (err) {
-      return res.status(500).json(err);
+      res.json(err);
     } else {
-      res.status(200).json(result);
+      let benInfo = [];
+      result.forEach((ben) => {
+        let getBens = {
+          centerName: ben.centerName,
+          medicalZone: ben.medicalZone,
+          phoneNumber: ben.phoneNumber,
+          address: ben.address,
+        };
+        benInfo.push(getBens);
+      });
+      res.json(benInfo);
     }
   });
 });
+
 
 app.post("/createBen", async (req, res) => {
   const ben = req.body; /// will be sending this from the frntend

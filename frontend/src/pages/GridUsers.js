@@ -1,5 +1,5 @@
-import React from 'react';
-import {useNavigate} from "react-router-dom";
+import React, { useEffect } from 'react';
+import { useNavigate } from "react-router-dom";
 import AppBar from '@mui/material/AppBar';
 import Button from '@mui/material/Button';
 import CameraIcon from '@mui/icons-material/PhotoCamera';
@@ -18,14 +18,35 @@ import Link from '@mui/material/Link';
 import { createTheme, ThemeProvider } from '@mui/material/styles';
 import AppHar from './AppHar';
 import Copyright from './Copyright';
-import {userData} from "../userdata";
+import { userData } from "../userdata";
 import proxy from './config.js';
+import Axios from 'axios';
 
 
 const theme = createTheme();
 
+
+// .then ((getBens) => {
+//   const benInfo = ben.data.benInfo;
+// })
+// .catch(error=> console.error(`Error: ${error}`));
+
+
 export default function Album() {
-    let navigate= useNavigate ();
+  let navigate = useNavigate();
+
+  useEffect(() => {
+    const getBenInfo = async () => {
+      const benInfo = await Axios.get(`${proxy}/ben/getBens`)
+      console.log(benInfo)
+    }
+    try {
+      getBenInfo()
+    } catch (err) {
+      console.log(err)
+    }
+  }, []);
+
   return (
     <ThemeProvider theme={theme}>
       <CssBaseline />
@@ -33,9 +54,9 @@ export default function Album() {
 
       <main>
         {/* Hero unit */}
-    
+
         <Container sx={{ py: 8 }} maxWidth="md">
-          {/* End hero unit */}
+
           <Grid container spacing={4}>
             {userData.map((card) => (
               <Grid item key={card} xs={12} sm={6} md={4}>
@@ -55,11 +76,14 @@ export default function Album() {
                       {card.name}
                     </Typography>
                     <Typography>
-                      Blood Type: {card.bloodType}
+                      Blood Type:
+                    </Typography>
+                    <Typography>
+                      Location:
                     </Typography>
                   </CardContent>
                   <CardActions>
-                    <Button size="small" variant='contained' onClick={()=>{navigate("/userprofile")}}>View</Button>
+                    <Button size="small" variant='contained' onClick={() => { navigate("/userprofile") }}>View</Button>
                   </CardActions>
                 </Card>
               </Grid>
