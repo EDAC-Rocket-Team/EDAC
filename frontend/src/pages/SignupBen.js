@@ -19,12 +19,17 @@ import Select from '@mui/material/Select';
 import {useNavigate} from "react-router-dom";
 import PhoneInput from 'react-phone-input-2'
 import 'react-phone-input-2/lib/style.css'
-import AppHar from '@mui/material/AppBar';
+import Header from '@mui/material/AppBar';
 import Copyright from './Copyright';
 import userdata from '../userdata';
 import { formLabelClasses } from '@mui/material';
 import { createAvatar } from '@dicebear/avatars';
 import * as style from '@dicebear/croodles-neutral';
+import Axios from "axios";
+import proxy from "./config";
+import axios from 'axios';
+import { response } from 'express';
+
 
 let svg = createAvatar(style, {
   seed: 'custom-seed',
@@ -45,14 +50,28 @@ export default function SignupBen() {
 
   let navigate = useNavigate();
 
-  const onSubmit = () => {
-    if (acknowledge === true && address !== '' && centerName !== '' && medicalZone !== '' && emailAdress !== '' && password !== '' && confirmPassword!== '' && password === confirmPassword && (phoneNumber !== "961" || phoneNumber !== "96" || phoneNumber !== "9" || phoneNumber !== "")) {
-      console.log({centerName, medicalZone, emailAdress, password, confirmPassword, phoneNumber, address, acknowledge})
-      navigate('/ben')
-    } 
-  }
+  const onSubmit = async(e) => {
+  //   if (acknowledge === true && address !== '' && centerName !== '' && medicalZone !== '' && emailAdress !== '' && password !== '' && confirmPassword!== '' && password === confirmPassword && (phoneNumber !== "961" || phoneNumber !== "96" || phoneNumber !== "9" || phoneNumber !== "")) {
+  //     console.log({centerName, medicalZone, emailAdress, password, confirmPassword, phoneNumber, address, acknowledge})
+  //     navigate('/beneficiary-submit')
+  //   } 
+ e.preventDefault();
+  try {
+    await Axios.post(`${proxy}/ben/createBen`, {
+      centerName,
+      medicalZone,
+      emailAdress,
+      password,
+      phoneNumber,
+      address,
+      acknowledge,
+    })
+     console.log ("im here");
+   } catch (error){
+     console.log ("oopsy!")
+   }}
 
-  return (
+   return (
     <ThemeProvider theme={theme}>
       <Container component="main" maxWidth="xs">
         <CssBaseline />
@@ -173,7 +192,7 @@ export default function SignupBen() {
 
             <Grid container justifyContent="flex-end">
               <Grid item>
-                <Link href="/sin" variant="body2">
+                <Link href="/sign-in" variant="body2">
                   Already have an account? Sign in
                 </Link>
               </Grid>

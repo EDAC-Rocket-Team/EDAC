@@ -8,7 +8,7 @@ import Link from '@mui/material/Link';
 import {buttonContext} from "../App";
 
 
-export default function AppHar() {
+export default function Header() {
   let navigate = useNavigate();
   // const [buttton, setButtton] = useState(false)
 
@@ -24,7 +24,7 @@ export default function AppHar() {
         } */}
         
         {/* <CameraIcon sx={{ mr: 2 }} ></CameraIcon> */}
-        <Link href="/" variant="h6" color="white" noWrap underline="none">
+        <Link href="/home" variant="h6" color="white" noWrap underline="none">
           EDAC
         </Link>
       </Toolbar>

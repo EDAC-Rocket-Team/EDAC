@@ -4,7 +4,7 @@ import background from "../media/heart.png";
 import {useNavigate} from "react-router-dom";
 import { AppBar } from '@mui/material';
 import { Toolbar } from '@mui/material';
-import AppHar from './AppHar';
+import Header from './Header';
 import Copyright from './Copyright';
 import { Paper } from '@mui/material';
 
@@ -25,13 +25,13 @@ export default function Home() {
             <Grid>
                 <Paper>
                 <Typography align='center'>Sign up Now!</Typography> </Paper>
-                <Button className='Donate' variant='contained' sx={{mr: 5}} onClick={()=>{navigate("/sud")}}>Donate</Button>
-                <Button className='Beneficiary' variant='contained' onClick={()=>{navigate("/sub")}}>Hosptial</Button>
-                <Button className='SignIn' sx={{ position: 'fixed', top: 80, right: 10}} variant="contained" onClick={() =>{navigate("/sin") }}>Sign In</Button>
+                <Button className='Donate' variant='contained' sx={{mr: 5}} onClick={()=>{navigate("/donor-sign-up")}}>Donate</Button>
+                <Button className='Beneficiary' variant='contained' onClick={()=>{navigate("/beneficiary-sign-up")}}>Hosptial</Button>
+                <Button className='SignIn' sx={{ position: 'fixed', top: 80, right: 10}} variant="contained" onClick={() =>{navigate("/sign-in") }}>Sign In</Button>
                 <Copyright sx={{mt:10}}></Copyright>
                 
             </Grid>
-            <AppHar/>
+            <Header/>
         </Grid>
         
         </div>

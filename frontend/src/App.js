@@ -11,6 +11,7 @@ import GridUsers from "./pages/GridUsers";
 import { BrowserRouter, Routes, Route } from "react-router-dom";
 import ImageAvatars from "./pages/ProfilePage";
 import ProfilePage from "./pages/ProfilePage";
+import GridBen from "./pages/GridBen";
 
 export const UserEmail = createContext({});
 
@@ -33,18 +34,16 @@ function App() {
     <BrowserRouter>
       <UserEmail.Provider value={{ loggedIn, setLoggedin }}>
         <Routes>
-          <Route path="/" element={<Home />} />
-          <Route path="/ben" element={<Beneficiarysubmit />} />
-          <Route path="/sin" element={<SignIn />} />
-          <Route path="/userprofile" element={<ImageAvatars />} />
-          <Route path="/donor" element={<DonorsSubmit />} />
-          <Route path="/18" element={<Under18 />} />
-          <Route path="/sud" element={<SignupD />} />
-          <Route path="/sub" element={<SignupBen />} />
-          <Route path="/grid" element={<GridUsers />} />
-          <Route path="/userprofile" element={<ProfilePage />} />
-          <Route path="/userprofile" element={<ImageAvatars />} />
-          <Route path="/grid" element={<GridUsers />} />
+          <Route path="/home" element={<Home />} />
+          <Route path="/sign-in" element={<SignIn />} />
+          <Route path="/beneficiary-submit" element={<Beneficiarysubmit />} />
+          <Route path="/donor-submit" element={<DonorsSubmit />} />
+          <Route path="/-18" element={<Under18 />} />
+          <Route path="/donor-sign-up" element={<SignupD />} />
+          <Route path="/beneficiary-sign-up" element={<SignupBen />} />
+          <Route path="/donors" element={<GridUsers />} />
+          <Route path="/beneficiaries" element={<GridBen/>}/>
+          <Route path="/profile" element={<ProfilePage />} />
         </Routes>
       </UserEmail.Provider>
     </BrowserRouter>

@@ -5,25 +5,25 @@ const mongoose = require("mongoose");
 const BenModel = require("../models/ben");
 const cors = require("cors");
 
-app.get("/getBens", (req, res) => {
-  BenModel.find({}, (err, result) => {
-    if (err) {
-      res.json(err);
-    } else {
-      let benInfo = [];
-      result.forEach((ben) => {
-        let getBens = {
-          centerName: ben.centerName,
-          medicalZone: ben.medicalZone,
-          phoneNumber: ben.phoneNumber,
-          address: ben.address,
-        };
-        benInfo.push(getBens);
-      });
-      res.json(benInfo);
-    }
-  });
-});
+// app.get("/getBens", (req, res) => {
+//   BenModel.find({}, (err, result) => {
+//     if (err) {
+//       res.json(err);
+//     } else {
+//       let benInfo = [];
+//       result.forEach((ben) => {
+//         let getBens = {
+//           centerName: ben.centerName,
+//           medicalZone: ben.medicalZone,
+//           phoneNumber: ben.phoneNumber,
+//           address: ben.address,
+//         };
+//         benInfo.push(getBens);
+//       });
+//       res.json(benInfo);
+//     }
+//   });
+// });
 
 
 app.post("/createBen", async (req, res) => {

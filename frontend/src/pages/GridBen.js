@@ -2,7 +2,6 @@ import React, { useEffect } from 'react';
 import { useNavigate } from "react-router-dom";
 import AppBar from '@mui/material/AppBar';
 import Button from '@mui/material/Button';
-import CameraIcon from '@mui/icons-material/PhotoCamera';
 import Card from '@mui/material/Card';
 import CardActions from '@mui/material/CardActions';
 import CardContent from '@mui/material/CardContent';
@@ -28,6 +27,17 @@ const theme = createTheme();
 export default function Album() {
   let navigate = useNavigate();
 
+//   useEffect(() => {
+//     const getBenInfo = async () => {
+//       const benInfo = await Axios.get(`${proxy}/ben/getBens`)
+//       console.log(benInfo)
+//     }
+//     try {
+//       getBenInfo()
+//     } catch (err) {
+//       console.log(err)
+//     }
+//   }, []);
 
   return (
     <ThemeProvider theme={theme}>

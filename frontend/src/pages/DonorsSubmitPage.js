@@ -18,7 +18,7 @@ export default function DonorsSubmit() {
            <Paper sx={{backgroundColor: 'rgba(255,255,255,0.7)'}}>
                     <Typography align='center' sx={{fontSize: "2em", width: "40vw"}} > Thanks for submiting your form...Hold on tight we are searching for the best match for you. </Typography>
             </Paper>
-            <Button sx={{mt: 10}} className='Donate' variant='contained' onClick={()=>{navigate("/grid")}}>Continue</Button>
+            <Button sx={{mt: 10}} className='Donate' variant='contained' onClick={()=>{navigate("/donors")}}>Continue</Button>
            
         </Grid>
     )

@@ -55,7 +55,7 @@ export default function SignIn() {
     //how to verify data, i used if & for statemnt   
     let i;
     for(i = 0; i < userData.length; i++){
-    if (data.email === userData[i].emailAddress && data.password === userData[i].password) {navigate("/grid")
+    if (data.email === userData[i].emailAddress && data.password === userData[i].password) {navigate("/profile")
     break;}
        else {setPassCheck(true)}
     }
