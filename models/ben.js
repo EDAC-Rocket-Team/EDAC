@@ -14,6 +14,10 @@ const BenSchema = new mongoose.Schema({
     required: true,
     unique: true,
   },
+  password: {
+    type: String,
+    required: true,
+  },
   phoneNumber: {
     type: Number,
     required: true,
@@ -24,10 +28,6 @@ const BenSchema = new mongoose.Schema({
   },
   acknowledge: {
     type: Boolean,
-    required: true,
-  },
-  password: {
-    type: String,
     required: true,
   },
 });
