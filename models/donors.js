@@ -1,18 +1,30 @@
 const mongoose = require('mongoose')
 
-const UserSchema =new mongoose.Schema({
+const DonorSchema = new mongoose.Schema({
     firstname: {
         type: String,
         required: true,
-    }, 
+    },
     lastname: {
         type: String,
-        required: true, 
-    }, 
+        required: true,
+    },
     email: {
-        type: String, 
-        required: true, 
-        unique:true,
+        type: String,
+        required: true,
+        unique: true,
+    },
+    password: {
+        type: String,
+        required: true,
+    },
+    birthdate: {
+        type: Number,
+        required: true,
+    },
+    address: {
+        type: String,
+        required: true,
     },
     phone: {
         type: Number,
@@ -32,5 +44,5 @@ const UserSchema =new mongoose.Schema({
     },
 });
 
-const DonorModel = mongoose.model("donors",UserSchema);
+const DonorModel = mongoose.model("donors", DonorSchema);
 module.exports = DonorModel;
