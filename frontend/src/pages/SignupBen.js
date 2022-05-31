@@ -1,4 +1,4 @@
-import React, {useState} from 'react';
+import React, { useState } from 'react';
 import Avatar from '@mui/material/Avatar';
 import Button from '@mui/material/Button';
 import CssBaseline from '@mui/material/CssBaseline';
@@ -16,19 +16,15 @@ import InputLabel from '@mui/material/InputLabel';
 import MenuItem from '@mui/material/MenuItem';
 import FormControl from '@mui/material/FormControl';
 import Select from '@mui/material/Select';
-import {useNavigate} from "react-router-dom";
 import PhoneInput from 'react-phone-input-2'
 import 'react-phone-input-2/lib/style.css'
-import Header from '@mui/material/AppBar';
 import Copyright from './Copyright';
-import userdata from '../userdata';
+// import userdata from '../userdata';
 import { formLabelClasses } from '@mui/material';
 import { createAvatar } from '@dicebear/avatars';
 import * as style from '@dicebear/croodles-neutral';
 import Axios from "axios";
 import proxy from "./config";
-import axios from 'axios';
-import { response } from 'express';
 
 
 let svg = createAvatar(style, {
@@ -38,45 +34,46 @@ let svg = createAvatar(style, {
 const theme = createTheme();
 
 export default function SignupBen() {
-  
-  const [centerName, setCenterName]= useState("");
+
+  const [centerName, setCenterName] = useState("");
   const [medicalZone, setMedicalZone] = useState("");
   const [emailAdress, setEmailAdress] = useState("");
   const [password, setPassword] = useState("");
   const [confirmPassword, setConfirmPassword] = useState("");
-  const [phoneNumber,setPhoneNumber] = useState("");
+  const [phoneNumber, setPhoneNumber] = useState("");
   const [address, setAddress] = useState("");
   const [acknowledge, setAcknowledge] = useState(false);
 
-  let navigate = useNavigate();
+  // let navigate = useNavigate();
 
-  const onSubmit = async(e) => {
-  //   if (acknowledge === true && address !== '' && centerName !== '' && medicalZone !== '' && emailAdress !== '' && password !== '' && confirmPassword!== '' && password === confirmPassword && (phoneNumber !== "961" || phoneNumber !== "96" || phoneNumber !== "9" || phoneNumber !== "")) {
-  //     console.log({centerName, medicalZone, emailAdress, password, confirmPassword, phoneNumber, address, acknowledge})
-  //     navigate('/beneficiary-submit')
-  //   } 
- e.preventDefault();
-  try {
-    await Axios.post(`${proxy}/ben/createBen`, {
-      centerName,
-      medicalZone,
-      emailAdress,
-      password,
-      phoneNumber,
-      address,
-      acknowledge,
-    })
-     console.log ("im here");
-   } catch (error){
-     console.log ("oopsy!")
-   }}
+  const onSubmit = async (e) => {
+    //   if (acknowledge === true && address !== '' && centerName !== '' && medicalZone !== '' && emailAdress !== '' && password !== '' && confirmPassword!== '' && password === confirmPassword && (phoneNumber !== "961" || phoneNumber !== "96" || phoneNumber !== "9" || phoneNumber !== "")) {
+    //     console.log({centerName, medicalZone, emailAdress, password, confirmPassword, phoneNumber, address, acknowledge})
+    //     navigate('/beneficiary-submit')
+    //   } 
+    e.preventDefault();
+    try {
+      await Axios.post(`${proxy}/ben/createBen`, {
+        centerName,
+        medicalZone,
+        emailAdress,
+        password,
+        phoneNumber,
+        address,
+        acknowledge,
+      })
+      console.log("im here");
+    } catch (error) {
+      console.log("oopsy!")
+    }
+  }
 
-   return (
+  return (
     <ThemeProvider theme={theme}>
       <Container component="main" maxWidth="xs">
         <CssBaseline />
-        
-        <Box sx={{marginTop: 8, display: 'flex', flexDirection: 'column', alignItems: 'center'}}>
+
+        <Box sx={{ marginTop: 8, display: 'flex', flexDirection: 'column', alignItems: 'center' }}>
           <Avatar sx={{ m: 1, bgcolor: 'secondary.main' }}>
             <LockOutlinedIcon />
           </Avatar>
@@ -90,8 +87,8 @@ export default function SignupBen() {
                 <TextField
                   id="centerName"
                   label="Medical Center Name"
-                  value = {centerName}
-                  onChange = {(e) => {setCenterName(e.target.value)}}
+                  value={centerName}
+                  onChange={(e) => { setCenterName(e.target.value) }}
                   required
                   fullWidth
                   autoFocus
@@ -105,7 +102,7 @@ export default function SignupBen() {
                     labelId="medicalZoneLabel"
                     label="Medical Zone"
                     value={medicalZone}
-                    onChange = {(e)=>{setMedicalZone(e.target.value)}}
+                    onChange={(e) => { setMedicalZone(e.target.value) }}
                   >
                     <MenuItem value={"GB"}>Greater Beirut</MenuItem>
                     <MenuItem value={"ML"}>Mount Lebanon</MenuItem>
@@ -119,8 +116,8 @@ export default function SignupBen() {
                 <TextField
                   id="email"
                   label="Email Address"
-                  value= {emailAdress}
-                  onChange = {(e)=> {setEmailAdress(e.target.value)}}
+                  value={emailAdress}
+                  onChange={(e) => { setEmailAdress(e.target.value) }}
                   required
                   fullWidth
                 />
@@ -130,8 +127,8 @@ export default function SignupBen() {
                   id="password"
                   label="Password"
                   type="password"
-                  value = {password}
-                  onChange = {(e)=> {setPassword(e.target.value)}}
+                  value={password}
+                  onChange={(e) => { setPassword(e.target.value) }}
                   required
                   fullWidth
                 />
@@ -140,9 +137,9 @@ export default function SignupBen() {
                 <TextField
                   id="confirmPassword"
                   label="Confirm Password"
-                  type="password" 
+                  type="password"
                   value={confirmPassword}
-                  onChange= {(e)=>{setConfirmPassword(e.target.value)}}
+                  onChange={(e) => { setConfirmPassword(e.target.value) }}
                   required
                   fullWidth
                 />
@@ -152,21 +149,21 @@ export default function SignupBen() {
                   id="phone"
                   label="Phone Number"
                   type="tel"
-                  value= {phoneNumber}
-                  onChange= {(value)=>{(setPhoneNumber(value))}}
+                  value={phoneNumber}
+                  onChange={(value) => { (setPhoneNumber(value)) }}
                   country={'lb'}
                   required
                   fullWidth
                   //this is to widen it to be the same as the rest @diana
-                  inputstyle={{width: '100%', height: "4em"}}
-                /> 
-              </Grid> 
+                  inputstyle={{ width: '100%', height: "4em" }}
+                />
+              </Grid>
               <Grid item xs={12}>
                 <TextField
                   id="address"
                   label="Address"
                   value={address}
-                  onChange={(e)=>{setAddress(e.target.value)}}
+                  onChange={(e) => { setAddress(e.target.value) }}
                   multiline
                   maxRows={4}
                   required
@@ -175,18 +172,18 @@ export default function SignupBen() {
               </Grid>
               <Grid item xs={12}>
                 <FormControlLabel
-                  control={<Checkbox value={acknowledge} onChange={()=>{setAcknowledge(!acknowledge)}} color="primary" />}
+                  control={<Checkbox value={acknowledge} onChange={() => { setAcknowledge(!acknowledge) }} color="primary" />}
                   label="I acknowledge that all info in this form is correct"
                 />
               </Grid>
             </Grid>
-  
+
             <Button
               type="submit"
               fullWidth
               variant="contained"
               sx={{ mt: 3, mb: 2 }}
-              onClick={()=>{onSubmit()}}>
+              onClick={() => { onSubmit() }}>
               Sign Up
             </Button>
 
@@ -197,9 +194,9 @@ export default function SignupBen() {
                 </Link>
               </Grid>
             </Grid>
-  
+
           </Box>
-          
+
         </Box>
         <Copyright sx={{ mt: 5 }} />
       </Container>
