@@ -13,26 +13,24 @@ import { BrowserRouter, Routes, Route } from "react-router-dom";
 import ProfilePage from "./pages/ProfilePage";
 import GridBen from "./pages/GridBen";
 
-export const UserEmail = createContext({});
+export const UserContext = createContext({});
 
 function App() {
   // const [email,setEmail] = useState("");
   // const getEmail = () => {return email};
   // const changeEmail = (email) => {setEmail(email)};
 
-  const [loggedIn, setLoggedin] = useState({
+  const [userData, setUserData] = useState({
     centerName: "null",
     medicalZone: "null",
     emailAdress: "null",
-    password: "null",
-    confirmPassword: "null",
     phoneNumber: null,
     address: "null",
   });
 
   return (
     <BrowserRouter>
-      <UserEmail.Provider value={{ loggedIn, setLoggedin }}>
+      <UserContext.Provider value={{ userData, setUserData }}>
         <Routes>
           <Route path="/" element={<Home />} />
           <Route path="/sign-in" element={<SignIn />} />
@@ -45,7 +43,7 @@ function App() {
           <Route path="/beneficiaries" element={<GridBen />} />
           <Route path="/profile" element={<ProfilePage />} />
         </Routes>
-      </UserEmail.Provider>
+      </UserContext.Provider>
     </BrowserRouter>
   );
 }

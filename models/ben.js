@@ -9,7 +9,7 @@ const BenSchema = new mongoose.Schema({
     type: String,
     required: true,
   },
-  emailAdress: {
+  email: {
     type: String,
     required: true,
     unique: true,

@@ -16,7 +16,7 @@ import { useForm } from "react-hook-form";
 import Alert from '@mui/material/Alert';
 //created fake user data to check, this is supposed to be the backend
 import { userData } from '../userdata';
-import {UserEmail} from "../App";
+import UserContext from "../App";
 import proxy from './config.js';
 
 
@@ -28,7 +28,7 @@ const theme = createTheme();
 
 export default function SignIn() {
 
-  const {loggedIn, setLoggedin} = useContext(UserEmail); // diana adding context 
+  const { userData, setUserData } = useContext(UserContext); // diana adding context 
 
   const [ passCheck, setPassCheck] = useState(false);
   //const [user, setUser] = React.useState("");

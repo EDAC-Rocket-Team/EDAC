@@ -8,6 +8,7 @@ const cors = require("cors");
 
 const donorRoute = require("./routes/donorRoute");
 const benRoute = require("./routes/benRoute");
+const common = require("./routes/signin");
 
 // allows us to connect to api using react
 
@@ -15,6 +16,7 @@ app.use(express.json());
 app.use(cors());
 app.use("/donor", donorRoute);
 app.use("/ben", benRoute);
+app.use("/common", common);
 
 mongoose
   .connect(

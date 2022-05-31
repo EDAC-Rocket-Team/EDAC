@@ -27,12 +27,14 @@ import Switch from "@mui/material/Switch";
 import Copyright from "./Copyright";
 import Axios from "axios";
 import proxy from "./config";
+import UserContext from "../App"
 
 const theme = createTheme();
 
 // onChange = {(e)=>{set(e.target.value)}}
 
 export default function SignupD() {
+  const [userData, setUserData] = useContext(UserContext)
   const [names, setNames] = useState("");
   const [lastNames, setLastNames] = useState("");
   const [emailAddress, setEmailAddress] = useState("");
@@ -63,7 +65,9 @@ export default function SignupD() {
         bloodtype: bloodTypes,
         alcoholpass: alcoholUse,
         drugpass: drug,
-      })
+      });
+      // setUserData();
+      navigate('/profile')
       console.log("success");
     } catch (error) {
       console.log(error);
