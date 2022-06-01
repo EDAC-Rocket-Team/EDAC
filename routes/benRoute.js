@@ -1,10 +1,11 @@
 const express = require("express");
 const app = express();
 const mongoose = require("mongoose");
-const dotenv = require('dotenv').config()
+// const dotenv = require("dotenv").config();
 const BenModel = require("../models/ben");
+const DonorModel = require("../models/donors");
 const cors = require("cors");
-const bcrypt = require('bcrypt');
+const bcrypt = require("bcrypt");
 
 app.get("/getBens", (req, res) => {
   BenModel.find({}, (err, result) => {
@@ -47,16 +48,6 @@ app.post("/createBen", async (req, res) => {
       acknowledge,
     } = req.body;
     // validate
-    const pattern =
-      /[a-zA-Z0-9]+[.]?([a-zA-Z0-9]+)?[@][a-z]{3,9}[.][a-z]{2,5}/g;
-    const result = pattern.test(email);
-    if (!result) {
-      return res.status(400).json({ msg: "Please enter an email." });
-    }
-    if (password !== confirmPassword)
-      return res
-        .status(400)
-        .json({ msg: "Enter the same password twice for verification." });
     if (
       !centerName ||
       !medicalZone ||
@@ -64,19 +55,33 @@ app.post("/createBen", async (req, res) => {
       !password ||
       !confirmPassword ||
       !phoneNumber ||
-      !address ||
-      !acknowledge
+      !address
     )
       return res.status(400).json({ msg: "Not all fields have been entered." });
+    const pattern =
+      /[a-zA-Z0-9]+[.]?([a-zA-Z0-9]+)?[@][a-z]{3,9}[.][a-z]{2,5}/g;
+    const result = pattern.test(email);
+    if (!result) {
+      return res.status(400).json({ msg: "Please enter an email." });
+    }
+    const existingBenUser = await BenModel.findOne({ email: email });
+    const existingDonorUser = await DonorModel.findOne({ email: email });
+    if (existingBenUser || existingDonorUser)
+      return res
+        .status(400)
+        .json({ msg: "An account with this email already exists." });
     if (password.length < 8)
       return res
         .status(400)
         .json({ msg: "The password needs to be at least 8 characters long." });
-    const existingUser = await BenModel.findOne({ email: email });
-    if (existingUser)
+    if (password !== confirmPassword)
       return res
         .status(400)
-        .json({ msg: "An account with this email already exists." });
+        .json({ msg: "Enter the same password twice for verification." });
+    if (!acknowledge)
+      return res
+        .status(400)
+        .json({ msg: "Please check that all information is correct!" });
     const salt = await bcrypt.genSalt();
     const passwordHash = await bcrypt.hash(password, salt);
     const newUser = new BenModel({

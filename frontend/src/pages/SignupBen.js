@@ -26,6 +26,7 @@ import * as style from "@dicebear/croodles-neutral";
 import Axios from "axios";
 import proxy from "./config";
 import { useNavigate } from "react-router-dom";
+import ErrorNotice from "./misc/ErrorNotice";
 
 let svg = createAvatar(style, {
   seed: "custom-seed",
@@ -42,28 +43,26 @@ export default function SignupBen() {
   const [phoneNumber, setPhoneNumber] = useState("");
   const [address, setAddress] = useState("");
   const [acknowledge, setAcknowledge] = useState(false);
+  const [error, setError] = useState("");
 
   let navigate = useNavigate();
 
   const onSubmit = async (e) => {
-    // if (acknowledge === true && address !== '' && centerName !== '' && medicalZone !== '' && email !== '' && password !== '' && confirmPassword!== '' && password === confirmPassword && (phoneNumber !== "961" || phoneNumber !== "96" || phoneNumber !== "9" || phoneNumber !== "")) {
-    //   console.log({centerName, medicalZone, email, password, confirmPassword, phoneNumber, address, acknowledge})
-
-    // }
     try {
       await Axios.post(`${proxy}/ben/createBen`, {
         centerName,
         medicalZone,
         email,
         password,
+        confirmPassword,
         phoneNumber,
         address,
-        acknowledge
+        acknowledge,
       });
-      navigate('/beneficiary-submit')
-      console.log("im here");
-    } catch (error) {
-      console.log("oopsy!");
+      navigate("/beneficiary-submit");
+    } catch (err) {
+      console.log(err);
+      setError(err.response.data.msg);
     }
   };
 
@@ -203,6 +202,7 @@ export default function SignupBen() {
                   label="I acknowledge that all info in this form is correct"
                 />
               </Grid>
+              {error && <ErrorNotice message={error} />}
             </Grid>
 
             <Button
