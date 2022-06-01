@@ -15,7 +15,7 @@ export default function Under18() {
              <Paper sx={{backgroundColor: 'rgba(255,255,255,0.7)'}}>
                     <Typography align='center' sx={{fontSize: "2em", width: "40vw"}} >   Thank you for trying but you dont meet criteria. Try again in a few!</Typography>
             </Paper>
-            <Button sx={{mt: 10}} className='Donate' variant='contained' onClick={()=>{navigate("/home")}}>Continue</Button>
+            <Button sx={{mt: 10}} className='Donate' variant='contained' onClick={()=>{navigate("/")}}>Continue</Button>
            
         </Grid>
 )

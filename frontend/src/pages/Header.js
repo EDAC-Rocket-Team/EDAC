@@ -24,7 +24,7 @@ export default function Header() {
         } */}
         
         {/* <CameraIcon sx={{ mr: 2 }} ></CameraIcon> */}
-        <Link href="/home" variant="h6" color="white" noWrap underline="none">
+        <Link href="/" variant="h6" color="white" noWrap underline="none">
           EDAC
         </Link>
       </Toolbar>

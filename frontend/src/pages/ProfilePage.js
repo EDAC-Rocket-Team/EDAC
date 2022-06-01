@@ -13,11 +13,12 @@ import CardMedia from '@mui/material/CardMedia';
 import { Grid } from '@mui/material';
 import Copyright from './Copyright';
 import proxy from './config.js';
+import {useHistory} from "react-router-dom";
 
 
 
 export default function ImageAvatars() {
-  let navigate = useNavigate ();
+  let navigate = useNavigate();
   const bull = (
     <Box
       component="span"
@@ -77,7 +78,7 @@ export default function ImageAvatars() {
     <Box sx={{ maxWidth: 350 }}>
       <Card variant="outlined">{card}</Card>
     </Box>
-    <Button className='Sign In'sx={{position: 'fixed', top: 10, right: 10, mt: 10}} variant='contained' onClick={()=>{navigate(this.context.router.history.goBack)}}>Back</Button>
+    <Button className='Sign In'sx={{position: 'fixed', top: 10, right: 10, mt: 10}} variant='contained' onClick={() => {navigate(-1)}}>Back</Button>
     
     </Grid>
     <Copyright sx={{mt: 20}}></Copyright>

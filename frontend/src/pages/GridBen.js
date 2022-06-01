@@ -60,7 +60,7 @@ export default function Album() {
                     sx={{
                       pt: '1%',
                     }}
-                    image={`https://avatars.dicebear.com/api/croodles-neutral/${card.emailAddress}.svg`}
+                    image={`https://avatars.dicebear.com/api/croodles-neutral/${card.email}.svg`}
                     alt="random"
                   />
                   <CardContent sx={{ flexGrow: 1 }}>

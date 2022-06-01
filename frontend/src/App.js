@@ -23,7 +23,7 @@ function App() {
   const [userData, setUserData] = useState({
     centerName: "null",
     medicalZone: "null",
-    emailAdress: "null",
+    email: "null",
     phoneNumber: null,
     address: "null",
   });

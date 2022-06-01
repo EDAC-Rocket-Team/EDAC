@@ -37,7 +37,7 @@ export default function SignupD() {
   const [userData, setUserData] = useContext(UserContext)
   const [names, setNames] = useState("");
   const [lastNames, setLastNames] = useState("");
-  const [emailAddress, setEmailAddress] = useState("");
+  const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
   const [confirmPassword, setConfirmPassword] = useState("");
   const [birthdate, setBirthDate] = useState("");
@@ -49,17 +49,19 @@ export default function SignupD() {
 
   const [listOfUsers, setListOfUsers] = useState([]);
 
+  let navigate = useNavigate();
+
   const onSubmit = async (e) => {
-    e.preventDefault();
-    //if (names !== ''  && bloodTypes !== '' && lastNames !== '' && emailAddress !== '' && userLocation !=='' && password !== '' && confirmPassword!== '' && password === confirmPassword && (phoneNumber !== "961" || phoneNumber !== "96" || phoneNumber !== "9" || phoneNumber !== "") && alcoholUse !== "" && drug === false )
+    // e.preventDefault();
+    //if (names !== ''  && bloodTypes !== '' && lastNames !== '' && email !== '' && userLocation !=='' && password !== '' && confirmPassword!== '' && password === confirmPassword && (phoneNumber !== "961" || phoneNumber !== "96" || phoneNumber !== "9" || phoneNumber !== "") && alcoholUse !== "" && drug === false )
     //{
-    //console.log({names, lastNames, emailAddress, password, confirmPassword, phoneNumber,userLocation, drug})
+    //console.log({names, lastNames, email, password, confirmPassword, phoneNumber,userLocation, drug})
     // createD()
     try {
       await Axios.post(`${proxy}/donor/createDonor`, {
         firstname: names,
         lastname: lastNames,
-        email: emailAddress,
+        email: email,
         // password:password,
         phone: phoneNumber,
         bloodtype: bloodTypes,
@@ -67,17 +69,15 @@ export default function SignupD() {
         drugpass: drug,
       });
       // setUserData();
-      navigate('/profile')
+      navigate('/donor-submit')
       console.log("success");
     } catch (error) {
       console.log(error);
     }
     //} else {
-    //console.log({names, lastNames, bloodTypes, emailAddress, password, confirmPassword, phoneNumber,userLocation, alcoholUse, drug})
+    //console.log({names, lastNames, bloodTypes, email, password, confirmPassword, phoneNumber,userLocation, alcoholUse, drug})
     //}
   };
-
-  let navigate = useNavigate();
 
   return (
     <ThemeProvider theme={theme}>
@@ -126,10 +126,10 @@ export default function SignupD() {
               </Grid>
               <Grid item xs={12}>
                 <TextField
-                  id="emailAdress"
+                  id="email"
                   label="Email Address"
                   onChange={(e) => {
-                    setEmailAddress(e.target.value);
+                    setEmail(e.target.value);
                   }}
                   required
                   fullWidth

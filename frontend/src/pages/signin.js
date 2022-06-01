@@ -55,7 +55,7 @@ export default function SignIn() {
     //how to verify data, i used if & for statemnt   
     let i;
     for(i = 0; i < userData.length; i++){
-    if (data.email === userData[i].emailAddress && data.password === userData[i].password) {navigate("/profile")
+    if (data.email === userData[i].email && data.password === userData[i].password) {navigate("/profile")
     break;}
        else {setPassCheck(true)}
     }
@@ -95,7 +95,7 @@ export default function SignIn() {
               margin="normal"
               required
               fullWidth
-              id="emailAddress"
+              id="email"
               label="Email Address"
               name="email"
               autoComplete="email"
@@ -126,13 +126,13 @@ export default function SignIn() {
               })}
             />
             {errors.password && ( <Alert severity="warning">Something is wrong with password</Alert>)}
-            {loggedIn ? console.log("yes"):console.log("nooooo") }
+            {/* {loggedIn ? console.log("yes"):console.log("nooooo") } */}
             <Button
               type="submit"
               fullWidth
               variant="contained"
               sx={{ mt: 3, mb: 2 }}
-              onClick ={()=> {setLoggedin(true)}}
+              // onClick ={()=> {setLoggedin(true)}}
             >
               Sign In
             </Button>
