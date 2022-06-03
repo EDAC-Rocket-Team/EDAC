@@ -5,7 +5,8 @@ const mongoose = require("mongoose");
 const BenModel = require("../models/ben");
 const DonorModel = require("../models/donors");
 // const cors = require("cors");
-const bcrypt = require('bcrypt');
+const bcrypt = require("bcrypt");
+const res = require("express/lib/response");
 
 app.get("/getBens", (req, res) => {
   BenModel.find({}, (err, result) => {
@@ -99,5 +100,19 @@ app.post("/createBen", async (req, res) => {
     res.status(500).json({ error: err.message });
   }
 });
+
+app.delete("/deleteBen",
+  async (req, res) => {
+    try {
+      let { email } = req.body;
+      const entry = await BenModel.findOne({ email });
+      if (!entry)
+        return res.status(400).json("no account with this email is found");
+      await BenModel.deleteOne({email: email});
+      res.status(200).json(email);
+    } catch (err) {
+      res.status(500).json(err.message);
+    }
+  });
 
 module.exports = app;
