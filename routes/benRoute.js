@@ -4,8 +4,8 @@ const mongoose = require("mongoose");
 // const dotenv = require("dotenv").config();
 const BenModel = require("../models/ben");
 const DonorModel = require("../models/donors");
-const cors = require("cors");
-const bcrypt = require("bcrypt");
+// const cors = require("cors");
+const bcrypt = require('bcrypt');
 
 app.get("/getBens", (req, res) => {
   BenModel.find({}, (err, result) => {

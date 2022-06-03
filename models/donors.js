@@ -19,7 +19,7 @@ const DonorSchema = new mongoose.Schema({
         required: true,
     },
     birthdate: {
-        type: Number,
+        type: String,
         required: true,
     },
     address: {

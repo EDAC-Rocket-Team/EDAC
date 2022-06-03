@@ -27,14 +27,15 @@ import Switch from "@mui/material/Switch";
 import Copyright from "./Copyright";
 import Axios from "axios";
 import proxy from "./config";
-import UserContext from "../App"
+// import UserContext from "../App";
+import ErrorNotice from "./misc/ErrorNotice";
 
 const theme = createTheme();
 
 // onChange = {(e)=>{set(e.target.value)}}
 
 export default function SignupD() {
-  const [userData, setUserData] = useContext(UserContext)
+  // const [userData, setUserData] = useContext(UserContext)
   const [names, setNames] = useState("");
   const [lastNames, setLastNames] = useState("");
   const [email, setEmail] = useState("");
@@ -46,37 +47,46 @@ export default function SignupD() {
   const [bloodTypes, setBloodTypes] = useState("O RhD positive");
   const [alcoholUse, setAlcoholUse] = useState("No");
   const [drug, setDrug] = useState(false);
+  const [error, setError] = useState("");
 
   const [listOfUsers, setListOfUsers] = useState([]);
 
   let navigate = useNavigate();
 
-  const onSubmit = async (e) => {
-    // e.preventDefault();
-    //if (names !== ''  && bloodTypes !== '' && lastNames !== '' && email !== '' && userLocation !=='' && password !== '' && confirmPassword!== '' && password === confirmPassword && (phoneNumber !== "961" || phoneNumber !== "96" || phoneNumber !== "9" || phoneNumber !== "") && alcoholUse !== "" && drug === false )
-    //{
-    //console.log({names, lastNames, email, password, confirmPassword, phoneNumber,userLocation, drug})
-    // createD()
+  const onSubmit = async () => {
+    console.log({
+      firstname: names,
+      lastname: lastNames,
+      email,
+      password,
+      passwordCheck: confirmPassword,
+      birthdate,
+      address: userLocation,
+      phone: phoneNumber,
+      bloodtype: bloodTypes,
+      alcoholpass: alcoholUse,
+      drugpass: drug,
+    });
     try {
       await Axios.post(`${proxy}/donor/createDonor`, {
         firstname: names,
         lastname: lastNames,
-        email: email,
-        // password:password,
+        email,
+        password,
+        passwordCheck: confirmPassword,
+        birthdate,
+        address: userLocation,
         phone: phoneNumber,
         bloodtype: bloodTypes,
         alcoholpass: alcoholUse,
         drugpass: drug,
       });
-      // setUserData();
-      navigate('/donor-submit')
-      console.log("success");
-    } catch (error) {
-      console.log(error);
+      console.log(birthdate, typeof birthdate)
+      navigate("/donor-submit");
+    } catch (err) {
+      console.log(err);
+      setError(err.response.data.msg);
     }
-    //} else {
-    //console.log({names, lastNames, bloodTypes, email, password, confirmPassword, phoneNumber,userLocation, alcoholUse, drug})
-    //}
   };
 
   return (
@@ -97,7 +107,9 @@ export default function SignupD() {
           <Typography component="h1" variant="h5">
             Sign Up Now
           </Typography>
-          <Box component="form" noValidate sx={{ mt: 3 }}>
+          <Box sx={{ mt: 3 }}>
+            {" "}
+            {/* <Box component="form" noValidate sx={{ mt: 3 }}></Box> */}
             <Grid container spacing={2}>
               <Grid item xs={12} sm={6}>
                 <TextField
@@ -325,13 +337,16 @@ export default function SignupD() {
                   label="I want to receive a text message, when blood donation of my type is needed."
                 />
               </Grid> */}
-            </Grid>
 
+              {error && <ErrorNotice message={error} />}
+            </Grid>
             <Button
               variant="contained"
               sx={{ mt: 3, mb: 2 }}
               fullWidth
-              onClick={(e) => onSubmit(e)}
+              onClick={() => {
+                onSubmit();
+              }}
             >
               Sign Up
             </Button>

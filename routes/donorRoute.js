@@ -57,8 +57,7 @@ app.post("/createDonor", async (req, res) => {
       !address||
       !phone ||
       !bloodtype ||
-      !alcoholpass ||
-      !drugpass
+      !alcoholpass
     )
       return res.status(400).json({ msg: "Not all fields have been entered." });
     const pattern =
@@ -81,10 +80,6 @@ app.post("/createDonor", async (req, res) => {
       return res
         .status(400)
         .json({ msg: "Enter the same password twice for verification." });
-    // if (!acknowledge)
-    //   return res
-    //     .status(400)
-    //     .json({ msg: "Please check that all information is correct!" });
     const salt = await bcrypt.genSalt();
     const passwordHash = await bcrypt.hash(password, salt);
     const newUser = new DonorModel({
@@ -102,8 +97,22 @@ app.post("/createDonor", async (req, res) => {
     const savedUser = await newUser.save();
     res.json(savedUser);
   } catch (err) {
-    res.json({ error: err.message });
+    res.status(500).json({ error: err.message });
   }
 });
+
+app.delete("/deleteDonor",
+  async (req, res) => {
+    try {
+      let { email } = req.body;
+      const entry = await DonorModel.findOne({ email });
+      if (!entry)
+        return res.status(400).json("no account with this email is found");
+      await DonorModel.deleteOne({email: email});
+      res.status(200).json(email);
+    } catch (err) {
+      res.status(500).json(err.message);
+    }
+  });
 
 module.exports = app;
