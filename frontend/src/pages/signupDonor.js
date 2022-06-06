@@ -29,13 +29,13 @@ import Axios from "axios";
 import proxy from "./config";
 // import UserContext from "../App";
 import ErrorNotice from "./misc/ErrorNotice";
+import { ValueContext, SetValueContext } from "../App";
 
 const theme = createTheme();
 
 // onChange = {(e)=>{set(e.target.value)}}
 
 export default function SignupD() {
-  // const [userData, setUserData] = useContext(UserContext)
   const [names, setNames] = useState("");
   const [lastNames, setLastNames] = useState("");
   const [email, setEmail] = useState("");
@@ -48,6 +48,9 @@ export default function SignupD() {
   const [alcoholUse, setAlcoholUse] = useState("No");
   const [drug, setDrug] = useState(false);
   const [error, setError] = useState("");
+
+  const userData = useContext(ValueContext);
+  const setUserData = useContext(SetValueContext);
 
   const [listOfUsers, setListOfUsers] = useState([]);
 

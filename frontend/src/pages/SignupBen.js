@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useContext, useState } from "react";
 import Avatar from "@mui/material/Avatar";
 import Button from "@mui/material/Button";
 import CssBaseline from "@mui/material/CssBaseline";
@@ -19,18 +19,18 @@ import Select from "@mui/material/Select";
 import PhoneInput from "react-phone-input-2";
 import "react-phone-input-2/lib/style.css";
 import Copyright from "./Copyright";
-// import userdata from '../userdata';
 import { formLabelClasses } from "@mui/material";
-import { createAvatar } from "@dicebear/avatars";
+// import { createAvatar } from "@dicebear/avatars";
 import * as style from "@dicebear/croodles-neutral";
 import Axios from "axios";
 import proxy from "./config";
 import { useNavigate } from "react-router-dom";
 import ErrorNotice from "./misc/ErrorNotice";
+import { ValueContext, SetValueContext } from "../App";
 
-let svg = createAvatar(style, {
-  seed: "custom-seed",
-});
+// let svg = createAvatar(style, {
+//   seed: "custom-seed",
+// });
 
 const theme = createTheme();
 
@@ -45,11 +45,14 @@ export default function SignupBen() {
   const [acknowledge, setAcknowledge] = useState(false);
   const [error, setError] = useState("");
 
+  const userData = useContext(ValueContext);
+  const setUserData = useContext(SetValueContext);
+
   let navigate = useNavigate();
 
   const onSubmit = async (e) => {
     try {
-      await Axios.post(`${proxy}/ben/createBen`, {
+      const newUser = await Axios.post(`${proxy}/ben/createBen`, {
         centerName,
         medicalZone,
         email,
@@ -58,6 +61,14 @@ export default function SignupBen() {
         phoneNumber,
         address,
         acknowledge,
+      });
+      console.log("newuser", newUser);
+      setUserData({
+        centerName: newUser.data.centerName,
+        medicalZone: newUser.data.medicalZone,
+        email: newUser.data.email,
+        phoneNumber: newUser.data.phoneNumber,
+        address: newUser.data.address,
       });
       navigate("/beneficiary-submit");
     } catch (err) {
