@@ -115,4 +115,79 @@ app.delete("/deleteDonor",
     }
   });
 
+// Update user profile information
+app.put("/update", async (req, res) => {
+  let { firstname, lastname, email, password, passwordCheck, phone, address, birthdate, bloodtype, alcoholpass, drugpass } =
+    req.body;
+  let user = null;
+  // if (!firstname && !password) {
+  //   return res.status(400).json({ msg: "No fields have been updated" });
+  // }
+  try {
+    user = await DonorModel.findOne({email});
+  } catch {
+    res.status(500).send("Error in getting user");
+  }
+  if (user === null) {
+    res.status(400).send("User not found");
+  }
+  if (firstname) {
+    user.firstname = firstname;
+  }
+  if (email) {
+    user.email = email;
+  }
+  if (lastname) {
+    user.lastname = lastname;
+  }
+  if (address) {
+    user.address = address;
+  }
+  if (phone) {
+    user.phone = phone;
+  }
+  if (birthdate) {
+    user.birthdate = birthdate;
+  }
+  if (bloodtype) {
+    user.bloodtype = bloodtype;
+  }
+  if (alcoholpass) {
+    user.alcoholpass = alcoholpass;
+  }
+  if (drugpass) {
+    user.drugpass = drugpass;
+  }
+  if (password) {
+    if (password.length < 8) {
+      return res
+        .status(400)
+        .json({ msg: "The password needs to be at least 8 characters long." });
+    }
+    if (password !== passwordCheck)
+      return res
+        .status(400)
+        .json({ msg: "Enter the same password twice for verification." });
+    try {
+      const salt = await bcrypt.genSalt();
+      newPassword = await bcrypt.hash(password, salt);
+      user.password = newPassword;
+    } catch {
+      res.status(500).send("Error in hashing password");
+    }
+  }
+  try {
+    user.save();
+    res.status(200).json({
+      firstname: user.firstname,
+      lastname: user.lastname,
+      email: user.email,
+      password: user.newPassword,
+      id: user._id,
+    });
+  } catch {
+    res.status(500).send("Error in saving user");
+  }
+});
+
 module.exports = app;

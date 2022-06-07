@@ -101,18 +101,80 @@ app.post("/createBen", async (req, res) => {
   }
 });
 
-app.delete("/deleteBen",
-  async (req, res) => {
-    try {
-      let { email } = req.body;
-      const entry = await BenModel.findOne({ email });
-      if (!entry)
-        return res.status(400).json("no account with this email is found");
-      await BenModel.deleteOne({email: email});
-      res.status(200).json(email);
-    } catch (err) {
-      res.status(500).json(err.message);
+app.delete("/deleteBen", async (req, res) => {
+  try {
+    let { email } = req.body;
+    const entry = await BenModel.findOne({ email });
+    if (!entry)
+      return res.status(400).json("no account with this email is found");
+    await BenModel.deleteOne({ email: email });
+    res.status(200).json(email);
+  } catch (err) {
+    res.status(500).json(err.message);
+  }
+});
+
+// Update user profile information
+app.put("/update", async (req, res) => {
+  let { centerName, medicalZone, email, password, passwordCheck, phoneNumber, address } =
+    req.body;
+  let user = null;
+  // if (!centerName && !password) {
+  //   return res.status(400).json({ msg: "No fields have been updated" });
+  // }
+  try {
+    user = await BenModel.findOne({email});
+  } catch {
+    res.status(500).send("Error in getting user");
+  }
+  if (user === null) {
+    res.status(400).send("User not found");
+  }
+  if (centerName) {
+    user.centerName = centerName;
+  }
+  if (email) {
+    user.email = email;
+  }
+  if (medicalZone) {
+    user.medicalZone = medicalZone;
+  }
+  if (address) {
+    user.address = address;
+  }
+  if (phoneNumber) {
+    user.phoneNumber = phoneNumber;
+  }
+  if (password) {
+    if (password.length < 8) {
+      return res
+        .status(400)
+        .json({ msg: "The password needs to be at least 8 characters long." });
     }
-  });
+    if (password !== passwordCheck)
+      return res
+        .status(400)
+        .json({ msg: "Enter the same password twice for verification." });
+    try {
+      const salt = await bcrypt.genSalt();
+      newPassword = await bcrypt.hash(password, salt);
+      user.password = newPassword;
+    } catch {
+      res.status(500).send("Error in hashing password");
+    }
+  }
+  try {
+    user.save();
+    res.status(200).json({
+      centerName: user.centerName,
+      medicalZone: user.medicalZone,
+      email: user.email,
+      password: user.newPassword,
+      id: user._id,
+    });
+  } catch {
+    res.status(500).send("Error in saving user");
+  }
+});
 
 module.exports = app;
