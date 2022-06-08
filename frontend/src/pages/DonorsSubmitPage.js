@@ -6,8 +6,9 @@ import {useNavigate} from "react-router-dom";
 export default function DonorsSubmit() {
     let navigate = useNavigate();
     return (
+        
         <Grid
-        Grid container
+        container
         direction="column"
         justifyContent="center"
         alignItems="center" 

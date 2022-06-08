@@ -62,21 +62,35 @@ export default function SignupBen() {
         address,
         acknowledge,
       });
-      console.log("newuser", newUser);
+      // console.log("newuser", newUser);
       setUserData({
-        centerName: newUser.data.centerName,
-        medicalZone: newUser.data.medicalZone,
-        email: newUser.data.email,
-        phoneNumber: newUser.data.phoneNumber,
-        address: newUser.data.address,
+        donor: {
+          firstname: null,
+          lastname: null,
+          email: null,
+          birthdate: null,
+          address: null,
+          phone: null,
+          bloodtype: null,
+          alcoholpass: null,
+          drugpass: null,
+        },
+        beneficiary: {
+          centerName: newUser.data.centerName,
+          medicalZone: newUser.data.medicalZone,
+          email: newUser.data.email,
+          phoneNumber: newUser.data.phoneNumber,
+          address: newUser.data.address,
+        },
       });
-      navigate("/donor-submit");
+      navigate("/beneficiary-submit");
     } catch (err) {
       console.log(err);
       setError(err.response.data.msg);
     }
   };
 
+  // console.log("userdata222", userData);
   return (
     <ThemeProvider theme={theme}>
       <Container component="main" maxWidth="xs">
@@ -123,11 +137,11 @@ export default function SignupBen() {
                       setMedicalZone(e.target.value);
                     }}
                   >
-                    <MenuItem value={"GB"}>Greater Beirut</MenuItem>
-                    <MenuItem value={"ML"}>Mount Lebanon</MenuItem>
-                    <MenuItem value={"M/K"}>Metn/Kesserwan</MenuItem>
-                    <MenuItem value={"TR"}>Tripoli</MenuItem>
-                    <MenuItem value={"SL"}>South Lebanon</MenuItem>
+                    <MenuItem value={"Greater Beirut"}>Greater Beirut</MenuItem>
+                    <MenuItem value={"Mount Lebanon"}>Mount Lebanon</MenuItem>
+                    <MenuItem value={"Metn/Kesserwan"}>Metn/Kesserwan</MenuItem>
+                    <MenuItem value={"Tripoli"}>Tripoli</MenuItem>
+                    <MenuItem value={"South Lebanon"}>South Lebanon</MenuItem>
                   </Select>
                 </FormControl>
               </Grid>
