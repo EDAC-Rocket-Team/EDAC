@@ -1,27 +1,40 @@
 const express = require("express");
 const app = express();
 const mongoose = require("mongoose");
-//const dotenv = require("dotenv").config();
 const DonorModel = require("../models/donors");
 const BenModel = require("../models/ben");
-const bcrypt = require('bcrypt');
+const bcrypt = require("bcrypt");
 
-
-app.get("/getSpecificDonor", async (req, res) => {
-  const { email } = req.body;
-  const donor = await DonorModel.findOne({ email: email });
-  let details = {
-    firstname: donor.firstname,
-    lastname: donor.lastname,
-    email: donor.email,
-    phone: donor.phone,
-    bloodtype: donor.bloodtype,
-    alcoholpass: donor.alcoholpass,
-    drugpass: donor.drugpass,
-  };
-  res.json(details);
+app.get("/getDonors", (req, res) => {
+  DonorModel.find({}, (err, result) => {
+    if (err) {
+      res.json(err);
+    } else {
+      let donorInfo = [];
+      result.forEach((donor) => {
+        let getDonors = {
+          firstname: donor.firstname,
+          lastname: donor.lastname,
+          email: donor.email,
+          phone: donor.phone,
+          address: donor.address,
+          bloodtype: donor.bloodtype,
+          alcoholpass: donor.alcoholpass,
+          drugpass: donor.drugpass,
+        };
+        donorInfo.push(getDonors);
+      });
+      res.json(donorInfo);
+    }
+  });
 });
 
+app.post("/createDonor", async (req, res) => {
+  const donor = req.body; /// will be sending this from the frontend
+  const newD = new DonorModel(donor);
+  await newD.save();
+  res.json(donor);
+});
 
 // if (err) {
 //   return res.status(500).json(err);
@@ -54,7 +67,7 @@ app.post("/createDonor", async (req, res) => {
       !password ||
       !passwordCheck ||
       !birthdate ||
-      !address||
+      !address ||
       !phone ||
       !bloodtype ||
       !alcoholpass
@@ -101,30 +114,40 @@ app.post("/createDonor", async (req, res) => {
   }
 });
 
-app.delete("/deleteDonor",
-  async (req, res) => {
-    try {
-      let { email } = req.body;
-      const entry = await DonorModel.findOne({ email });
-      if (!entry)
-        return res.status(400).json("no account with this email is found");
-      await DonorModel.deleteOne({email: email});
-      res.status(200).json(email);
-    } catch (err) {
-      res.status(500).json(err.message);
-    }
-  });
+app.delete("/deleteDonor", async (req, res) => {
+  try {
+    let { email } = req.body;
+    const entry = await DonorModel.findOne({ email });
+    if (!entry)
+      return res.status(400).json("no account with this email is found");
+    await DonorModel.deleteOne({ email: email });
+    res.status(200).json(email);
+  } catch (err) {
+    res.status(500).json(err.message);
+  }
+});
 
 // Update user profile information
 app.put("/update", async (req, res) => {
-  let { firstname, lastname, email, password, passwordCheck, phone, address, birthdate, bloodtype, alcoholpass, drugpass } =
-    req.body;
+  let {
+    firstname,
+    lastname,
+    email,
+    password,
+    passwordCheck,
+    phone,
+    address,
+    birthdate,
+    bloodtype,
+    alcoholpass,
+    drugpass,
+  } = req.body;
   let user = null;
   // if (!firstname && !password) {
   //   return res.status(400).json({ msg: "No fields have been updated" });
   // }
   try {
-    user = await DonorModel.findOne({email});
+    user = await DonorModel.findOne({ email });
   } catch {
     res.status(500).send("Error in getting user");
   }

@@ -1,12 +1,10 @@
 const express = require("express");
 const app = express();
 const mongoose = require("mongoose");
-// const dotenv = require("dotenv").config();
 const BenModel = require("../models/ben");
 const DonorModel = require("../models/donors");
-// const cors = require("cors");
 const bcrypt = require("bcrypt");
-const res = require("express/lib/response");
+// const res = require("express/lib/response");
 
 app.get("/getBens", (req, res) => {
   BenModel.find({}, (err, result) => {
@@ -20,6 +18,7 @@ app.get("/getBens", (req, res) => {
           medicalZone: ben.medicalZone,
           phoneNumber: ben.phoneNumber,
           address: ben.address,
+          email: ben.email,
         };
         benInfo.push(getBens);
       });
@@ -28,13 +27,13 @@ app.get("/getBens", (req, res) => {
   });
 });
 
-// app.post("/createBen", async (req, res) => {
-//   const ben = req.body; /// will be sending this from the frontend
-//   const newB = new BenModel(ben);
-//   await newB.save();
+app.post("/createBen", async (req, res) => {
+  const ben = req.body; /// will be sending this from the frontend
+  const newB = new BenModel(ben);
+  await newB.save();
 
-//   res.json(ben);
-// });
+  res.json(ben);
+});
 
 app.post("/createBen", async (req, res) => {
   try {
@@ -116,14 +115,21 @@ app.delete("/deleteBen", async (req, res) => {
 
 // Update user profile information
 app.put("/update", async (req, res) => {
-  let { centerName, medicalZone, email, password, passwordCheck, phoneNumber, address } =
-    req.body;
+  let {
+    centerName,
+    medicalZone,
+    email,
+    password,
+    passwordCheck,
+    phoneNumber,
+    address,
+  } = req.body;
   let user = null;
   // if (!centerName && !password) {
   //   return res.status(400).json({ msg: "No fields have been updated" });
   // }
   try {
-    user = await BenModel.findOne({email});
+    user = await BenModel.findOne({ email });
   } catch {
     res.status(500).send("Error in getting user");
   }

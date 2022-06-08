@@ -27,13 +27,10 @@ import Switch from "@mui/material/Switch";
 import Copyright from "./Copyright";
 import Axios from "axios";
 import proxy from "./config";
-// import UserContext from "../App";
 import ErrorNotice from "./misc/ErrorNotice";
 import { ValueContext, SetValueContext } from "../App";
 
 const theme = createTheme();
-
-// onChange = {(e)=>{set(e.target.value)}}
 
 export default function SignupD() {
   const [names, setNames] = useState("");
@@ -85,7 +82,7 @@ export default function SignupD() {
         drugpass: drug,
       });
       console.log(birthdate, typeof birthdate)
-      navigate("/donor-submit");
+      navigate("/beneficiary-submit");
     } catch (err) {
       console.log(err);
       setError(err.response.data.msg);

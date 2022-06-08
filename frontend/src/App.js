@@ -8,7 +8,7 @@ import SignupBen from "./pages/SignupBen";
 import Under18 from "./pages/under18";
 import DonorsSubmit from "./pages/DonorsSubmitPage";
 import Beneficiarysubmit from "./pages/BeneficiariesSubmitPage";
-import GridUsers from "./pages/GridUsers";
+import GridDonor from "./pages/GridDonor";
 // import ImageAvatars from "./pages/ProfilePage";
 import ProfilePage from "./pages/ProfilePage";
 import GridBen from "./pages/GridBen";
@@ -37,7 +37,7 @@ function App() {
             <Route path="/-18" element={<Under18 />} />
             <Route path="/donor-sign-up" element={<SignupD />} />
             <Route path="/beneficiary-sign-up" element={<SignupBen />} />
-            <Route path="/donors" element={<GridUsers />} />
+            <Route path="/donors" element={<GridDonor />} />
             <Route path="/beneficiaries" element={<GridBen />} />
             <Route path="/profile" element={<ProfilePage />} />
           </Routes>

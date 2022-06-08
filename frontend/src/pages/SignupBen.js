@@ -70,7 +70,7 @@ export default function SignupBen() {
         phoneNumber: newUser.data.phoneNumber,
         address: newUser.data.address,
       });
-      navigate("/beneficiary-submit");
+      navigate("/donor-submit");
     } catch (err) {
       console.log(err);
       setError(err.response.data.msg);
