@@ -68,7 +68,7 @@ export default function SignupD() {
       drugpass: drug,
     });
     try {
-      await Axios.post(`${proxy}/donor/createDonor`, {
+      const newUser = await Axios.post(`${proxy}/donor/createDonor`, {
         firstname: names,
         lastname: lastNames,
         email,
@@ -81,8 +81,28 @@ export default function SignupD() {
         alcoholpass: alcoholUse,
         drugpass: drug,
       });
-      console.log(birthdate, typeof birthdate)
-      navigate("/beneficiary-submit");
+      // console.log(newUser);
+      setUserData({
+        donor: {
+          firstname: newUser.data.names,
+          lastname: newUser.data.lastNames,
+          email: newUser.data.email,
+          birthdate: newUser.data.birthdate,
+          address: newUser.data.userLocation,
+          phone: newUser.data.phoneNumber,
+          bloodtype: newUser.data.bloodTypes,
+          alcoholpass: newUser.data.alcoholUse,
+          drugpass: newUser.data.drug,
+        },
+        beneficiary: {
+          centerName: null,
+          medicalZone: null,
+          email: null,
+          phoneNumber: null,
+          address: null,
+        },
+      });
+      navigate("/donor-submit");
     } catch (err) {
       console.log(err);
       setError(err.response.data.msg);
@@ -212,11 +232,11 @@ export default function SignupD() {
                       setUserLocation(e.target.value);
                     }}
                   >
-                    <MenuItem value={"GB"}>Greater Beirut</MenuItem>
-                    <MenuItem value={"ML"}>Mount Lebanon</MenuItem>
-                    <MenuItem value={"M/K"}>Metn/Kesserwan</MenuItem>
-                    <MenuItem value={"TR"}>Tripoli</MenuItem>
-                    <MenuItem value={"SL"}>South Lebanon</MenuItem>
+                    <MenuItem value={"Greater Beirut"}>Greater Beirut</MenuItem>
+                    <MenuItem value={"Mount Lebanon"}>Mount Lebanon</MenuItem>
+                    <MenuItem value={"Metn/Kesserwan"}>Metn/Kesserwan</MenuItem>
+                    <MenuItem value={"Tripoli"}>Tripoli</MenuItem>
+                    <MenuItem value={"South Lebanon"}>South Lebanon</MenuItem>
                   </Select>
                 </FormControl>
               </Grid>

@@ -18,11 +18,26 @@ export const SetValueContext = createContext();
 
 function App() {
   const [userData, setUserData] = useState({
-    centerName: "null",
-    medicalZone: "null",
-    email: "null",
-    phoneNumber: null,
-    address: "null",
+    donor: {
+      firstname: null,
+      lastname: null,
+      email: null,
+      password: null,
+      passwordCheck: null,
+      birthdate: null,
+      address: null,
+      phone: null,
+      bloodtype: null,
+      alcoholpass: null,
+      drugpass: null
+    },
+    beneficiary: {
+      centerName: null,
+      medicalZone: null,
+      email: null,
+      phoneNumber: null,
+      address: null
+    }
   });
 
   return (

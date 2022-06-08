@@ -9,8 +9,9 @@ import CardContent from '@mui/material/CardContent';
 export default function DonorsSubmit() {
     let navigate = useNavigate();
     return (
+        
         <Grid
-        Grid container
+        container
         direction="column"
         justifyContent="center"
         alignItems="center" 
