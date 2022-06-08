@@ -12,8 +12,6 @@ import Container from "@mui/material/Container";
 import { createTheme, ThemeProvider } from "@mui/material/styles";
 import { useNavigate } from "react-router-dom";
 import Copyright from "./Copyright";
-import { useForm } from "react-hook-form";
-import Alert from "@mui/material/Alert";
 //created fake user data to check, this is supposed to be the backend
 import { userData } from "../userdata";
 import UserContext from "../App";

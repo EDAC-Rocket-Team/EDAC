@@ -1,6 +1,4 @@
 import * as React from 'react';
-import Avatar from '@mui/material/Avatar';
-import Stack from '@mui/material/Stack';
 import Box from '@mui/material/Box';
 import Card from '@mui/material/Card';
 import CardActions from '@mui/material/CardActions';
@@ -12,8 +10,6 @@ import Header from './Header';
 import CardMedia from '@mui/material/CardMedia';
 import { Grid } from '@mui/material';
 import Copyright from './Copyright';
-import proxy from './config.js';
-import {useHistory} from "react-router-dom";
 
 
 

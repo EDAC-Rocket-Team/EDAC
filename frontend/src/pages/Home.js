@@ -2,8 +2,6 @@ import React, { useContext } from "react";
 import { Typography, Button, Grid } from "@mui/material";
 import background from "../media/heart.png";
 import { useNavigate } from "react-router-dom";
-import { AppBar } from "@mui/material";
-import { Toolbar } from "@mui/material";
 import Header from "./Header";
 import Copyright from "./Copyright";
 import { Paper } from "@mui/material";

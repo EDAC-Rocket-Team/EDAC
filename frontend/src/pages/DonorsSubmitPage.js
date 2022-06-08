@@ -2,9 +2,6 @@ import React from 'react';
 import background from "../media/PrayingForYou.png"; 
 import { Grid, Typography, Button, Paper} from '@mui/material';
 import {useNavigate} from "react-router-dom";
-import Card from '@mui/material/Card';
-import CardActions from '@mui/material/CardActions';
-import CardContent from '@mui/material/CardContent';
 
 export default function DonorsSubmit() {
     let navigate = useNavigate();
