@@ -77,9 +77,6 @@ export default function GridDonor() {
                     <Typography>Phone Number:{card.phone}</Typography>
                     <Typography>Location:{card.address}</Typography>
                   </CardContent>
-                  <CardActions>
-                    <Button size="small" variant='contained' onClick={() => { navigate("/profile") }}>View</Button>
-                  </CardActions>
                 </Card>
               </Grid>
             ))}

@@ -78,17 +78,6 @@ export default function GridBen() {
                     <Typography>Email:{card.email}</Typography>
                     <Typography>Location:{card.medicalZone}</Typography>
                   </CardContent>
-                  <CardActions>
-                    <Button
-                      size="small"
-                      variant="contained"
-                      onClick={() => {
-                        navigate("/profile");
-                      }}
-                    >
-                      View
-                    </Button>
-                  </CardActions>
                 </Card>
               </Grid>
             ))}
