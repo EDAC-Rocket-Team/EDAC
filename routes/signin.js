@@ -78,6 +78,7 @@ const BenModel = require("../models/ben");
           lastname: donor.lastname,
           email: donor.email,
           phone: donor.phone,
+          address: donor.address,
           bloodtype: donor.bloodtype,
           alcoholpass: donor.alcoholpass,
           drugpass: donor.drugpass,

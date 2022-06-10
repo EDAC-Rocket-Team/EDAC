@@ -12,17 +12,24 @@ import Container from "@mui/material/Container";
 import { createTheme, ThemeProvider } from "@mui/material/styles";
 import { useNavigate } from "react-router-dom";
 import Copyright from "./Copyright";
+import { useForm } from "react-hook-form";
+import Alert from "@mui/material/Alert";
 //created fake user data to check, this is supposed to be the backend
 import { userData } from "../userdata";
 import UserContext from "../App";
 import proxy from "./config.js";
 import Axios from "axios";
 import ErrorNotice from "./misc/ErrorNotice";
+import { ValueContext, SetValueContext } from "../App";
 
 const theme = createTheme();
 
 export default function SignIn() {
-  //const { userData, setUserData } = useContext(UserContext); // diana adding context
+  let navigate = useNavigate();
+
+  const userData = useContext(ValueContext);
+  const setUserData = useContext(SetValueContext);
+
   const [error, setError] = useState("");
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
@@ -30,57 +37,65 @@ export default function SignIn() {
   const [passCheck, setPassCheck] = useState(false);
   //const [user, setUser] = React.useState("");
 
-  //this is important
-  // const {
-  //   register,
-  //   handleSubmit,
-  //   watch,
-  //   formState: { errors },
-  // } = useForm();
-
   //this is what happens when you press submit
   const onSubmit = async () => {
-    //console.log(data);
-    //const onSubmit = async () => {
-    // console.log({
-    //   email,
-    //   password
-    // });
     try {
-      await Axios.post(`${proxy}/common/signin`, {
+      const newUser = await Axios.post(`${proxy}/common/signin`, {
         email,
         password,
       });
-      //console.log(email, password)
+      if (newUser.data.bloodtype) {
+        await setUserData({
+          donor: {
+            firstname: newUser.data.firstname,
+            lastname: newUser.data.lastname,
+            email: newUser.data.email,
+            birthdate: newUser.data.birthdate,
+            address: newUser.data.address,
+            phone: newUser.data.phone,
+            bloodtype: newUser.data.bloodtype,
+            alcoholpass: newUser.data.alcoholpass,
+            drugpass: newUser.data.drugpass,
+          },
+          beneficiary: {
+            centerName: null,
+            medicalZone: null,
+            email: null,
+            phoneNumber: null,
+            address: null,
+          },
+        });
+      } else if (newUser.data.centerName) {
+        await setUserData({
+          donor: {
+            firstname: null,
+            lastname: null,
+            email: null,
+            birthdate: null,
+            address: null,
+            phone: null,
+            bloodtype: null,
+            alcoholpass: null,
+            drugpass: null,
+          },
+          beneficiary: {
+            centerName: newUser.data.centerName,
+            medicalZone: newUser.medicalZone,
+            email: newUser.data.email,
+            phoneNumber: newUser.data.phoneNumber,
+            address: newUser.data.address,
+          },
+        });
+      }
+      console.log("signin", newUser.data);
+   
       navigate("/profile");
     } catch (err) {
       console.log(err);
       setError(err.response.data.msg);
     }
   };
-  //let currentUser = data
-  // console.log(currentUser)
-  // setUser(currentUser)
-  // navigate("/grid", {state:{currentUser}})
-
-  // navigate("/userprofile")
-
-  //how to verify data, i used if & for statemnt
-  //let i;
-  //   for (i = 0; i < userData.length; i++) {
-  //     if (
-  //       data.email === userData[i].email &&
-  //       data.password === userData[i].password
-  //     ) {
-  //       navigate("/profile");
-  //       break;
-  //     } else {
-  //       setPassCheck(true);
-  //     }
-  //   }
-  // };
-  let navigate = useNavigate();
-
+  console.log("bottom signin", userData);
   return (
     <ThemeProvider theme={theme}>
       <Container component="main" maxWidth="xs">
