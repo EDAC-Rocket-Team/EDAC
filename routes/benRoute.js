@@ -5,8 +5,9 @@ const BenModel = require("../models/ben");
 const DonorModel = require("../models/donors");
 const bcrypt = require("bcrypt");
 // const res = require("express/lib/response");
+const {auth} = require("../Auth");
 
-app.get("/getBens", (req, res) => {
+app.get("/getBens", auth, (req, res) => {
   BenModel.find({}, (err, result) => {
     if (err) {
       res.json(err);
@@ -27,15 +28,9 @@ app.get("/getBens", (req, res) => {
   });
 });
 
-app.post("/createBen", async (req, res) => {
-  const ben = req.body; /// will be sending this from the frontend
-  const newB = new BenModel(ben);
-  await newB.save();
 
-  res.json(ben);
-});
-
-app.post("/createBen", async (req, res) => {
+app.post("/createBen",auth, async (req, res) => {
+  
   try {
     let {
       centerName,
@@ -66,6 +61,7 @@ app.post("/createBen", async (req, res) => {
     }
     const existingBenUser = await BenModel.findOne({ email: email });
     const existingDonorUser = await DonorModel.findOne({ email: email });
+
     if (existingBenUser || existingDonorUser)
       return res
         .status(400)
@@ -82,6 +78,7 @@ app.post("/createBen", async (req, res) => {
       return res
         .status(400)
         .json({ msg: "Please check that all information is correct!" });
+    const token = jwt.sign({ id: existingBenUser._id }, process.env.JWT_SECRET);
     const salt = await bcrypt.genSalt();
     const passwordHash = await bcrypt.hash(password, salt);
     const newUser = new BenModel({
@@ -94,13 +91,13 @@ app.post("/createBen", async (req, res) => {
       acknowledge,
     });
     const savedUser = await newUser.save();
-    res.json(savedUser);
+    res.json(token, savedUser);
   } catch (err) {
     res.status(500).json({ error: err.message });
   }
 });
 
-app.delete("/deleteBen", async (req, res) => {
+app.delete("/deleteBen", auth, async (req, res) => {
   try {
     let { email } = req.body;
     const entry = await BenModel.findOne({ email });
@@ -114,7 +111,7 @@ app.delete("/deleteBen", async (req, res) => {
 });
 
 // Update user profile information
-app.put("/update", async (req, res) => {
+app.put("/update", auth, async (req, res) => {
   let {
     centerName,
     medicalZone,

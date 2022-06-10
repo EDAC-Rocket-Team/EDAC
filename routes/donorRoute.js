@@ -4,8 +4,9 @@ const mongoose = require("mongoose");
 const DonorModel = require("../models/donors");
 const BenModel = require("../models/ben");
 const bcrypt = require("bcrypt");
+const {auth} = require("../Auth");
 
-app.get("/getDonors", (req, res) => {
+app.get("/getDonors", auth, (req, res) => {
   DonorModel.find({}, (err, result) => {
     if (err) {
       res.json(err);
@@ -15,6 +16,7 @@ app.get("/getDonors", (req, res) => {
         let getDonors = {
           firstname: donor.firstname,
           lastname: donor.lastname,
+          birthdate: donor.birthdate,
           email: donor.email,
           phone: donor.phone,
           address: donor.address,
@@ -29,12 +31,6 @@ app.get("/getDonors", (req, res) => {
   });
 });
 
-app.post("/createDonor", async (req, res) => {
-  const donor = req.body; /// will be sending this from the frontend
-  const newD = new DonorModel(donor);
-  await newD.save();
-  res.json(donor);
-});
 
 // if (err) {
 //   return res.status(500).json(err);
@@ -44,7 +40,7 @@ app.post("/createDonor", async (req, res) => {
 
 //res.status(200).json(details);
 
-app.post("/createDonor", async (req, res) => {
+app.post("/createDonor", auth,  async (req, res) => {
   try {
     let {
       firstname,
@@ -114,7 +110,7 @@ app.post("/createDonor", async (req, res) => {
   }
 });
 
-app.delete("/deleteDonor", async (req, res) => {
+app.delete("/deleteDonor", auth, async (req, res) => {
   try {
     let { email } = req.body;
     const entry = await DonorModel.findOne({ email });
@@ -128,7 +124,7 @@ app.delete("/deleteDonor", async (req, res) => {
 });
 
 // Update user profile information
-app.put("/update", async (req, res) => {
+app.put("/update", auth, async (req, res) => {
   let {
     firstname,
     lastname,

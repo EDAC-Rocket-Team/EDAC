@@ -24,6 +24,8 @@ import { ValueContext, SetValueContext } from "../App";
 
 const theme = createTheme();
 
+
+
 export default function SignIn() {
   let navigate = useNavigate();
 
@@ -38,6 +40,13 @@ export default function SignIn() {
   //const [user, setUser] = React.useState("");
 
   //this is what happens when you press submit
+
+  function getAge(dateString) {
+    var ageInMilliseconds = new Date() - new Date(dateString);
+    return Math.floor(ageInMilliseconds/1000/60/60/24/365); // convert to years
+  } 
+
+
   const onSubmit = async () => {
     try {
       const newUser = await Axios.post(`${proxy}/common/signin`, {
@@ -50,7 +59,7 @@ export default function SignIn() {
             firstname: newUser.data.firstname,
             lastname: newUser.data.lastname,
             email: newUser.data.email,
-            birthdate: newUser.data.birthdate,
+            birthdate: getAge(newUser.data.birthdate),
             address: newUser.data.address,
             phone: newUser.data.phone,
             bloodtype: newUser.data.bloodtype,
@@ -88,6 +97,7 @@ export default function SignIn() {
         });
       }
       console.log("signin", newUser.data);
+      console.log("signin birthdate", newUser.data.birthdate);
    
       navigate("/profile");
     } catch (err) {

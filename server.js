@@ -18,11 +18,16 @@ app.use("/donor", donorRoute);
 app.use("/ben", benRoute);
 app.use("/common", common);
 
+//mongoose
+  // .connect(
+  //   "mongodb+srv://DianaGH:71193734mom@blood-donation.kt7ft.mongodb.net/edac?authSource=admin&replicaSet=atlas-12wwdo-shard-0&readPreference=primary&appname=MongoDB%20Compass&ssl=true"
+  // )
+  // .then(console.log("MongoDB Connected"));
 mongoose
-  .connect(
-    "mongodb+srv://DianaGH:71193734mom@blood-donation.kt7ft.mongodb.net/edac?authSource=admin&replicaSet=atlas-12wwdo-shard-0&readPreference=primary&appname=MongoDB%20Compass&ssl=true"
-  )
-  .then(console.log("MongoDB Connected"));
+.connect(process.env.URI,{
+  useNewUrlParser: true,
+  useUnifiedTopology: true
+})
 
 const port = 3001;
 app.listen(port, () => {

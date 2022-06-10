@@ -16,7 +16,11 @@ import proxy from "./config.js";
 import { useHistory } from "react-router-dom";
 import { ValueContext, SetValueContext } from "../App";
 
+
+
 export default function ImageAvatars() {
+
+
   const userData = useContext(ValueContext);
   const setUserData = useContext(SetValueContext);
   console.log("profile", userData);
@@ -33,6 +37,8 @@ export default function ImageAvatars() {
   // } else if (userData.beneficiary) {
   //   const user = setUserData(userData);
   // }
+
+
 
   const BenCard = (
     <React.Fragment>
@@ -73,7 +79,7 @@ export default function ImageAvatars() {
           Info
         </Typography>
         <Typography variant="body2">
-          Age: {userData.donor.email}
+          Age: {userData.donor.birthdate}
           <br />
           Blood Type: {userData.donor.bloodtype}
           <br />
