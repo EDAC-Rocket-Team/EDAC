@@ -23,8 +23,6 @@ function App() {
       firstname: null,
       lastname: null,
       email: null,
-      password: null,
-      passwordCheck: null,
       birthdate: null,
       address: null,
       phone: null,

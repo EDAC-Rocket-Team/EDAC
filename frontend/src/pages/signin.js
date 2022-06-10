@@ -39,11 +39,16 @@ export default function SignIn() {
 
   //this is what happens when you press submit
   const onSubmit = async () => {
+    let newUser;
     try {
-      const newUser = await Axios.post(`${proxy}/common/signin`, {
+      newUser = await Axios.post(`${proxy}/common/signin`, {
         email,
         password,
       });
+    } catch (err) {
+      console.log(err);
+      setError(err.response.data.msg);
+    } finally {
       if (newUser.data.bloodtype) {
         await setUserData({
           donor: {
@@ -87,15 +92,11 @@ export default function SignIn() {
           },
         });
       }
-      console.log("signin", newUser.data);
-   
+      // console.log("signin", newUser.data);
       navigate("/profile");
-    } catch (err) {
-      console.log(err);
-      setError(err.response.data.msg);
     }
   };
-  console.log("bottom signin", userData);
+  // console.log("bottom signin", userData);
   return (
     <ThemeProvider theme={theme}>
       <Container component="main" maxWidth="xs">
@@ -195,6 +196,7 @@ export default function SignIn() {
             >
               Sign In
             </Button>
+            {error && <ErrorNotice message={error} />}
             {/* {passCheck && (
               <Alert severity="error">Wrong Password or Email!</Alert>
             )} */}

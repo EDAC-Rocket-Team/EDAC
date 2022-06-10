@@ -77,13 +77,6 @@ export default function GridDonor() {
                 </Card>
               </Grid>
             ))}
-            <Button
-            sx={{ position: "fixed", top: 80, right: 10 }}
-            variant="contained"
-                      onClick={() => { navigate("/profile"); }}
-                    >
-                      Home
-                    </Button>
           </Grid>
         </Container>
       </main>

@@ -29,13 +29,6 @@ app.get("/getDonors", (req, res) => {
   });
 });
 
-app.post("/createDonor", async (req, res) => {
-  const donor = req.body; /// will be sending this from the frontend
-  const newD = new DonorModel(donor);
-  await newD.save();
-  res.json(donor);
-});
-
 // if (err) {
 //   return res.status(500).json(err);
 // } else {

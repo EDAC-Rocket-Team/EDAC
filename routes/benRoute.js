@@ -28,14 +28,6 @@ app.get("/getBens", (req, res) => {
 });
 
 app.post("/createBen", async (req, res) => {
-  const ben = req.body; /// will be sending this from the frontend
-  const newB = new BenModel(ben);
-  await newB.save();
-
-  res.json(ben);
-});
-
-app.post("/createBen", async (req, res) => {
   try {
     let {
       centerName,
