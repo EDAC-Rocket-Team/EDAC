@@ -6,7 +6,6 @@ import CardContent from '@mui/material/CardContent';
 import Button from '@mui/material/Button';
 import Typography from '@mui/material/Typography';
 import { useNavigate } from 'react-router-dom';
-import Header from './Header';
 import CardMedia from '@mui/material/CardMedia';
 import { Grid } from '@mui/material';
 import Copyright from './Copyright';
@@ -51,7 +50,6 @@ export default function ImageAvatars() {
 
   return (
     <div>
-    <Header></Header>
     <Grid  container
   direction="row"
   justifyContent="center"
@@ -74,8 +72,9 @@ export default function ImageAvatars() {
     <Box sx={{ maxWidth: 350 }}>
       <Card variant="outlined">{card}</Card>
     </Box>
-    <Button className='Sign In'sx={{position: 'fixed', top: 10, right: 10, mt: 10}} variant='contained' onClick={() => {navigate(-1)}}>Back</Button>
-    
+    <Button className='Back'sx={{position: 'fixed', top: 10, right: 10, mt: 10}} variant='contained' onClick={() => {navigate(-1)}}>Back</Button>
+    <Button className='update'sx={{position: 'fixed', top: 50, right: 10, mt: 10}} variant='contained' onClick={() => {navigate()}}>Update</Button>
+    <Button className='Delete'sx={{position: 'fixed', top: 90, right: 10, mt: 10}} variant='contained' onClick={() => {navigate()}}>Delete</Button>
     </Grid>
     <Copyright sx={{mt: 20}}></Copyright>
 

@@ -10,7 +10,6 @@ import Box from "@mui/material/Box";
 import Typography from "@mui/material/Typography";
 import Container from "@mui/material/Container";
 import { createTheme, ThemeProvider } from "@mui/material/styles";
-import Header from "./Header";
 import Copyright from "./Copyright";
 import proxy from "./config.js";
 import Axios from "axios";
@@ -45,7 +44,6 @@ export default function GridBen() {
   return (
     <ThemeProvider theme={theme}>
       <CssBaseline />
-      <Header></Header>
 
       <main>
         {/* Hero unit */}

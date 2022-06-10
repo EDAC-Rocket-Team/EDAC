@@ -12,6 +12,7 @@ import GridDonor from "./pages/GridDonor";
 // import ImageAvatars from "./pages/ProfilePage";
 import ProfilePage from "./pages/ProfilePage";
 import GridBen from "./pages/GridBen";
+import Header from "./pages/Header";
 
 export const ValueContext = createContext();
 export const SetValueContext = createContext();
@@ -36,14 +37,15 @@ function App() {
       medicalZone: null,
       email: null,
       phoneNumber: null,
-      address: null
-    }
+      address: null,
+    },
   });
 
   return (
     <Router>
       <ValueContext.Provider value={userData}>
         <SetValueContext.Provider value={setUserData}>
+          <Header />
           <Routes>
             <Route path="/" element={<Home />} />
             <Route path="/sign-in" element={<SignIn />} />
