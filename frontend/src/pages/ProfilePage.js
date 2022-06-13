@@ -15,6 +15,7 @@ import Copyright from "./Copyright";
 import proxy from "./config.js";
 import { useHistory } from "react-router-dom";
 import { ValueContext, SetValueContext } from "../App";
+import { userData } from "../userdata";
 
 
 
@@ -70,7 +71,7 @@ export default function ImageAvatars() {
     <React.Fragment>
       <CardContent>
         <Typography sx={{ fontSize: 50 }} color="text.secondary" gutterBottom>
-          {[userData.donor.firstname ," ",userData.donor.lastname]}
+          {userData.beneficiary.centerName}
         </Typography>
         {/* <Typography variant="h5" component="div">
           
@@ -79,17 +80,15 @@ export default function ImageAvatars() {
           Info
         </Typography>
         <Typography variant="body2">
-          Age: {userData.donor.birthdate}
+          Medical Zone: {userData.beneficiary.medicalZone}
           <br />
-          Blood Type: {userData.donor.bloodtype}
+          Email: {userData.beneficiary.email}
           <br />
-          Email: {userData.donor.email}
-          <br />
-          Location: {userData.donor.address}
+          Location: {userData.beneficiary.address}
         </Typography>
       </CardContent>
       <CardActions>
-        <Button size="small">Phone Number: {userData.donor.phone}</Button>
+        <Button size="small">Phone Number: {userData.beneficiary.phoneNumber}</Button>
       </CardActions>
     </React.Fragment>
   );
