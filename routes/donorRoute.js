@@ -5,6 +5,7 @@ const DonorModel = require("../models/donors");
 const BenModel = require("../models/ben");
 const bcrypt = require("bcrypt");
 const {auth} = require("../Auth");
+const jwt = require("jsonwebtoken");
 
 app.get("/getDonors", auth, (req, res) => {
   DonorModel.find({}, (err, result) => {
@@ -40,7 +41,7 @@ app.get("/getDonors", auth, (req, res) => {
 
 //res.status(200).json(details);
 
-app.post("/createDonor", auth,  async (req, res) => {
+app.post("/createDonor", async (req, res) => { // ,auth,
   try {
     let {
       firstname,
@@ -85,7 +86,7 @@ app.post("/createDonor", auth,  async (req, res) => {
       return res
         .status(400)
         .json({ msg: "The password needs to be at least 8 characters long." });
-    if (password != passwordCheck)
+    if (password !== passwordCheck)
       return res
         .status(400)
         .json({ msg: "Enter the same password twice for verification." });
@@ -208,5 +209,20 @@ app.put("/update", auth, async (req, res) => {
     res.status(500).send("Error in saving user");
   }
 });
+
+// app.post("/tokenIsValid", async (req, res) => {
+//   try {
+//       const token = req.header("x-auth-token");
+//       if (!token) return res.json(false);
+//       const verified = jwt.verify(token, process.env.JWT_SECRET);
+//       if (!verified) return res.json(false);
+//       const donor = await DonorModel.findById(verified.id);
+//       const ben = await BenModel.findById(verified.id);
+//       if (!donor && !ben) return res.json(false);
+//       return res.json(true);
+//   } catch (err) {
+//       res.status(500).json({ error: err.message });
+//   }
+// });
 
 module.exports = app;

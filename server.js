@@ -26,10 +26,16 @@ app.use("/common", common);
 mongoose
 .connect(process.env.URI,{
   useNewUrlParser: true,
-  useUnifiedTopology: true
-})
+  useUnifiedTopology: true,
+  //useCreateIndex: true,
+},
+(err) => {
+  if (err) throw err;
+  console.log("MongoDB connection established");
+}
+);
 
-const port = 3001;
+const port = process.env.port || 3001;
 app.listen(port, () => {
   console.log(`Server started yay on ${port}`);
 });

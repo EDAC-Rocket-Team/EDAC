@@ -6,8 +6,9 @@ const DonorModel = require("../models/donors");
 const bcrypt = require("bcrypt");
 // const res = require("express/lib/response");
 const {auth} = require("../Auth");
+const jwt = require("jsonwebtoken");
 
-app.get("/getBens", auth, (req, res) => {
+app.get("/getBens", auth, (req, res) => { // ,auth,
   BenModel.find({}, (err, result) => {
     if (err) {
       res.json(err);
@@ -29,7 +30,7 @@ app.get("/getBens", auth, (req, res) => {
 });
 
 
-app.post("/createBen",auth, async (req, res) => {
+app.post("/createBen", async (req, res) => { // ,auth,
   
   try {
     let {
@@ -179,5 +180,20 @@ app.put("/update", auth, async (req, res) => {
     res.status(500).send("Error in saving user");
   }
 });
+
+// app.post("/tokenIsValid", async (req, res) => {
+//   try {
+//       const token = req.header("x-auth-token");
+//       if (!token) return res.json(false);
+//       const verified = jwt.verify(token, process.env.JWT_SECRET);
+//       if (!verified) return res.json(false);
+//       const donor = await DonorModel.findById(verified.id);
+//       const ben = await BenModel.findById(verified.id);
+//       if (!donor && !ben) return res.json(false);
+//       return res.json(true);
+//   } catch (err) {
+//       res.status(500).json({ error: err.message });
+//   }
+// });
 
 module.exports = app;

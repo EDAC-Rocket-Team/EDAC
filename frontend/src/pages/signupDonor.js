@@ -79,9 +79,16 @@ export default function SignupD() {
         alcoholpass: alcoholUse,
         drugpass: drug,
       });
+
+      const loginRes = await Axios.post(`${proxy}/common/signin`, {
+        email,
+        password,
+      });
+
       // console.log(newUser);
       setUserData({
         donor: {
+          token: loginRes.data.token,
           firstname: newUser.data.names,
           lastname: newUser.data.lastNames,
           email: newUser.data.email,
@@ -100,6 +107,11 @@ export default function SignupD() {
           address: null,
         },
       });
+
+
+      localStorage.setItem("auth-token", loginRes.data.token);
+      //history.push("/");
+
       navigate("/donor-submit");
     } catch (err) {
       console.log(err);

@@ -27,6 +27,7 @@ import proxy from "./config";
 import { useNavigate } from "react-router-dom";
 import ErrorNotice from "./misc/ErrorNotice";
 import { ValueContext, SetValueContext } from "../App";
+//import { useHistory } from "react-router-dom";
 
 // let svg = createAvatar(style, {
 //   seed: "custom-seed",
@@ -44,13 +45,17 @@ export default function SignupBen() {
   const [address, setAddress] = useState("");
   const [acknowledge, setAcknowledge] = useState(false);
   const [error, setError] = useState("");
+  
 
   const userData = useContext(ValueContext);
   const setUserData = useContext(SetValueContext);
+  //const history = useHistory();
 
   let navigate = useNavigate();
 
   const onSubmit = async (e) => {
+    e.preventDefault();
+
     try {
       const newUser = await Axios.post(`${proxy}/ben/createBen`, {
         centerName,
@@ -62,6 +67,17 @@ export default function SignupBen() {
         address,
         acknowledge,
       });
+
+      const loginRes = await Axios.post(`${proxy}/common/signin`, {
+        email,
+        password,
+      });
+      // setUserData({
+      //   token: loginRes.data.token,
+      //   user: loginRes.data.user,
+      // });
+
+
       // console.log("newuser", newUser);
       setUserData({
         donor: {
@@ -76,6 +92,7 @@ export default function SignupBen() {
           drugpass: null,
         },
         beneficiary: {
+          token: loginRes.data.token,
           centerName: newUser.data.centerName,
           medicalZone: newUser.data.medicalZone,
           email: newUser.data.email,
@@ -83,6 +100,10 @@ export default function SignupBen() {
           address: newUser.data.address,
         },
       });
+
+      localStorage.setItem("auth-token", loginRes.data.token);
+      //history.push("/");
+
       navigate("/beneficiary-submit");
     } catch (err) {
       console.log(err);

@@ -5,6 +5,8 @@ const mongoose = require("mongoose");
 // const dotenv = require("dotenv").config();
 const DonorModel = require("../models/donors");
 const BenModel = require("../models/ben");
+const {auth} = require("../Auth");
+const jwt = require("jsonwebtoken");
 
 // getSpecificUser:  User ...donor or brnrfeciary
 // app.get("/signin", async (req, res) => {
@@ -54,9 +56,9 @@ app.post("/tokenIsValid", async (req, res) => {
       if (!token) return res.json(false);
       const verified = jwt.verify(token, process.env.JWT_SECRET);
       if (!verified) return res.json(false);
-      const donors = await DonorModel.findById(verified.id);
-      const bens = await BenModel.findById(verified.id);
-      if (!donors && !bens) return res.json(false);
+      const donor = await DonorModel.findById(verified.id);
+      const ben = await BenModel.findById(verified.id);
+      if (!donor && !ben) return res.json(false);
       return res.json(true);
   } catch (err) {
       res.status(500).json({ error: err.message });
@@ -83,11 +85,12 @@ app.post("/signin", async (req, res) => {
       if (!matchDonorPassword) {
         return res.status(400).json({ msg: "Invalid credential" });
       }
-      const token = jwt.sign({ id: donor._id }, process.env.JWT_SECRET);
+      const token = jwt.sign({ id: donor._id }, process.env.JWTSECRET);//JWT_SECRET
       res
         .status(200)
         .json({
           token,
+          donor: {
           firstname: donor.firstname,
           lastname: donor.lastname,
           birthdate: donor.birthdate,
@@ -97,6 +100,7 @@ app.post("/signin", async (req, res) => {
           bloodtype: donor.bloodtype,
           alcoholpass: donor.alcoholpass,
           drugpass: donor.drugpass,
+          },
         });
     } else if (ben) {
       const matchBenPassword = await bcrypt.compare(password, ben.password);
@@ -104,15 +108,17 @@ app.post("/signin", async (req, res) => {
       if (!matchBenPassword) {
         return res.status(400).json({ msg: "Invalid credential" });
       }
-      const token = jwt.sign({ id: ben._id }, process.env.JWT_SECRET);
+      const token = jwt.sign({ id: ben._id }, process.env.JWTSECRET);
       res.status(200).json({
         token,
+        ben: {
         centerName: ben.centerName,
         medicalZone: ben.medicalZone,
         email: ben.email,
         phoneNumber: ben.phoneNumber,
         address: ben.address,
         acknowledge: ben.acknowledge,
+        },
       });
     }
   } catch (err) {

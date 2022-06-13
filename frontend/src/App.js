@@ -1,4 +1,4 @@
-import React, { useState, createContext } from "react";
+import React, { useState, createContext, useEffect } from "react";
 import { BrowserRouter as Router, Routes, Route } from "react-router-dom";
 import "./App.css";
 import Home from "./pages/Home";
@@ -14,6 +14,8 @@ import ProfilePage from "./pages/ProfilePage";
 import GridBen from "./pages/GridBen";
 import Header from "./pages/Header";
 import { getModalUtilityClass } from "@mui/material";
+import proxy from './pages/config';
+import Axios from "axios"; 
 
 export const ValueContext = createContext();
 export const SetValueContext = createContext();
@@ -41,6 +43,32 @@ function App() {
       address: null,
     },
   });
+
+  useEffect(() => {
+    const checkLoggedIn = async () => {
+      let token = localStorage.getItem("auth-token");
+      if (token === null) {
+        localStorage.setItem("auth-token", "");
+        token = "";
+      }
+      const tokenRes = await Axios.post(
+        `${proxy}/tokenIsValid`,
+        null,
+        { headers: { "x-auth-token": token } }
+      );
+      if (tokenRes.data) {
+        const userRes = await Axios.get(`${proxy}/signin`, {
+          headers: { "x-auth-token": token },
+        });
+        setUserData({
+          token,
+          user: userRes.data,
+        });
+      }
+    };
+
+    checkLoggedIn();
+  }, []);
 
   return (
     <Router>
