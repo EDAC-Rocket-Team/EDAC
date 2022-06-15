@@ -30,6 +30,7 @@ export default function Header() {
   const logout = () => {
     setUserData({
       donor: {
+        token: null,
         firstname: null,
         lastname: null,
         email: null,
@@ -43,6 +44,7 @@ export default function Header() {
         drugpass: null,
       },
       beneficiary: {
+        token: null,
         centerName: null,
         medicalZone: null,
         email: null,
@@ -51,12 +53,13 @@ export default function Header() {
       },
     });
     setOpen(false);
+    localStorage.setItem("edak-blood-token", "");
     navigate("/");
   };
 
   return (
     <div>
-      <AppBar position="static">
+      <AppBar position="fixed">
         <Toolbar>
           <Typography variant="h6" color="white" noWrap underline="none">
             EDAC

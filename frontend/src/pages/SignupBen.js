@@ -18,19 +18,14 @@ import FormControl from "@mui/material/FormControl";
 import Select from "@mui/material/Select";
 import PhoneInput from "react-phone-input-2";
 import "react-phone-input-2/lib/style.css";
-import Copyright from "./Copyright";
-import { formLabelClasses } from "@mui/material";
+// import { formLabelClasses } from "@mui/material";
 // import { createAvatar } from "@dicebear/avatars";
-import * as style from "@dicebear/croodles-neutral";
+// import * as style from "@dicebear/croodles-neutral";
 import Axios from "axios";
 import proxy from "./config";
 import { useNavigate } from "react-router-dom";
 import ErrorNotice from "./misc/ErrorNotice";
 import { ValueContext, SetValueContext } from "../App";
-
-// let svg = createAvatar(style, {
-//   seed: "custom-seed",
-// });
 
 const theme = createTheme();
 
@@ -62,9 +57,9 @@ export default function SignupBen() {
         address,
         acknowledge,
       });
-      // console.log("newuser", newUser);
       setUserData({
         donor: {
+          token: null,
           firstname: null,
           lastname: null,
           email: null,
@@ -76,6 +71,7 @@ export default function SignupBen() {
           drugpass: null,
         },
         beneficiary: {
+          token: newUser.data.token,
           centerName: newUser.data.centerName,
           medicalZone: newUser.data.medicalZone,
           email: newUser.data.email,
@@ -83,6 +79,7 @@ export default function SignupBen() {
           address: newUser.data.address,
         },
       });
+      localStorage.setItem("edak-blood-token", newUser.data.token);
       navigate("/beneficiary-submit");
     } catch (err) {
       console.log(err);
@@ -90,7 +87,6 @@ export default function SignupBen() {
     }
   };
 
-  // console.log("userdata222", userData);
   return (
     <ThemeProvider theme={theme}>
       <Container component="main" maxWidth="xs">
@@ -251,7 +247,6 @@ export default function SignupBen() {
             </Grid>
           </Box>
         </Box>
-        <Copyright sx={{ mt: 5 }} />
       </Container>
     </ThemeProvider>
   );

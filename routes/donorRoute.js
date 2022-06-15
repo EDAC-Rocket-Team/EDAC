@@ -1,11 +1,11 @@
 const express = require("express");
 const app = express();
-const mongoose = require("mongoose");
 const DonorModel = require("../models/donors");
 const BenModel = require("../models/ben");
 const bcrypt = require("bcrypt");
+const { auth, authDonor, authBeneficiary } = require("../Auth");
 
-app.get("/getDonors", (req, res) => {
+app.get("/getDonors", auth, (req, res) => {
   DonorModel.find({}, (err, result) => {
     if (err) {
       res.json(err);
@@ -15,12 +15,14 @@ app.get("/getDonors", (req, res) => {
         let getDonors = {
           firstname: donor.firstname,
           lastname: donor.lastname,
+          birthdate: donor.birthdate,
           email: donor.email,
           phone: donor.phone,
           address: donor.address,
           bloodtype: donor.bloodtype,
           alcoholpass: donor.alcoholpass,
           drugpass: donor.drugpass,
+          id: donor._id,
         };
         donorInfo.push(getDonors);
       });
@@ -28,21 +30,6 @@ app.get("/getDonors", (req, res) => {
     }
   });
 });
-
-app.post("/createDonor", async (req, res) => {
-  const donor = req.body; /// will be sending this from the frontend
-  const newD = new DonorModel(donor);
-  await newD.save();
-  res.json(donor);
-});
-
-// if (err) {
-//   return res.status(500).json(err);
-// } else {
-//   // let profile = [];
-//   result.forEach((userprofile) => {
-
-//res.status(200).json(details);
 
 app.post("/createDonor", async (req, res) => {
   try {
@@ -114,13 +101,13 @@ app.post("/createDonor", async (req, res) => {
   }
 });
 
-app.delete("/deleteDonor", async (req, res) => {
+app.put("/deleteDonor", auth, authDonor, async (req, res) => {
   try {
     let { email } = req.body;
     const entry = await DonorModel.findOne({ email });
     if (!entry)
       return res.status(400).json("no account with this email is found");
-    await DonorModel.deleteOne({ email: email });
+    await DonorModel.deleteOne({ email });
     res.status(200).json(email);
   } catch (err) {
     res.status(500).json(err.message);
@@ -128,7 +115,7 @@ app.delete("/deleteDonor", async (req, res) => {
 });
 
 // Update user profile information
-app.put("/update", async (req, res) => {
+app.put("/update", auth, authDonor, async (req, res) => {
   let {
     firstname,
     lastname,
@@ -137,15 +124,13 @@ app.put("/update", async (req, res) => {
     passwordCheck,
     phone,
     address,
-    birthdate,
-    bloodtype,
     alcoholpass,
     drugpass,
   } = req.body;
   let user = null;
-  // if (!firstname && !password) {
-  //   return res.status(400).json({ msg: "No fields have been updated" });
-  // }
+  if (!firstname && !lastname && !password && !passwordCheck && !phone && !address) {
+    return res.status(400).json({ msg: "No fields have been updated" });
+  }
   try {
     user = await DonorModel.findOne({ email });
   } catch {
@@ -168,12 +153,6 @@ app.put("/update", async (req, res) => {
   }
   if (phone) {
     user.phone = phone;
-  }
-  if (birthdate) {
-    user.birthdate = birthdate;
-  }
-  if (bloodtype) {
-    user.bloodtype = bloodtype;
   }
   if (alcoholpass) {
     user.alcoholpass = alcoholpass;
@@ -205,11 +184,16 @@ app.put("/update", async (req, res) => {
       firstname: user.firstname,
       lastname: user.lastname,
       email: user.email,
-      password: user.newPassword,
+      birthdate: user.birthdate,
+      address: user.birthdate,
+      phone: user.birthdate,
+      bloodtype: user.birthdate,
+      alcoholpass: user.alcoholpass,
+      drugpass: user.drugpass,
       id: user._id,
     });
-  } catch {
-    res.status(500).send("Error in saving user");
+  } catch(err) {
+    res.status(500).send(err.message);
   }
 });
 

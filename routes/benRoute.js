@@ -1,12 +1,11 @@
 const express = require("express");
 const app = express();
-const mongoose = require("mongoose");
-const BenModel = require("../models/ben");
 const DonorModel = require("../models/donors");
+const BenModel = require("../models/ben");
 const bcrypt = require("bcrypt");
-// const res = require("express/lib/response");
+const { auth, authDonor, authBeneficiary } = require("../Auth");
 
-app.get("/getBens", (req, res) => {
+app.get("/getBens", auth, (req, res) => {
   BenModel.find({}, (err, result) => {
     if (err) {
       res.json(err);
@@ -19,20 +18,13 @@ app.get("/getBens", (req, res) => {
           phoneNumber: ben.phoneNumber,
           address: ben.address,
           email: ben.email,
+          id: ben._id
         };
         benInfo.push(getBens);
       });
       res.json(benInfo);
     }
   });
-});
-
-app.post("/createBen", async (req, res) => {
-  const ben = req.body; /// will be sending this from the frontend
-  const newB = new BenModel(ben);
-  await newB.save();
-
-  res.json(ben);
 });
 
 app.post("/createBen", async (req, res) => {
@@ -66,6 +58,7 @@ app.post("/createBen", async (req, res) => {
     }
     const existingBenUser = await BenModel.findOne({ email: email });
     const existingDonorUser = await DonorModel.findOne({ email: email });
+
     if (existingBenUser || existingDonorUser)
       return res
         .status(400)
@@ -94,16 +87,16 @@ app.post("/createBen", async (req, res) => {
       acknowledge,
     });
     const savedUser = await newUser.save();
-    res.json(savedUser);
+    res.status(200).json(savedUser);
   } catch (err) {
     res.status(500).json({ error: err.message });
   }
 });
 
-app.delete("/deleteBen", async (req, res) => {
+app.put("/deleteBen", auth, authBeneficiary, async (req, res) => {
   try {
     let { email } = req.body;
-    const entry = await BenModel.findOne({ email });
+    const entry = await BenModel.findOne({ email: email });
     if (!entry)
       return res.status(400).json("no account with this email is found");
     await BenModel.deleteOne({ email: email });
@@ -114,7 +107,7 @@ app.delete("/deleteBen", async (req, res) => {
 });
 
 // Update user profile information
-app.put("/update", async (req, res) => {
+app.put("/update", auth, authBeneficiary, async (req, res) => {
   let {
     centerName,
     medicalZone,
@@ -125,9 +118,9 @@ app.put("/update", async (req, res) => {
     address,
   } = req.body;
   let user = null;
-  // if (!centerName && !password) {
-  //   return res.status(400).json({ msg: "No fields have been updated" });
-  // }
+  if (!centerName && !medicalZone && !password && !passwordCheck && !phoneNumber && !address) {
+    return res.status(400).json({ msg: "No fields have been updated" });
+  }
   try {
     user = await BenModel.findOne({ email });
   } catch {
@@ -138,9 +131,6 @@ app.put("/update", async (req, res) => {
   }
   if (centerName) {
     user.centerName = centerName;
-  }
-  if (email) {
-    user.email = email;
   }
   if (medicalZone) {
     user.medicalZone = medicalZone;
@@ -175,11 +165,12 @@ app.put("/update", async (req, res) => {
       centerName: user.centerName,
       medicalZone: user.medicalZone,
       email: user.email,
-      password: user.newPassword,
-      id: user._id,
+      phoneNumber: user.phoneNumber,
+      address: user.address,
+      id: user._id
     });
-  } catch {
-    res.status(500).send("Error in saving user");
+  } catch (err) {
+    res.status(500).send(err.message);
   }
 });
 

@@ -28,18 +28,20 @@ export default function ImageAvatars() {
   const [update, setUpdate] = useState(false);
   const [error, setError] = useState("");
 
-  const [firstname, setFirstname] = useState("");
-  const [lastname, setLastname] = useState("");
+  const [firstname, setFirstName] = useState("");
+  const [lastname, setLastName] = useState("");
   const [phone, setPhone] = useState("");
-  const [userLocation, setUserLocation] = useState("GB");
+  const [userLocation, setUserLocation] = useState("");
   const [password, setPassword] = useState("");
   const [passwordCheck, setPasswordCheck] = useState();
 
   const [phoneNumber, setPhoneNumber] = useState("");
   const [centerName, setCenterName] = useState("");
-  const [medicalZone, setMedicalZone] = useState("");
+  const [medicalZone, setMedicalZone] = useState(userData.beneficiary.medicalZone);
 
   let navigate = useNavigate();
+
+  console.log(userData);
 
   const saveChangeD = async (e) => {
     e.preventDefault();
@@ -76,7 +78,7 @@ export default function ImageAvatars() {
       setUpdate(false);
     } catch (err) {
       console.log(err);
-      // err.response.data.msg && setError(err.response.data.msg);
+      err.response.data.msg && setError(err.response.data.msg);
     }
   };
 
@@ -92,27 +94,27 @@ export default function ImageAvatars() {
         passwordCheck,
       };
       const updatedUser = await Axios.put(`${proxy}/ben/update`, newUser,
-        { headers: { "edak-blood-token": userData.donor.token } });
+        { headers: { "edak-blood-token": userData.beneficiary.token } });
       setUserData({
         donor: {
-          firstname: updatedUser.data.firstname,
-          lastname: updatedUser.data.lastname,
-          email: updatedUser.data.email,
-          address: updatedUser.data.address,
-          phone: updatedUser.data.phone,
+          firstname: null,
+          lastname: null,
+          email: null,
+          address: null,
+          phone: null,
         },
         beneficiary: {
-          centerName: null,
-          medicalZone: null,
-          email: null,
-          phoneNumber: null,
-          address: null,
+          centerName: updatedUser.data.centerName,
+          medicalZone: updatedUser.data.medicalZone,
+          email: updatedUser.data.email,
+          phoneNumber: updatedUser.data.phoneNumber,
+          address: updatedUser.data.address,
         },
       });
       setUpdate(false);
     } catch (err) {
       console.log(err);
-      // err.response.data.msg && setError(err.response.data.msg);
+      err.response.data.msg && setError(err.response.data.msg);
     }
   };
 
@@ -219,7 +221,8 @@ export default function ImageAvatars() {
   return (
     <div>
       {!update ? (
-        <Grid container
+        <Grid
+          container
           direction="row"
           justifyContent="center"
           alignItems="center"
@@ -266,82 +269,115 @@ export default function ImageAvatars() {
                   : null}
             </Card>
           </Box>
-          <Button className='Back' sx={{ position: 'fixed', top: 10, right: 10, mt: 10 }} variant='contained' onClick={() => { navigate(-1) }}>Back</Button>
-          <Button className='update' sx={{ position: 'fixed', top: 50, right: 10, mt: 10 }} variant='contained' onClick={() => { navigate() }}>Update</Button>
-          <Button className='Delete' sx={{ position: 'fixed', top: 90, right: 10, mt: 10 }} variant='contained' onClick={() => { deleteUser() }}>Delete</Button>
+          <Button
+            className="Back"
+            sx={{ position: "fixed", top: 10, right: 10, mt: 10 }}
+            variant="contained"
+            onClick={() => {
+              navigate(-1);
+            }}
+          >
+            Back
+          </Button>
+          <Button
+            className="update"
+            sx={{ position: "fixed", top: 50, right: 10, mt: 10 }}
+            variant="contained"
+            onClick={() => {
+              setUpdate(true);
+            }}
+          >
+            Update
+          </Button>
+          <Button
+            className="Delete"
+            sx={{ position: "fixed", top: 90, right: 10, mt: 10 }}
+            variant="contained"
+            onClick={() => { deleteUser() }}
+          >
+            Delete
+          </Button>
         </Grid>
       ) : update && userData.donor.email ? (
-        <form onSubmit={saveChangeD}>
-          <Container fixed sx={{ margin: 1, padding: 1 }}>
-            <TextField
-              fullWidth
-              label="First Name"
-              onChange={(e) => setFirstname(e.target.value)}
-            />
-          </Container>
-          <Container fixed sx={{ margin: 1, padding: 1 }}>
-            <TextField
-              fullWidth
-              label="Last Name"
-              onChange={(e) => setLastname(e.target.value)}
-            />
-          </Container>
-          <Container fixed sx={{ margin: 1, padding: 1 }}>
-            <FormControl fullWidth>
-              <InputLabel id="location"> Zone</InputLabel>
-              <Select
-                id="userLocation"
-                labelId="location"
-                label="Your Location"
-                value={userLocation}
-                defaultValue={userLocation}
-                onChange={(e) => {
-                  setUserLocation(e.target.value);
-                }}
-              >
-                <MenuItem value={"Greater Beirut"}>Greater Beirut</MenuItem>
-                <MenuItem value={"Mount Lebanon"}>Mount Lebanon</MenuItem>
-                <MenuItem value={"Metn/Kesserwan"}>Metn/Kesserwan</MenuItem>
-                <MenuItem value={"Tripoli"}>Tripoli</MenuItem>
-                <MenuItem value={"South Lebanon"}>South Lebanon</MenuItem>
-              </Select>
-            </FormControl>
-          </Container>
-          <Container fixed sx={{ margin: 1, padding: 1 }}>
-            <TextField
-              fullWidth
-              label="Phone Number"
-              onChange={(e) => setPhone(e.target.value)}
-            />
-          </Container>
-          <Container fixed sx={{ margin: 1, padding: 1 }}>
-            <TextField
-              fullWidth
-              type="password"
-              label="Password"
-              onChange={(e) => setPassword(e.target.value)}
-            />
-          </Container>
-          <Container fixed sx={{ margin: 1, padding: 1 }}>
-            <TextField
-              fullWidth
-              type="password"
-              label="Re-Enter Password"
-              onChange={(e) => setPasswordCheck(e.target.value)}
-            // color={errorColorR}
-            />
-          </Container>
-          {error && <ErrorNotice message={error} />}
-          <Button
-            style={{ color: "blue" }}
-            size="large"
-            variant="outlined"
-            type="submit"
-            sx={{ position: "fixed", top: 500, left: 35, mt: 10 }}
-          >
-            Save
-          </Button>
-        </form>
+        <Grid
+          container
+          direction="row"
+          justifyContent="center"
+          alignItems="center"
+          sx={{ mt: 20 }}
+        >
+          <form onSubmit={saveChangeD}>
+            <Container fixed sx={{ margin: 1, padding: 1 }}>
+              <TextField
+                fullWidth
+                label="First Name"
+                onChange={(e) => setFirstName(e.target.value)}
+              />
+            </Container>
+            <Container fixed sx={{ margin: 1, padding: 1 }}>
+              <TextField
+                fullWidth
+                label="Last Name"
+                onChange={(e) => setLastName(e.target.value)}
+              />
+            </Container>
+            <Container fixed sx={{ margin: 1, padding: 1 }}>
+              <FormControl fullWidth>
+                <InputLabel id="location">Location</InputLabel>
+                <Select
+                  id="userLocation"
+                  labelId="location"
+                  label="Your Location"
+                  value={userLocation}
+                  defaultValue={userLocation}
+                  onChange={(e) => {
+                    setUserLocation(e.target.value);
+                  }}
+                >
+                  <MenuItem value={"Greater Beirut"}>Greater Beirut</MenuItem>
+                  <MenuItem value={"Mount Lebanon"}>Mount Lebanon</MenuItem>
+                  <MenuItem value={"Metn/Kesserwan"}>Metn/Kesserwan</MenuItem>
+                  <MenuItem value={"Tripoli"}>Tripoli</MenuItem>
+                  <MenuItem value={"South Lebanon"}>South Lebanon</MenuItem>
+                </Select>
+              </FormControl>
+            </Container>
+            <Container fixed sx={{ margin: 1, padding: 1 }}>
+              <TextField
+                fullWidth
+                label="Phone Number"
+                onChange={(e) => setPhone(e.target.value)}
+              />
+            </Container>
+            <Container fixed sx={{ margin: 1, padding: 1 }}>
+              <TextField
+                fullWidth
+                type="password"
+                label="Password"
+                onChange={(e) => setPassword(e.target.value)}
+              />
+            </Container>
+            <Container fixed sx={{ margin: 1, padding: 1 }}>
+              <TextField
+                fullWidth
+                type="password"
+                label="Re-Enter Password"
+                onChange={(e) => setPasswordCheck(e.target.value)}
+              // color={errorColorR}
+              />
+            </Container>
+            {error && <ErrorNotice message={error} />}
+            <Button
+              style={{ color: "blue" }}
+              size="large"
+              variant="outlined"
+              type="submit"
+              sx={{ top: 500, left: 35, mt: 10 }}
+            >
+              Save
+            </Button>
+          </form>
+        </Grid>
       ) : update && userData.beneficiary.email ? (
         <form onSubmit={saveChangeB}>
           <Container fixed sx={{ margin: 1, padding: 1 }}>
@@ -353,15 +389,15 @@ export default function ImageAvatars() {
           </Container>
           <Container fixed sx={{ margin: 1, padding: 1 }}>
             <FormControl fullWidth>
-              <InputLabel id="location"> Zone</InputLabel>
+              <InputLabel id="location">Medical Zone</InputLabel>
               <Select
                 id="userLocation"
                 labelId="location"
                 label="Your Location"
-                value={userLocation}
-                defaultValue={userLocation}
+                value={medicalZone}
+                defaultValue={medicalZone}
                 onChange={(e) => {
-                  setUserLocation(e.target.value);
+                  setMedicalZone(e.target.value);
                 }}
               >
                 <MenuItem value={"Greater Beirut"}>Greater Beirut</MenuItem>

@@ -1,4 +1,4 @@
-import React, { useState, ChangeEvent, useContext } from "react";
+import React, { useState, useContext } from "react";
 import Avatar from "@mui/material/Avatar";
 import Button from "@mui/material/Button";
 import CssBaseline from "@mui/material/CssBaseline";
@@ -22,11 +22,10 @@ import FormLabel from "@mui/material/FormLabel";
 import FormGroup from "@mui/material/FormGroup";
 // import FormHelperText from '@mui/material/FormHelperText';
 import Switch from "@mui/material/Switch";
-import Copyright from "./Copyright";
 import Axios from "axios";
 import proxy from "./config";
 import ErrorNotice from "./misc/ErrorNotice";
-import { ValueContext, SetValueContext } from "../App";
+import { ValueContext, SetValueContext, getAge } from "../App";
 
 const theme = createTheme();
 
@@ -47,63 +46,55 @@ export default function SignupD() {
   const userData = useContext(ValueContext);
   const setUserData = useContext(SetValueContext);
 
-  const [listOfUsers, setListOfUsers] = useState([]);
-
   let navigate = useNavigate();
 
   const onSubmit = async () => {
-    console.log({
-      firstname: names,
-      lastname: lastNames,
-      email,
-      password,
-      passwordCheck: confirmPassword,
-      birthdate,
-      address: userLocation,
-      phone: phoneNumber,
-      bloodtype: bloodTypes,
-      alcoholpass: alcoholUse,
-      drugpass: drug,
-    });
-    try {
-      const newUser = await Axios.post(`${proxy}/donor/createDonor`, {
-        firstname: names,
-        lastname: lastNames,
-        email,
-        password,
-        passwordCheck: confirmPassword,
-        birthdate,
-        address: userLocation,
-        phone: phoneNumber,
-        bloodtype: bloodTypes,
-        alcoholpass: alcoholUse,
-        drugpass: drug,
-      });
-      // console.log(newUser);
-      setUserData({
-        donor: {
-          firstname: newUser.data.names,
-          lastname: newUser.data.lastNames,
-          email: newUser.data.email,
-          birthdate: newUser.data.birthdate,
-          address: newUser.data.userLocation,
-          phone: newUser.data.phoneNumber,
-          bloodtype: newUser.data.bloodTypes,
-          alcoholpass: newUser.data.alcoholUse,
-          drugpass: newUser.data.drug,
-        },
-        beneficiary: {
-          centerName: null,
-          medicalZone: null,
-          email: null,
-          phoneNumber: null,
-          address: null,
-        },
-      });
-      navigate("/donor-submit");
-    } catch (err) {
-      console.log(err);
-      setError(err.response.data.msg);
+    const age = getAge(birthdate);
+    if (age < 18 || age > 65) {
+      navigate("/-18")
+    } else {
+      try {
+        const newUser = await Axios.post(`${proxy}/donor/createDonor`, {
+          firstname: names,
+          lastname: lastNames,
+          email,
+          password,
+          passwordCheck: confirmPassword,
+          birthdate,
+          address: userLocation,
+          phone: phoneNumber,
+          bloodtype: bloodTypes,
+          alcoholpass: alcoholUse,
+          drugpass: drug,
+        });
+        setUserData({
+          donor: {
+            token: newUser.data.token,
+            firstname: newUser.data.names,
+            lastname: newUser.data.lastNames,
+            email: newUser.data.email,
+            birthdate: newUser.data.birthdate,
+            address: newUser.data.userLocation,
+            phone: newUser.data.phoneNumber,
+            bloodtype: newUser.data.bloodTypes,
+            alcoholpass: newUser.data.alcoholUse,
+            drugpass: newUser.data.drug,
+          },
+          beneficiary: {
+            token: null,
+            centerName: null,
+            medicalZone: null,
+            email: null,
+            phoneNumber: null,
+            address: null,
+          },
+        });
+        localStorage.setItem("edak-blood-token", newUser.data.token);
+        navigate("/donor-submit");
+      } catch (err) {
+        console.log(err);
+        setError(err.response.data.msg);
+      }
     }
   };
 
@@ -275,14 +266,13 @@ export default function SignupD() {
                     <MenuItem value={"A RhD negative"}>A-</MenuItem>
                     <MenuItem value={"B RhD positive"}>B+</MenuItem>
                     <MenuItem value={"B RhD negative"}>B-</MenuItem>
-                    <MenuItem value={"AB RhD positive"}>AB+ </MenuItem>
-                    <MenuItem value={"AB RhD negative"}>AB- </MenuItem>
+                    <MenuItem value={"AB RhD positive"}>AB+</MenuItem>
+                    <MenuItem value={"AB RhD negative"}>AB-</MenuItem>
                   </Select>
                 </FormControl>
               </Grid>
 
               <Grid item xs={12}>
-                {/* <h6>Do you drink alcohol regularly?</h6> */}
                 <FormControl fullWidth>
                   <InputLabel id="qa">
                     Do you drink alcohol regularly?
@@ -299,9 +289,7 @@ export default function SignupD() {
                     <MenuItem value={"Daily"}>yes, daily</MenuItem>
                     <MenuItem value={"Weekly"}>yes, weekly</MenuItem>
                     <MenuItem value={"Monthly"}>yes, monthly</MenuItem>
-                    <MenuItem value={"Occassionally"}>
-                      yes, occassionally
-                    </MenuItem>
+                    <MenuItem value={"Occassionally"}>yes, occassionally</MenuItem>
                     <MenuItem value={"No"}>No</MenuItem>
                   </Select>
                 </FormControl>
@@ -377,7 +365,6 @@ export default function SignupD() {
             </Grid>
           </Box>
         </Box>
-        <Copyright sx={{ mt: 5 }} />
       </Container>
     </ThemeProvider>
   );

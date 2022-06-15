@@ -2,7 +2,6 @@ import React, { useContext } from "react";
 import { Typography, Button, Grid } from "@mui/material";
 import background from "../media/heart.png";
 import { useNavigate } from "react-router-dom";
-import Copyright from "./Copyright";
 import { Paper } from "@mui/material";
 import { ValueContext, SetValueContext } from "../App";
 
@@ -67,7 +66,6 @@ export default function Home() {
           >
             Sign In
           </Button>
-          <Copyright sx={{ mt: 10 }}></Copyright>
         </Grid>
       </Grid>
     </div>

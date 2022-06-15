@@ -24,7 +24,6 @@ const BenSchema = new mongoose.Schema({
   },
   address: {
     type: String,
-    required: true,
   },
   acknowledge: {
     type: Boolean,
