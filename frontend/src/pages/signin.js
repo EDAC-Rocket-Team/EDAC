@@ -1,4 +1,4 @@
-import React, { useState, useContext } from "react";
+import React, { useState, useContext, useEffect } from "react";
 import Avatar from "@mui/material/Avatar";
 import Button from "@mui/material/Button";
 import CssBaseline from "@mui/material/CssBaseline";
@@ -30,6 +30,11 @@ export default function SignIn() {
   const [password, setPassword] = useState("");
 
   const [passCheck, setPassCheck] = useState(false);
+
+  useEffect(() => {
+    if (userData.beneficiary.token || userData.donor.token)
+      navigate("/profile");
+  });
 
   //this is what happens when you press submit
   const onSubmit = async () => {

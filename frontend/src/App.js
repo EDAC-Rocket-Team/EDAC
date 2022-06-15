@@ -1,7 +1,7 @@
 import React, { useState, createContext, useEffect } from "react";
 import { BrowserRouter as Router, Routes, Route } from "react-router-dom";
 import "./App.css";
-import Axios from 'axios';
+import Axios from "axios";
 import Header from "./pages/Header";
 import Home from "./pages/Home";
 import SignupD from "./pages/signupDonor";
@@ -13,9 +13,10 @@ import Beneficiarysubmit from "./pages/BeneficiariesSubmitPage";
 import GridDonor from "./pages/GridDonor";
 import GridBen from "./pages/GridBen";
 import ProfilePage from "./pages/ProfilePage";
-import Copyright from './pages/Copyright';
+import Copyright from "./pages/Copyright";
 import proxy from "./pages/config";
 // import { getModalUtilityClass } from "@mui/material";
+import ProtectedRoute from "./pages/RouteProtection";
 
 export const ValueContext = createContext();
 export const SetValueContext = createContext();
@@ -37,7 +38,7 @@ function App() {
       phone: null,
       bloodtype: null,
       alcoholpass: null,
-      drugpass: null
+      drugpass: null,
     },
     beneficiary: {
       token: null,
@@ -56,12 +57,13 @@ function App() {
         localStorage.setItem("edak-blood-token", "");
         token = "";
       }
-      const tokenResponse = await Axios
-        .post(`${proxy}/common/tokenIsValid`,
-          null,
-          { headers: { "edak-blood-token": token } }
-        );
-      if (tokenResponse.data.firstname) { // means the user is a donor
+      const tokenResponse = await Axios.post(
+        `${proxy}/common/tokenIsValid`,
+        null,
+        { headers: { "edak-blood-token": token } }
+      );
+      if (tokenResponse.data.firstname) {
+        // means the user is a donor
         setUserData({
           token,
           firstname: tokenResponse.data.firstname,
@@ -74,8 +76,9 @@ function App() {
           alcoholpass: tokenResponse.data.alcoholpass,
           drugpass: tokenResponse.data.drugpass,
         });
-      };
-      if (tokenResponse.data.centerName) { // means the user is a beneficiary
+      }
+      if (tokenResponse.data.centerName) {
+        // means the user is a beneficiary
         setUserData({
           token,
           centerName: tokenResponse.data.centerName,
@@ -85,10 +88,9 @@ function App() {
           address: tokenResponse.data.address,
         });
       }
-    }
+    };
     checkLoggedIn();
   }, []);
-
 
   return (
     <Router>
@@ -101,11 +103,13 @@ function App() {
             <Route path="/beneficiary-sign-up" element={<SignupBen />} />
             <Route path="/sign-in" element={<SignIn />} />
             <Route path="/-18" element={<Under18 />} />
-            <Route path="/donor-submit" element={<DonorsSubmit />} />
-            <Route path="/beneficiary-submit" element={<Beneficiarysubmit />} />
-            <Route path="/donors" element={<GridDonor />} />
-            <Route path="/beneficiaries" element={<GridBen />} />
-            <Route path="/profile" element={<ProfilePage />} />
+            <Route element={<ProtectedRoute />}>
+              <Route path="/donor-submit" element={<DonorsSubmit />} />
+              <Route path="/beneficiary-submit" element={<Beneficiarysubmit />}/>
+              <Route path="/donors" element={<GridDonor />} />
+              <Route path="/beneficiaries" element={<GridBen />} />
+              <Route path="/profile" element={<ProfilePage />} />
+            </Route>
           </Routes>
           <Copyright
           // sx={{ mt: 8, mb: 4 }}

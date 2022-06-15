@@ -1,4 +1,4 @@
-import React, { useState, useContext } from "react";
+import React, { useState, useContext, useEffect } from "react";
 import Avatar from "@mui/material/Avatar";
 import Button from "@mui/material/Button";
 import CssBaseline from "@mui/material/CssBaseline";
@@ -47,6 +47,12 @@ export default function SignupD() {
   const setUserData = useContext(SetValueContext);
 
   let navigate = useNavigate();
+
+  useEffect(() => {
+    if (userData.beneficiary.token || userData.donor.token)
+      navigate("/profile");
+  });
+
 
   const onSubmit = async () => {
     const age = getAge(birthdate);

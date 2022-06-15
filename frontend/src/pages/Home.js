@@ -1,4 +1,4 @@
-import React, { useContext } from "react";
+import React, { useContext,useEffect } from "react";
 import { Typography, Button, Grid } from "@mui/material";
 import background from "../media/heart.png";
 import { useNavigate } from "react-router-dom";
@@ -12,6 +12,12 @@ export default function Home() {
   const setUserData = useContext(SetValueContext);
 
   const navigate = useNavigate();
+
+  useEffect(() => {
+    if (userData.beneficiary.token || userData.donor.token)
+      navigate("/profile");
+  });
+
 
   return (
     <div
