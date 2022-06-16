@@ -78,7 +78,7 @@ app.post("/createBen", async (req, res) => {
     const salt = await bcrypt.genSalt();
     const passwordHash = await bcrypt.hash(password, salt);
     const newUser = new BenModel({
-      centeName,
+      centerName,
       medicalZone,
       email: email.toLowerCase(),
       password: passwordHash,

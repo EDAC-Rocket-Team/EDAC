@@ -3,13 +3,10 @@ import background from "../media/puppy.png";
 import { Typography } from "@mui/material";
 import { useNavigate } from "react-router-dom";
 import { Grid, Paper, Button } from "@mui/material";
-import { ValueContext,
-  //  SetValueContext
- } from "../App";
+import { ValueContext } from "../App";
 
 export default function Under18() {
   const userData = useContext(ValueContext);
-  // const setUserData = useContext(SetValueContext);
 
   let navigate = useNavigate();
 

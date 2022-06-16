@@ -1,5 +1,5 @@
 import React from "react";
-import { Typography, Link } from "@mui/material";
+import { Typography } from "@mui/material";
 
 export default function Copyright(props) {
   return (
@@ -11,11 +11,9 @@ export default function Copyright(props) {
       {...props}
     >
       {"Copyright © "}
-      <Link color="inherit" underline="none">
-        EDAC
-      </Link>{" "}
+      EDAC
+      {" "}
       {new Date().getFullYear()}
-      {"."}
     </Typography>
   );
 }

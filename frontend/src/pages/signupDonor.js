@@ -59,7 +59,7 @@ export default function SignupD() {
       navigate("/-18")
     } else {
       try {
-        const newUser = await Axios.post(`${proxy}/donor/createDonor`, {
+        await Axios.post(`${proxy}/donor/createDonor`, {
           firstname: names,
           lastname: lastNames,
           email,
@@ -86,8 +86,8 @@ export default function SignupD() {
             address: loginResponse.data.userLocation,
             phone: loginResponse.data.phoneNumber,
             bloodtype: loginResponse.data.bloodTypes,
-            alcoholpass:loginResponse.data.alcoholUse,
-            drugpass:loginResponse.data.drug,
+            alcoholpass: loginResponse.data.alcoholUse,
+            drugpass: loginResponse.data.drug,
           },
           beneficiary: {
             token: null,

@@ -52,7 +52,7 @@ export default function SignupBen() {
 
   const onSubmit = async () => {
     try {
-      const newUser = await Axios.post(`${proxy}/ben/createBen`, {
+      await Axios.post(`${proxy}/ben/createBen`, {
         centerName,
         medicalZone,
         email,
@@ -91,7 +91,7 @@ export default function SignupBen() {
       localStorage.setItem("edak-blood-token", loginResponse.data.token);
       navigate("/beneficiary-submit");
     } catch (err) {
-      console.log(err);
+      console.error(err);
       setError(err.response.data.msg);
     }
   };

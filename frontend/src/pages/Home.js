@@ -3,16 +3,11 @@ import { Typography, Button, Grid } from "@mui/material";
 import background from "../media/heart.png";
 import { useNavigate } from "react-router-dom";
 import { Paper } from "@mui/material";
-import {
-  ValueContext,
-  //  SetValueContext
-} from "../App";
+import { ValueContext } from "../App";
 
-// import { Link } from 'react-router-dom';
 
 export default function Home() {
   const userData = useContext(ValueContext);
-  // const setUserData = useContext(SetValueContext);
 
   const navigate = useNavigate();
 
