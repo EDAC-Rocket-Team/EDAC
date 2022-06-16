@@ -6,26 +6,18 @@ import CardContent from '@mui/material/CardContent';
 import CardMedia from '@mui/material/CardMedia';
 import CssBaseline from '@mui/material/CssBaseline';
 import Grid from '@mui/material/Grid';
-import Box from '@mui/material/Box';
 import Typography from '@mui/material/Typography';
 import Container from '@mui/material/Container';
 import { createTheme, ThemeProvider } from '@mui/material/styles';
 import proxy from './config.js';
 import Axios from 'axios';
-import {
-  ValueContext,
-  // SetValueContext
-} from "../App";
-
+import { ValueContext } from "../App";
 
 const theme = createTheme();
 
 export default function GridDonor() {
-  // let navigate = useNavigate();
   const [infoDonors, setInfoDonors] = useState([]);
-
   const userData = useContext(ValueContext);
-  // const setUserData = useContext(SetValueContext);
 
   useEffect(() => {
     const getDonorInfo = async () => {
@@ -49,13 +41,12 @@ export default function GridDonor() {
       <CssBaseline />
 
       <main>
-        {/* Hero unit */}
 
         <Container sx={{ py: 8 }} maxWidth="md">
 
           <Grid container spacing={4}>
             {infoDonors.map((card) => (
-              <Grid item key={card} xs={12} sm={6} md={4}>
+              <Grid item key={card.id} xs={12} sm={6} md={4}>
                 <Card
                   sx={{ height: '100%', display: 'flex', flexDirection: 'column' }}
                 >
@@ -82,19 +73,6 @@ export default function GridDonor() {
           </Grid>
         </Container>
       </main>
-      {/* Footer */}
-      <Box sx={{ bgcolor: 'background.paper', p: 6 }} component="footer">
-        <Typography variant="h6" align="center" gutterBottom>
-        </Typography>
-        <Typography
-          variant="subtitle1"
-          align="center"
-          color="text.secondary"
-          component="p"
-        >
-        </Typography>
-      </Box>
-      {/* End footer */}
     </ThemeProvider>
   );
 }

@@ -52,7 +52,7 @@ export default function SignupBen() {
 
   const onSubmit = async () => {
     try {
-      const newUser = await Axios.post(`${proxy}/ben/createBen`, {
+      await Axios.post(`${proxy}/ben/createBen`, {
         centerName,
         medicalZone,
         email,
