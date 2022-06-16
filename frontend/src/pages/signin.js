@@ -29,8 +29,6 @@ export default function SignIn() {
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
 
-  const [passCheck, setPassCheck] = useState(false);
-
   useEffect(() => {
     if (userData.beneficiary.token || userData.donor.token)
       navigate("/profile");
@@ -93,8 +91,8 @@ export default function SignIn() {
       localStorage.setItem("edak-blood-token", newUser.data.token);
       navigate("/profile");
     } catch (err) {
-      console.log(err.response.data.msg);
-      // setError(err.response.data.msg);
+      console.log(err.response.data.msg)
+      setError(err.response.data.msg);
     }
   };
 
@@ -139,19 +137,8 @@ export default function SignIn() {
                   onChange={(email) => {
                     setEmail(email.target.value);
                   }}
-                // required
-                //registred email for submit hook, and added conditions
-                // {...register("email", {
-                //   required: true,
-                //   // maxLength: 20,
-                //   // pattern: /^\w+([\.-]?\w+)*@\w+([\.-]?\w+)*(\.\w{2,})+$/i,
-                // })}
                 />
               </Grid>
-              {/* {errors.email && (
-              <Alert severity="warning">Something is wrong with Email</Alert>
-            )} */}
-              {/*<Grid container spacing={2}>   new*/}
               <Grid item xs={12}>
                 {" "}
                 <TextField
@@ -165,38 +152,21 @@ export default function SignIn() {
                   onChange={(pass) => {
                     setPassword(pass.target.value);
                   }}
-
-                //this registers password and its conditions
-                // {...register("password", {
-                //   required: true,
-                //   {onChange = (pass) = > {
-                //     setPassword(pass.target.value);
-                //   }}
-                // maxLength: 30,
-                // pattern: /^[A-Za-z]+$/i,
                 />
               </Grid>
             </Grid>
-            {/* {errors.password && (
-              <Alert severity="warning">Something is wrong with password</Alert>
-            )} */}
-            {/* {loggedIn ? console.log("yes"):console.log("nooooo") } */}
             <Button
               type="submit"
               fullWidth
               variant="contained"
               sx={{ mt: 3, mb: 2 }}
-              // onClick ={()=> {setLoggedin(true)}}
               onClick={() => {
                 onSubmit();
               }}
             >
               Sign In
             </Button>
-            {/* {error && <ErrorNotice message={error} />} */}
-            {/* {passCheck && (
-              <Alert severity="error">Wrong Password or Email!</Alert>
-            )} */}
+            {error && <ErrorNotice message={error} />}
             <Grid container>
               <Grid item>
                 <Link href="/" variant="body2">

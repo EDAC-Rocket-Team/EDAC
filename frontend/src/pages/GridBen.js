@@ -1,6 +1,6 @@
 import React, { useEffect, useState, useContext } from "react";
-import { useNavigate } from "react-router-dom";
-import Button from "@mui/material/Button";
+// import { useNavigate } from "react-router-dom";
+// import Button from "@mui/material/Button";
 import Card from "@mui/material/Card";
 import CardContent from "@mui/material/CardContent";
 import CardMedia from "@mui/material/CardMedia";
@@ -12,33 +12,36 @@ import Container from "@mui/material/Container";
 import { createTheme, ThemeProvider } from "@mui/material/styles";
 import proxy from "./config.js";
 import Axios from "axios";
-import { ValueContext, SetValueContext } from "../App";
+import {
+  ValueContext
+  // , SetValueContext
+} from "../App";
 
 const theme = createTheme();
 
 export default function GridBen() {
-  let navigate = useNavigate();
+  // let navigate = useNavigate();
   const [infoBens, setInfoBens] = useState([]);
 
   const userData = useContext(ValueContext);
-  const setUserData = useContext(SetValueContext);
+  // const setUserData = useContext(SetValueContext);
 
-  // useEffect(() => {
+  useEffect(() => {
     const getBenInfo = async () => {
       try {
-        const whatever = await Axios.get(`${proxy}/ben/getBens`);
-        // console.log(whatever.data[1]);
-        if (whatever.data) {
-          setInfoBens(whatever.data);
+        const getInfo = await Axios.get(`${proxy}/ben/getBens`,
+          { headers: { "edak-blood-token": userData.donor.token } });
+        if (getInfo.data) {
+          setInfoBens(getInfo.data);
         }
       } catch (err) {
         console.log(err);
       }
     };
-    // if (userData.email) {
-    getBenInfo();
-    // }
-  // });
+    if (userData.donor.email) {
+      getBenInfo();
+    }
+  }, [userData.donor.email, userData.donor.token]);
 
   return (
     <ThemeProvider theme={theme}>
@@ -77,13 +80,6 @@ export default function GridBen() {
                 </Card>
               </Grid>
             ))}
-                    <Button
-            sx={{ position: "fixed", top: 80, right: 10 }}
-            variant="contained"
-                      onClick={() => { navigate("/profile"); }}
-                    >
-                      Home
-                    </Button>
           </Grid>
         </Container>
       </main>

@@ -1,6 +1,6 @@
 import React, { useEffect, useContext, useState } from 'react';
-import { useNavigate } from "react-router-dom";
-import Button from '@mui/material/Button';
+// import { useNavigate } from "react-router-dom";
+// import Button from '@mui/material/Button';
 import Card from '@mui/material/Card';
 import CardContent from '@mui/material/CardContent';
 import CardMedia from '@mui/material/CardMedia';
@@ -12,34 +12,37 @@ import Container from '@mui/material/Container';
 import { createTheme, ThemeProvider } from '@mui/material/styles';
 import proxy from './config.js';
 import Axios from 'axios';
-import { ValueContext, SetValueContext } from "../App";
+import {
+  ValueContext,
+  // SetValueContext
+} from "../App";
 
 
 const theme = createTheme();
 
 export default function GridDonor() {
-  let navigate = useNavigate();
+  // let navigate = useNavigate();
   const [infoDonors, setInfoDonors] = useState([]);
 
   const userData = useContext(ValueContext);
-  const setUserData = useContext(SetValueContext);
+  // const setUserData = useContext(SetValueContext);
 
-  // useEffect(() => {
+  useEffect(() => {
     const getDonorInfo = async () => {
       try {
-        const whatever = await Axios.get(`${proxy}/donor/getDonors`);
-        // console.log(whatever.data[1]);
-        if (whatever.data) {
-          setInfoDonors(whatever.data);
+        const getInfo = await Axios.get(`${proxy}/donor/getDonors`,
+          { headers: { "edak-blood-token": userData.beneficiary.token } });
+        if (getInfo.data) {
+          setInfoDonors(getInfo.data);
         }
       } catch (err) {
         console.log(err);
       }
     };
-    // if (userData.email) {
+    if (userData.beneficiary.email) {
       getDonorInfo();
-    // }
-  // });s
+    }
+  }, [userData.beneficiary.email, userData.beneficiary.token]);
 
   return (
     <ThemeProvider theme={theme}>
@@ -76,13 +79,6 @@ export default function GridDonor() {
                 </Card>
               </Grid>
             ))}
-            <Button
-            sx={{ position: "fixed", top: 80, right: 10 }}
-            variant="contained"
-                      onClick={() => { navigate("/profile"); }}
-                    >
-                      Home
-                    </Button>
           </Grid>
         </Container>
       </main>

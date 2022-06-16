@@ -3,7 +3,7 @@ import { useNavigate } from "react-router-dom";
 import { AppBar, Typography, IconButton, Menu, MenuItem } from "@mui/material";
 import AccountCircle from "@mui/icons-material/AccountCircle";
 import { Toolbar } from "@mui/material";
-import Link from "@mui/material/Link";
+// import Link from "@mui/material/Link";
 import { ValueContext, SetValueContext } from "../App";
 
 export default function Header() {
@@ -11,7 +11,7 @@ export default function Header() {
 
   const userData = useContext(ValueContext);
   const setUserData = useContext(SetValueContext);
-  const [donor, setDonor] = useState(true);
+  // const [donor, setDonor] = useState(true);
 
   const [open, setOpen] = useState(false);
   const [anchorEl, setAnchorEl] = useState(null);
@@ -34,14 +34,12 @@ export default function Header() {
         firstname: null,
         lastname: null,
         email: null,
-        password: null,
-        passwordCheck: null,
         birthdate: null,
         address: null,
         phone: null,
         bloodtype: null,
         alcoholpass: null,
-        drugpass: null,
+        drugpass: null
       },
       beneficiary: {
         token: null,
@@ -49,7 +47,7 @@ export default function Header() {
         medicalZone: null,
         email: null,
         phoneNumber: null,
-        address: null,
+        address: null
       },
     });
     setOpen(false);

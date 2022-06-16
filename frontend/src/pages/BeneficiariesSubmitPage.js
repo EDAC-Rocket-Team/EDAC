@@ -37,7 +37,7 @@ export default function Beneficiarysubmit() {
         className="Donate"
         variant="contained"
         onClick={() => {
-          navigate("/beneficiaries");
+          navigate("/donors");
         }}
       >
         Continue

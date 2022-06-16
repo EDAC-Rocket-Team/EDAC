@@ -36,10 +36,10 @@ export default function SignupD() {
   const [password, setPassword] = useState("");
   const [confirmPassword, setConfirmPassword] = useState("");
   const [birthdate, setBirthDate] = useState("");
-  const [userLocation, setUserLocation] = useState("GB");
+  const [userLocation, setUserLocation] = useState("");
   const [phoneNumber, setPhoneNumber] = useState("");
-  const [bloodTypes, setBloodTypes] = useState("O RhD positive");
-  const [alcoholUse, setAlcoholUse] = useState("No");
+  const [bloodTypes, setBloodTypes] = useState("");
+  const [alcoholUse, setAlcoholUse] = useState("");
   const [drug, setDrug] = useState(false);
   const [error, setError] = useState("");
 
@@ -266,14 +266,14 @@ export default function SignupD() {
                       setBloodTypes(e.target.value);
                     }}
                   >
-                    <MenuItem value={"O RhD positive"}>O+</MenuItem>
-                    <MenuItem value={"O RhD negative"}>O-</MenuItem>
-                    <MenuItem value={"A RhD positive"}>A+</MenuItem>
-                    <MenuItem value={"A RhD negative"}>A-</MenuItem>
-                    <MenuItem value={"B RhD positive"}>B+</MenuItem>
-                    <MenuItem value={"B RhD negative"}>B-</MenuItem>
-                    <MenuItem value={"AB RhD positive"}>AB+</MenuItem>
-                    <MenuItem value={"AB RhD negative"}>AB-</MenuItem>
+                    <MenuItem value={"O+"}>O+</MenuItem>
+                    <MenuItem value={"O-"}>O-</MenuItem>
+                    <MenuItem value={"A+"}>A+</MenuItem>
+                    <MenuItem value={"A-"}>A-</MenuItem>
+                    <MenuItem value={"B+"}>B+</MenuItem>
+                    <MenuItem value={"B-"}>B-</MenuItem>
+                    <MenuItem value={"AB+"}>AB+</MenuItem>
+                    <MenuItem value={"AB-"}>AB-</MenuItem>
                   </Select>
                 </FormControl>
               </Grid>

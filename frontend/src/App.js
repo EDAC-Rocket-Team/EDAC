@@ -38,7 +38,7 @@ function App() {
       phone: null,
       bloodtype: null,
       alcoholpass: null,
-      drugpass: null,
+      drugpass: null
     },
     beneficiary: {
       token: null,
@@ -46,7 +46,7 @@ function App() {
       medicalZone: null,
       email: null,
       phoneNumber: null,
-      address: null,
+      address: null
     },
   });
 
@@ -65,27 +65,51 @@ function App() {
       if (tokenResponse.data.firstname) {
         // means the user is a donor
         setUserData({
-          token,
-          firstname: tokenResponse.data.firstname,
-          lastname: tokenResponse.data.lastname,
-          email: tokenResponse.data.email,
-          birthdate: getAge(tokenResponse.data.birthdate),
-          address: tokenResponse.data.address,
-          phone: tokenResponse.data.phone,
-          bloodtype: tokenResponse.data.bloodtype,
-          alcoholpass: tokenResponse.data.alcoholpass,
-          drugpass: tokenResponse.data.drugpass,
+          donor: {
+            token,
+            firstname: tokenResponse.data.firstname,
+            lastname: tokenResponse.data.lastname,
+            email: tokenResponse.data.email,
+            birthdate: getAge(tokenResponse.data.birthdate),
+            address: tokenResponse.data.address,
+            phone: tokenResponse.data.phone,
+            bloodtype: tokenResponse.data.bloodtype,
+            alcoholpass: tokenResponse.data.alcoholpass,
+            drugpass: tokenResponse.data.drugpass
+          },
+          beneficiary: {
+            token: null,
+            centerName: null,
+            medicalZone: null,
+            email: null,
+            phoneNumber: null,
+            address: null,
+          }
         });
       }
       if (tokenResponse.data.centerName) {
         // means the user is a beneficiary
         setUserData({
-          token,
-          centerName: tokenResponse.data.centerName,
-          medicalZone: tokenResponse.data.medicalZone,
-          email: tokenResponse.data.email,
-          phoneNumber: tokenResponse.data.phoneNumber,
-          address: tokenResponse.data.address,
+          donor: {
+            token: null,
+            firstname: null,
+            lastname: null,
+            email: null,
+            birthdate: null,
+            address: null,
+            phone: null,
+            bloodtype: null,
+            alcoholpass: null,
+            drugpass: null
+          },
+          beneficiary: {
+            token,
+            centerName: tokenResponse.data.centerName,
+            medicalZone: tokenResponse.data.medicalZone,
+            email: tokenResponse.data.email,
+            phoneNumber: tokenResponse.data.phoneNumber,
+            address: tokenResponse.data.address
+          }
         });
       }
     };
@@ -105,15 +129,13 @@ function App() {
             <Route path="/-18" element={<Under18 />} />
             <Route element={<ProtectedRoute />}>
               <Route path="/donor-submit" element={<DonorsSubmit />} />
-              <Route path="/beneficiary-submit" element={<Beneficiarysubmit />}/>
+              <Route path="/beneficiary-submit" element={<Beneficiarysubmit />} />
               <Route path="/donors" element={<GridDonor />} />
               <Route path="/beneficiaries" element={<GridBen />} />
               <Route path="/profile" element={<ProfilePage />} />
             </Route>
           </Routes>
-          <Copyright
-          // sx={{ mt: 8, mb: 4 }}
-          />
+          <Copyright />
         </SetValueContext.Provider>
       </ValueContext.Provider>
     </Router>

@@ -12,7 +12,8 @@ export default function Under18() {
   let navigate = useNavigate();
 
   useEffect(() => {
-    if (userData.beneficiary.token || userData.donor.token) navigate("/profile");
+    if (userData.beneficiary.token || userData.donor.token)
+      navigate("/profile");
   });
 
   return (

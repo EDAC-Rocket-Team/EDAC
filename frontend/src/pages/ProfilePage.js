@@ -61,23 +61,29 @@ export default function ImageAvatars() {
         { headers: { "edak-blood-token": userData.donor.token } });
       setUserData({
         donor: {
+          token: userData.donor.token,
           firstname: updatedUser.data.firstname,
           lastname: updatedUser.data.lastname,
           email: updatedUser.data.email,
+          birthdate: updatedUser.data.birthdate,
           address: updatedUser.data.address,
           phone: updatedUser.data.phone,
+          bloodtype: updatedUser.data.bloodtype,
+          alcoholpass: updatedUser.data.alcoholpass,
+          drugpass: updatedUser.data.drugpass
         },
         beneficiary: {
+          token: null,
           centerName: null,
           medicalZone: null,
           email: null,
           phoneNumber: null,
-          address: null,
+          address: null
         },
       });
       setUpdate(false);
     } catch (err) {
-      console.log(err);
+      console.log(err.message);
       err.response.data.msg && setError(err.response.data.msg);
     }
   };
@@ -97,13 +103,19 @@ export default function ImageAvatars() {
         { headers: { "edak-blood-token": userData.beneficiary.token } });
       setUserData({
         donor: {
+          token: null,
           firstname: null,
           lastname: null,
           email: null,
+          birthdate: null,
           address: null,
           phone: null,
+          bloodtype: null,
+          alcoholpass: null,
+          drugpass: null
         },
         beneficiary: {
+          token: userData.beneficiary.token,
           centerName: updatedUser.data.centerName,
           medicalZone: updatedUser.data.medicalZone,
           email: updatedUser.data.email,
@@ -127,7 +139,7 @@ export default function ImageAvatars() {
         )
       }
       catch (error) {
-        console.log(error);
+        console.log(error.message);
       }
     } else if (userData.beneficiary.email) {
       try {
@@ -137,7 +149,7 @@ export default function ImageAvatars() {
         );
       }
       catch (error) {
-        console.log(error);
+        console.log(error.message);
       }
     };
     setUserData({
@@ -169,10 +181,12 @@ export default function ImageAvatars() {
   const DonorCard = (
     <React.Fragment>
       <CardContent>
-        <Typography sx={{ fontSize: 50 }} color="text.secondary" gutterBottom>
+        <Typography
+          sx={{ fontSize: 50 }} color="text.secondary" gutterBottom
+        >
           {userData.beneficiary.firstname} {userData.beneficiary.lastname}
         </Typography>
-        <Typography variant="h5" component="div">
+        <Typography variant="h6" component="div">
           Blood Type:{userData.beneficiary.bloodtype}
         </Typography>
         {/* <Typography sx={{ mb: 1.5 }} color="text.secondary">
@@ -197,7 +211,7 @@ export default function ImageAvatars() {
   const BenCard = (
     <React.Fragment>
       <CardContent>
-        <Typography sx={{ fontSize: 50 }} color="text.secondary" gutterBottom>
+        <Typography sx={{ fontSize: 40 }} color="text.secondary" gutterBottom>
           {userData.beneficiary.centerName}
         </Typography>
         {/* <Typography sx={{ mb: 1.5 }} color="text.secondary">
@@ -207,7 +221,6 @@ export default function ImageAvatars() {
           Email: {userData.beneficiary.email}
           <br />
           Medical Zone: {userData.beneficiary.medicalZone}
-          {/* {userData.beneficiary.medicalZone} */}
         </Typography>
       </CardContent>
       <CardActions>
@@ -269,16 +282,29 @@ export default function ImageAvatars() {
                   : null}
             </Card>
           </Box>
-          <Button
-            className="Back"
-            sx={{ position: "fixed", top: 10, right: 10, mt: 10 }}
-            variant="contained"
-            onClick={() => {
-              navigate(-1);
-            }}
-          >
-            Back
-          </Button>
+
+          {userData.donor.email ? (
+            <Button
+              sx={{ position: "fixed", top: 10, right: 10, mt: 10 }}
+              variant="contained"
+              onClick={() => {
+                navigate("/beneficiaries");
+              }}
+            >
+              Beneficiaries
+            </Button>)
+            : userData.beneficiary.email ?
+              (<Button
+                sx={{ position: "fixed", top: 10, right: 10, mt: 10 }}
+                variant="contained"
+                onClick={() => {
+                  navigate("/donors");
+                }}
+              >
+                Donors
+              </Button>)
+              : null}
+
           <Button
             className="update"
             sx={{ position: "fixed", top: 50, right: 10, mt: 10 }}
@@ -304,7 +330,7 @@ export default function ImageAvatars() {
           direction="row"
           justifyContent="center"
           alignItems="center"
-          sx={{ mt: 20 }}
+          sx={{ mt: 12 }}
         >
           <form onSubmit={saveChangeD}>
             <Container fixed sx={{ margin: 1, padding: 1 }}>
@@ -367,83 +393,120 @@ export default function ImageAvatars() {
               />
             </Container>
             {error && <ErrorNotice message={error} />}
-            <Button
-              style={{ color: "blue" }}
-              size="large"
-              variant="outlined"
-              type="submit"
-              sx={{ top: 500, left: 35, mt: 10 }}
-            >
-              Save
-            </Button>
+            <Box textAlign='center' sx={{ mt: 1 }}>
+              <Button
+                style={{ color: "blue" }}
+                // size="large"
+                variant="outlined"
+                // type="button"
+                onClick={() => {
+                  setUpdate(false);
+                }
+                }
+              >
+                Cancel
+              </Button>
+              <Button
+                style={{ color: "blue" }}
+                // size="large"
+                variant="outlined"
+                type="submit"
+              // sx={{ ml: 6 }}
+              >
+                Save
+              </Button>
+            </Box >
           </form>
         </Grid>
       ) : update && userData.beneficiary.email ? (
-        <form onSubmit={saveChangeB}>
-          <Container fixed sx={{ margin: 1, padding: 1 }}>
-            <TextField
-              fullWidth
-              label="centerName"
-              onChange={(e) => setCenterName(e.target.value)}
-            />
-          </Container>
-          <Container fixed sx={{ margin: 1, padding: 1 }}>
-            <FormControl fullWidth>
-              <InputLabel id="location">Medical Zone</InputLabel>
-              <Select
-                id="userLocation"
-                labelId="location"
-                label="Your Location"
-                value={medicalZone}
-                defaultValue={medicalZone}
-                onChange={(e) => {
-                  setMedicalZone(e.target.value);
-                }}
+        <Grid
+          container
+          direction="row"
+          justifyContent="center"
+          alignItems="center"
+          sx={{ mt: 12 }}
+        >
+          <form onSubmit={saveChangeB}>
+            <Container fixed sx={{ margin: 1, padding: 1 }}>
+              <TextField
+                fullWidth
+                label="centerName"
+                onChange={(e) => setCenterName(e.target.value)}
+              />
+            </Container>
+            <Container fixed sx={{ margin: 1, padding: 1 }}>
+              <FormControl fullWidth>
+                <InputLabel id="location">Medical Zone</InputLabel>
+                <Select
+                  id="userLocation"
+                  labelId="location"
+                  label="Your Location"
+                  value={medicalZone}
+                  defaultValue={medicalZone}
+                  onChange={(e) => {
+                    setMedicalZone(e.target.value);
+                  }}
+                >
+                  <MenuItem value={"Greater Beirut"}>Greater Beirut</MenuItem>
+                  <MenuItem value={"Mount Lebanon"}>Mount Lebanon</MenuItem>
+                  <MenuItem value={"Metn/Kesserwan"}>Metn/Kesserwan</MenuItem>
+                  <MenuItem value={"Tripoli"}>Tripoli</MenuItem>
+                  <MenuItem value={"South Lebanon"}>South Lebanon</MenuItem>
+                </Select>
+              </FormControl>
+            </Container>
+            <Container fixed sx={{ margin: 1, padding: 1 }}>
+              <TextField
+                fullWidth
+                label="Phone Number"
+                onChange={(e) => setPhoneNumber(e.target.value)}
+              />
+            </Container>
+            <Container fixed sx={{ margin: 1, padding: 1 }}>
+              <TextField
+                fullWidth
+                type="password"
+                label="Password"
+                onChange={(e) => setPassword(e.target.value)}
+              />
+            </Container>
+            <Container fixed sx={{ margin: 1, padding: 1 }}>
+              <TextField
+                fullWidth
+                type="password"
+                label="Re-Enter Password"
+                onChange={(e) => setPasswordCheck(e.target.value)}
+              // color={errorColorR}
+              />
+            </Container>
+            {error && <ErrorNotice message={error} />}
+            <Box textAlign='center' sx={{ mt: 1 }}>
+              <Button
+                style={{ color: "blue" }}
+                // size="large"
+                variant="outlined"
+                // type="button"
+                onClick={() => {
+                  setUpdate(false);
+                }
+                }
               >
-                <MenuItem value={"Greater Beirut"}>Greater Beirut</MenuItem>
-                <MenuItem value={"Mount Lebanon"}>Mount Lebanon</MenuItem>
-                <MenuItem value={"Metn/Kesserwan"}>Metn/Kesserwan</MenuItem>
-                <MenuItem value={"Tripoli"}>Tripoli</MenuItem>
-                <MenuItem value={"South Lebanon"}>South Lebanon</MenuItem>
-              </Select>
-            </FormControl>
-          </Container>
-          <Container fixed sx={{ margin: 1, padding: 1 }}>
-            <TextField
-              fullWidth
-              label="Phone Number"
-              onChange={(e) => setPhoneNumber(e.target.value)}
-            />
-          </Container>
-          <Container fixed sx={{ margin: 1, padding: 1 }}>
-            <TextField
-              fullWidth
-              type="password"
-              label="Password"
-              onChange={(e) => setPassword(e.target.value)}
-            />
-          </Container>
-          <Container fixed sx={{ margin: 1, padding: 1 }}>
-            <TextField
-              fullWidth
-              type="password"
-              label="Re-Enter Password"
-              onChange={(e) => setPasswordCheck(e.target.value)}
-            // color={errorColorR}
-            />
-          </Container>
-          {error && <ErrorNotice message={error} />}
-          <Button
-            style={{ color: "blue" }}
-            size="large"
-            variant="outlined"
-            type="submit"
-            sx={{ position: "fixed", top: 500, left: 35, mt: 10 }}
-          >
-            Save
-          </Button>
-        </form>
-      ) : null}
-    </div>
+                Cancel
+              </Button>
+              <Button
+                style={{ color: "blue" }}
+                // size="large"
+                variant="outlined"
+                type="submit"
+              // sx={{ ml: 6 }}
+              >
+                Save
+              </Button>
+            </Box >
+          </form>
+        </Grid>
+      ) : null
+      }
+    </div >
   );
 }
