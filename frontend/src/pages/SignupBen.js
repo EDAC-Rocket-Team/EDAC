@@ -50,7 +50,7 @@ export default function SignupBen() {
       navigate("/profile");
   });
 
-  const onSubmit = async (e) => {
+  const onSubmit = async () => {
     try {
       const newUser = await Axios.post(`${proxy}/ben/createBen`, {
         centerName,
@@ -61,6 +61,10 @@ export default function SignupBen() {
         phoneNumber,
         address,
         acknowledge,
+      });
+      const loginResponse = await Axios.post(`${proxy}/common/signin`, {
+        email,
+        password,
       });
       setUserData({
         donor: {
@@ -76,15 +80,15 @@ export default function SignupBen() {
           drugpass: null,
         },
         beneficiary: {
-          token: newUser.data.token,
-          centerName: newUser.data.centerName,
-          medicalZone: newUser.data.medicalZone,
-          email: newUser.data.email,
-          phoneNumber: newUser.data.phoneNumber,
-          address: newUser.data.address,
+          token: loginResponse.data.token,
+          centerName: loginResponse.data.centerName,
+          medicalZone: loginResponse.data.medicalZone,
+          email: loginResponse.data.email,
+          phoneNumber: loginResponse.data.phoneNumber,
+          address: loginResponse.data.address,
         },
       });
-      localStorage.setItem("edak-blood-token", newUser.data.token);
+      localStorage.setItem("edak-blood-token", loginResponse.data.token);
       navigate("/beneficiary-submit");
     } catch (err) {
       console.log(err);

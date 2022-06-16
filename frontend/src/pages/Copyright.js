@@ -7,7 +7,7 @@ export default function Copyright(props) {
       variant="body2"
       color="text.secondary"
       align="center"
-      sx={{ position: "relative", mt: 4  , mb: 0.5, width: "100%", textAlign: "center" }}
+      sx={{ position: "relative", mt: 4, mb: 0.5, width: "100%", textAlign: "center" }}
       {...props}
     >
       {"Copyright © "}

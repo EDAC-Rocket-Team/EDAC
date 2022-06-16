@@ -184,10 +184,10 @@ export default function ImageAvatars() {
         <Typography
           sx={{ fontSize: 50 }} color="text.secondary" gutterBottom
         >
-          {userData.beneficiary.firstname} {userData.beneficiary.lastname}
+          {userData.donor.firstname} {userData.donor.lastname}
         </Typography>
         <Typography variant="h6" component="div">
-          Blood Type:{userData.beneficiary.bloodtype}
+          Blood Type:{userData.donor.bloodtype}
         </Typography>
         {/* <Typography sx={{ mb: 1.5 }} color="text.secondary">
           Info

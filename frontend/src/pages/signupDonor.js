@@ -53,7 +53,6 @@ export default function SignupD() {
       navigate("/profile");
   });
 
-
   const onSubmit = async () => {
     const age = getAge(birthdate);
     if (age < 18 || age > 65) {
@@ -73,18 +72,22 @@ export default function SignupD() {
           alcoholpass: alcoholUse,
           drugpass: drug,
         });
+        const loginResponse = await Axios.post(`${proxy}/common/signin`, {
+          email,
+          password,
+        });
         setUserData({
           donor: {
-            token: newUser.data.token,
-            firstname: newUser.data.names,
-            lastname: newUser.data.lastNames,
-            email: newUser.data.email,
-            birthdate: newUser.data.birthdate,
-            address: newUser.data.userLocation,
-            phone: newUser.data.phoneNumber,
-            bloodtype: newUser.data.bloodTypes,
-            alcoholpass: newUser.data.alcoholUse,
-            drugpass: newUser.data.drug,
+            token: loginResponse.data.token,
+            firstname: loginResponse.data.firstNames,
+            lastname: loginResponse.data.lastNames,
+            email: loginResponse.data.email,
+            birthdate: loginResponse.data.birthdate,
+            address: loginResponse.data.userLocation,
+            phone: loginResponse.data.phoneNumber,
+            bloodtype: loginResponse.data.bloodTypes,
+            alcoholpass:loginResponse.data.alcoholUse,
+            drugpass:loginResponse.data.drug,
           },
           beneficiary: {
             token: null,
@@ -95,7 +98,7 @@ export default function SignupD() {
             address: null,
           },
         });
-        localStorage.setItem("edak-blood-token", newUser.data.token);
+        localStorage.setItem("edak-blood-token", loginResponse.data.token);
         navigate("/donor-submit");
       } catch (err) {
         console.log(err);

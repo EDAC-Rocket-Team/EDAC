@@ -1,15 +1,17 @@
-import React, { useContext, useState } from "react";
+import React
+//  {useContext, useState }
+  from "react";
 import background from "../media/ThankYou.png";
 import { Typography, Grid, Button } from "@mui/material";
 import { useNavigate } from "react-router-dom";
 import { Paper } from "@mui/material";
-import { ValueContext, SetValueContext } from "../App";
+// import { ValueContext, SetValueContext } from "../App";
 
 export default function Beneficiarysubmit() {
   let navigate = useNavigate();
 
-  const userData = useContext(ValueContext);
-  const setUserData = useContext(SetValueContext);
+  // const userData = useContext(ValueContext);
+  // const setUserData = useContext(SetValueContext);
   // console.log("bensubmit", userData);
   return (
     <Grid
