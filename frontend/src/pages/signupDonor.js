@@ -20,7 +20,6 @@ import FormControl from "@mui/material/FormControl";
 import Select from "@mui/material/Select";
 import FormLabel from "@mui/material/FormLabel";
 import FormGroup from "@mui/material/FormGroup";
-// import FormHelperText from '@mui/material/FormHelperText';
 import Switch from "@mui/material/Switch";
 import Axios from "axios";
 import proxy from "./config";
@@ -101,7 +100,6 @@ export default function SignupD() {
         localStorage.setItem("edak-blood-token", loginResponse.data.token);
         navigate("/donor-submit");
       } catch (err) {
-        console.log(err);
         setError(err.response.data.msg);
       }
     }
@@ -127,7 +125,6 @@ export default function SignupD() {
           </Typography>
           <Box sx={{ mt: 3 }}>
             {" "}
-            {/* <Box component="form" noValidate sx={{ mt: 3 }}></Box> */}
             <Grid container spacing={2}>
               <Grid item xs={12} sm={6}>
                 <TextField
@@ -201,7 +198,6 @@ export default function SignupD() {
                     width: "full",
                   }}
                 >
-                  {/*<h3>How to create Date Picker in ReactJS?</h3> */}
                   <TextField
                     id="birthdate"
                     label="Choose your birthdate"
@@ -210,7 +206,7 @@ export default function SignupD() {
                       setBirthDate(e.target.value);
                     }}
                     fullWidth
-                    defaultValue="2000-01-01"
+                    defaultValue="" // initially was "2020-01-01"
                     InputLabelProps={{
                       shrink: true,
                     }}
@@ -303,29 +299,6 @@ export default function SignupD() {
                   </Select>
                 </FormControl>
               </Grid>
-
-              {/*<Grid item xs={12}>
-                <h6>Do you drink alcohol regularly?</h6> 
-                          <FormControl fullWidth>
-                    <InputLabel id="qa">QA</InputLabel>
-                    <Select
-                      labelId="qa"
-                      id="qa"
-                      value={questionA}
-                      label="Blood"
-                      onChange={handleChangeQA}
-                      inputstyle={{width: '100%', height: "2em"}}
-                    >
-                      <MenuItem value={"Daily"}>Daily</MenuItem>
-                      <MenuItem value={"Weekly"}>Weekly</MenuItem>
-                  
-                      <MenuItem value={"Monthly"}>Monthly</MenuItem>
-                      <MenuItem value={"Occassionally"}>Occassionally</MenuItem>
-                      <MenuItem value={"No"}>No</MenuItem>
-                    </Select>
-                  </FormControl>
-              </Grid> */}
-
               <Grid item xs={12}>
                 <FormControl component="fieldset" variant="standard">
                   <FormLabel component="legend"></FormLabel>
@@ -345,19 +318,11 @@ export default function SignupD() {
                   </FormGroup>
                 </FormControl>
               </Grid>
-
-              {/* <Grid item xs={12}>
-                <FormControlLabel
-                  control={<Checkbox value="allowExtraEmails" color="primary" />}
-                  label="I want to receive a text message, when blood donation of my type is needed."
-                />
-              </Grid> */}
-
-              {error && <ErrorNotice message={error} />}
             </Grid>
+            {error && <ErrorNotice message={error} />}
             <Button
               variant="contained"
-              sx={{ mt: 3, mb: 2 }}
+              sx={{ mt: 2, mb: 2 }}
               fullWidth
               onClick={() => {
                 onSubmit();

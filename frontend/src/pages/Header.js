@@ -3,7 +3,6 @@ import { useNavigate } from "react-router-dom";
 import { AppBar, Typography, IconButton, Menu, MenuItem } from "@mui/material";
 import AccountCircle from "@mui/icons-material/AccountCircle";
 import { Toolbar } from "@mui/material";
-// import Link from "@mui/material/Link";
 import { ValueContext, SetValueContext } from "../App";
 
 export default function Header() {
@@ -11,7 +10,6 @@ export default function Header() {
 
   const userData = useContext(ValueContext);
   const setUserData = useContext(SetValueContext);
-  // const [donor, setDonor] = useState(true);
 
   const [open, setOpen] = useState(false);
   const [anchorEl, setAnchorEl] = useState(null);

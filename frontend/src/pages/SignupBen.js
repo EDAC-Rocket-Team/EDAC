@@ -18,9 +18,6 @@ import FormControl from "@mui/material/FormControl";
 import Select from "@mui/material/Select";
 import PhoneInput from "react-phone-input-2";
 import "react-phone-input-2/lib/style.css";
-// import { formLabelClasses } from "@mui/material";
-// import { createAvatar } from "@dicebear/avatars";
-// import * as style from "@dicebear/croodles-neutral";
 import Axios from "axios";
 import proxy from "./config";
 import { useNavigate } from "react-router-dom";
@@ -91,7 +88,6 @@ export default function SignupBen() {
       localStorage.setItem("edak-blood-token", loginResponse.data.token);
       navigate("/beneficiary-submit");
     } catch (err) {
-      console.error(err);
       setError(err.response.data.msg);
     }
   };
@@ -232,14 +228,13 @@ export default function SignupBen() {
                   label="I acknowledge that all info in this form is correct"
                 />
               </Grid>
-              {error && <ErrorNotice message={error} />}
             </Grid>
-
+            {error && <ErrorNotice message={error} />}
             <Button
               type="submit"
               fullWidth
               variant="contained"
-              sx={{ mt: 3, mb: 2 }}
+              sx={{ mt: 2, mb: 2 }}
               onClick={() => {
                 onSubmit();
               }}

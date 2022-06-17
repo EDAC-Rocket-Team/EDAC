@@ -1,6 +1,4 @@
 import React, { useEffect, useContext, useState } from 'react';
-// import { useNavigate } from "react-router-dom";
-// import Button from '@mui/material/Button';
 import Card from '@mui/material/Card';
 import CardContent from '@mui/material/CardContent';
 import CardMedia from '@mui/material/CardMedia';
@@ -62,10 +60,10 @@ export default function GridDonor() {
                     <Typography gutterBottom variant="h5" component="h2">
                       {card.firstname} {card.lastname}
                     </Typography>
-                    <Typography>Blood Type:{card.bloodtype}</Typography>
-                    <Typography>Email:{card.email}</Typography>
-                    <Typography>Phone Number:{card.phone}</Typography>
-                    <Typography>Location:{card.address}</Typography>
+                    <Typography>Blood Type: {card.bloodtype}</Typography>
+                    <Typography>Email: {card.email}</Typography>
+                    <Typography>Phone Number: {card.phone}</Typography>
+                    <Typography>Location: {card.address}</Typography>
                   </CardContent>
                 </Card>
               </Grid>

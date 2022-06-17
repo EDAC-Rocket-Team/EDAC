@@ -5,13 +5,11 @@ function ErrorNotice(props) {
     return (
         <div className="error-notice">
             <span>
-                <Typography color="red" 
-                sx={{ pb: 2 }}
-                >
+                <Typography color="red">
                     {props.message}
                 </Typography>
             </span>
         </div>
     );
 }
-export default ErrorNotice; 
+export default ErrorNotice;

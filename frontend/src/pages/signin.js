@@ -11,7 +11,6 @@ import Typography from "@mui/material/Typography";
 import Container from "@mui/material/Container";
 import { createTheme, ThemeProvider } from "@mui/material/styles";
 import { useNavigate } from "react-router-dom";
-// import Alert from "@mui/material/Alert";
 import proxy from "./config.js";
 import Axios from "axios";
 import ErrorNotice from "./misc/ErrorNotice";
@@ -91,7 +90,6 @@ export default function SignIn() {
       localStorage.setItem("edak-blood-token", newUser.data.token);
       navigate("/profile");
     } catch (err) {
-      console.log(err.response.data.msg)
       setError(err.response.data.msg);
     }
   };
@@ -103,7 +101,7 @@ export default function SignIn() {
 
         <Box
           sx={{
-            marginTop: 8,
+            marginTop: 10,
             display: "flex",
             flexDirection: "column",
             alignItems: "center",
@@ -115,12 +113,7 @@ export default function SignIn() {
           <Typography component="h1" variant="h5">
             Sign in
           </Typography>
-          <Box
-            /// component="form"
-            /// onSubmit={handleSubmit(onSubmit)}
-            /// noValidate
-            sx={{ mt: 1 }}
-          >
+          <Box sx={{ mt: 1 }}>
             <Grid container spacing={2}>
               {" "}
               <Grid item xs={12}>
@@ -155,18 +148,18 @@ export default function SignIn() {
                 />
               </Grid>
             </Grid>
+            {error && <ErrorNotice message={error} />}
             <Button
               type="submit"
               fullWidth
               variant="contained"
-              sx={{ mt: 3, mb: 2 }}
+              sx={{ mt: 2, mb: 2 }}
               onClick={() => {
                 onSubmit();
               }}
             >
               Sign In
             </Button>
-            {error && <ErrorNotice message={error} />}
             <Grid container>
               <Grid item>
                 <Link href="/" variant="body2">

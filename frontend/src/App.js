@@ -15,7 +15,6 @@ import GridBen from "./pages/GridBen";
 import ProfilePage from "./pages/ProfilePage";
 import Copyright from "./pages/Copyright";
 import proxy from "./pages/config";
-// import { getModalUtilityClass } from "@mui/material";
 import ProtectedRoute from "./pages/RouteProtection";
 
 export const ValueContext = createContext();

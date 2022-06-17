@@ -192,7 +192,7 @@ app.put("/update", auth, authDonor, async (req, res) => {
       drugpass: user.drugpass,
       id: user._id,
     });
-  } catch(err) {
+  } catch (err) {
     res.status(500).send(err.message);
   }
 });

@@ -1,6 +1,4 @@
 import React, { useEffect, useState, useContext } from "react";
-// import { useNavigate } from "react-router-dom";
-// import Button from "@mui/material/Button";
 import Card from "@mui/material/Card";
 import CardContent from "@mui/material/CardContent";
 import CardMedia from "@mui/material/CardMedia";
@@ -29,16 +27,13 @@ export default function GridBen() {
           setInfoBens(getInfo.data);
         }
       } catch (err) {
-        console.log(err);
+        console.error(err);
       }
     };
     if (userData.donor.email) {
       getBenInfo();
     }
   }, [userData.donor.email, userData.donor.token]);
-
-  // console.log(infoBens);
-  // console.log()
 
   return (
     <ThemeProvider theme={theme}>
@@ -70,9 +65,9 @@ export default function GridBen() {
                     <Typography gutterBottom variant="h5" component="h2">
                       {card.centerName}
                     </Typography>
-                    <Typography>Phone Number:{card.phoneNumber}</Typography>
-                    <Typography>Email:{card.email}</Typography>
-                    <Typography>Location:{card.medicalZone}</Typography>
+                    <Typography>Phone Number: {card.phoneNumber}</Typography>
+                    <Typography>Email: {card.email}</Typography>
+                    <Typography>Location: {card.medicalZone}</Typography>
                   </CardContent>
                 </Card>
               </Grid>

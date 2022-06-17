@@ -1,6 +1,6 @@
 import { Outlet, Navigate } from 'react-router-dom'
 
-function ProtectedRoute () {
+function ProtectedRoute() {
     if (localStorage.getItem('edak-blood-token')) {
         return <Outlet />
     } else {

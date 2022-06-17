@@ -1,6 +1,4 @@
 import React, { useContext, useState } from "react";
-// import Avatar from "@mui/material/Avatar";
-// import Stack from "@mui/material/Stack";
 import Box from "@mui/material/Box";
 import Card from "@mui/material/Card";
 import { Container, TextField } from "@mui/material";
@@ -40,8 +38,6 @@ export default function ImageAvatars() {
   const [medicalZone, setMedicalZone] = useState(userData.beneficiary.medicalZone);
 
   let navigate = useNavigate();
-
-  console.log(userData);
 
   const saveChangeD = async (e) => {
     e.preventDefault();
@@ -83,7 +79,6 @@ export default function ImageAvatars() {
       });
       setUpdate(false);
     } catch (err) {
-      console.log(err.message);
       err.response.data.msg && setError(err.response.data.msg);
     }
   };
@@ -125,7 +120,6 @@ export default function ImageAvatars() {
       });
       setUpdate(false);
     } catch (err) {
-      console.log(err);
       err.response.data.msg && setError(err.response.data.msg);
     }
   };
@@ -152,30 +146,32 @@ export default function ImageAvatars() {
         console.log(error.message);
       }
     };
-    setUserData({
-      donor: {
-        token: null,
-        firstname: null,
-        lastname: null,
-        email: null,
-        birthdate: null,
-        address: null,
-        phone: null,
-        bloodtype: null,
-        alcoholpass: null,
-        drugpass: null,
-      },
-      beneficiary: {
-        token: null,
-        centerName: null,
-        medicalZone: null,
-        email: null,
-        phoneNumber: null,
-        address: null,
-      },
-    });
-    localStorage.setItem("edak-blood-token", "");
-    navigate("/");
+    if (!error) {
+      setUserData({
+        donor: {
+          token: null,
+          firstname: null,
+          lastname: null,
+          email: null,
+          birthdate: null,
+          address: null,
+          phone: null,
+          bloodtype: null,
+          alcoholpass: null,
+          drugpass: null,
+        },
+        beneficiary: {
+          token: null,
+          centerName: null,
+          medicalZone: null,
+          email: null,
+          phoneNumber: null,
+          address: null,
+        },
+      });
+      localStorage.setItem("edak-blood-token", "");
+      navigate("/");
+    }
   };
 
   const DonorCard = (
@@ -187,7 +183,7 @@ export default function ImageAvatars() {
           {userData.donor.firstname} {userData.donor.lastname}
         </Typography>
         <Typography variant="h6" component="div">
-          Blood Type:{userData.donor.bloodtype}
+          Blood Type: {userData.donor.bloodtype}
         </Typography>
         {/* <Typography sx={{ mb: 1.5 }} color="text.secondary">
           Info
@@ -392,26 +388,21 @@ export default function ImageAvatars() {
               // color={errorColorR}
               />
             </Container>
-            {error && <ErrorNotice message={error} />}
+            <Container fixed sx={{ margin: 1, padding: 1 }}>
+              {error && <ErrorNotice message={error} />}
+            </Container>
             <Box textAlign='center' sx={{ mt: 1 }}>
               <Button
-                style={{ color: "blue" }}
-                // size="large"
+                style={{ color: "blue", marginRight: 20 }}
                 variant="outlined"
-                // type="button"
-                onClick={() => {
-                  setUpdate(false);
-                }
-                }
+                onClick={() => { setUpdate(false); setError("") }}
               >
                 Cancel
               </Button>
               <Button
                 style={{ color: "blue" }}
-                // size="large"
                 variant="outlined"
                 type="submit"
-              // sx={{ ml: 6 }}
               >
                 Save
               </Button>
@@ -482,23 +473,16 @@ export default function ImageAvatars() {
             {error && <ErrorNotice message={error} />}
             <Box textAlign='center' sx={{ mt: 1 }}>
               <Button
-                style={{ color: "blue" }}
-                // size="large"
+                style={{ color: "blue", marginRight: 20 }}
                 variant="outlined"
-                // type="button"
-                onClick={() => {
-                  setUpdate(false);
-                }
-                }
+                onClick={() => { setUpdate(false); setError("") }}
               >
                 Cancel
               </Button>
               <Button
                 style={{ color: "blue" }}
-                // size="large"
                 variant="outlined"
                 type="submit"
-              // sx={{ ml: 6 }}
               >
                 Save
               </Button>
